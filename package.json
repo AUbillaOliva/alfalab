@@ -1,0 +1,31 @@
+{
+  "name": "alfalab",
+  "version": "1.0.0",
+  "description": "Alfalab api",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon index",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AUbillaOliva/Alfalab.git"
+  },
+  "author": "Álvaro Ubilla Oliva",
+  "license": "UNLICENSED",
+  "bugs": {
+    "url": "https://github.com/AUbillaOliva/Alfalab/issues"
+  },
+  "homepage": "https://github.com/AUbillaOliva/Alfalab#readme",
+  "dependencies": {
+    "axios": "^0.19.2",
+    "config": "^3.3.1",
+    "express": "^4.17.1",
+    "express-validator": "^6.6.0",
+    "mongoose": "^5.9.22",
+    "mongoose-auto-increment": "^5.0.1"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.4"
+  }
+}
