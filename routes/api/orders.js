@@ -1,7 +1,13 @@
 const express = require('express');
 const router = express.Router();
 const { check, validationResult } = require('express-validator');
-const Order = require('../../modules/Orders');
+const OrderSchema = require('../../modules/Orders');
+const mongoose = require('mongoose');
+const autoincrement = require('mongoose-auto-increment');
+
+
+OrderSchema.plugin(autoincrement.plugin, { model: 'orders', field: 'number', startAt: 0, incrementBy: 1 });
+const Order = mongoose.model('orders', OrderSchema);
 
 router.get('/', async (req, res) => {
   try {
