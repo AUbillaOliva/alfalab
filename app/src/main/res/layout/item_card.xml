@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/order_card"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:cardElevation="1dp"
+    app:cardBackgroundColor="?attr/colorSecondaryDark"
+    android:layout_marginTop="10dp"
+    android:layout_marginStart="20dp"
+    android:layout_marginEnd="20dp"
+    app:cardUseCompatPadding="false"
+    app:cardPreventCornerOverlap="true"
+    app:cardCornerRadius="10dp">
+
+    <LinearLayout
+        android:id="@+id/facets"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:weightSum="1.0"
+        android:padding="15dp">
+
+        <CheckBox
+            android:id="@+id/facets_img_checkbox"
+            android:layout_width="wrap_content"
+            android:clickable="true"
+            android:layout_height="wrap_content"
+            android:focusable="true" />
+
+        <LinearLayout
+            android:layout_width="0px"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.97"
+            android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/order_number"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                />
+
+                <TextView
+                    android:id="@+id/order_client"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                />
+
+                <TextView
+                    android:id="@+id/order_type"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                />
+
+                <TextView
+                    android:id="@+id/order_responsible"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                />
+
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/more_icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_more_vert_24dp"
+        />
+
+    </LinearLayout>
+
+</androidx.cardview.widget.CardView>

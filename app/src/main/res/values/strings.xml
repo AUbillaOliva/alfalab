@@ -1,0 +1,60 @@
+<resources>
+    <string name="app_name">Alfalab</string>
+    <string name="action_settings">Ajustes</string>
+    <string name="orders">Pedidos</string>
+    <string name="pending">Pendientes</string>
+    <string name="delivered">Entregados</string>
+
+    <string name="check_internet_connection">Revisa tu conexión a internet</string>
+    <string name="feed_update_error">El feed no se pudo actualizar</string>
+    <string name="settings_general_label">General</string>
+    <string name="setting_dark_theme_label">Tema oscuro</string>
+
+    <string name="order_number_text">N° orden: %1$s</string>
+    <string name="order_client_name">Cliente: %1$s %2$s</string>
+    <string name="orders_type">Tipo: %1$s</string>
+    <string name="orders_responsible">Encargado: %1$s</string>
+    <string name="edit_order">Editar</string>
+    <string name="delete_order">Eliminar</string>
+    <string name="positive_delete_dialog_button">" CONFIRMAR"</string>
+    <string name="cancel_dialog_buttton">CANCELAR</string>
+    <string name="welcome_title">Hola! bienvenido a Alfalab App</string>
+
+    <string name="delete_order_dialog_title">Descartar pedido?</string>
+    <string name="delete_order_dialog_subtitle">Estas seguro que deseas descartar el pedido?</string>
+
+    <string name="next">Siguiente</string>
+    <string name="get_started">Empecemos</string>
+    <string name="skip">Omitir</string>
+    <string name="client_firstname"><![CDATA[Nombre<font color=\'#cc0029\'>*</font>]]></string>
+    <string name="client_lastname"><![CDATA[Apellido<font color=\'#cc0029\'>*</font>]]></string>
+    <string name="client_email"><![CDATA[Correo<font color=\'#cc0029\'>*</font>]]></string>
+    <string name="order_type">Tipo</string>
+
+    <string name="required">Requerido</string>
+
+    <string name="create_order">Crear orden</string>
+    <string name="client_data">Datos del cliente</string>
+    <string name="order_data">Datos del pedido</string>
+    <string name="client_instagram">Instagram</string>
+    <string name="order_commentaries">Comentarios</string>
+    <string name="order_price"><![CDATA[Precio<font color=\'#cc0029\'>*</font>]]></string>
+    <string name="positive_discard_dialog_button">Descartar</string>
+    <string name="search">Buscar</string>
+
+    <string name="first_intro_title">Bienvenido a Alfa-lab app!</string>
+    <string name="first_intro_subtitle">Antes de empezar, es necesario configurar algunos ajustes para que la app funcione, Listo? Vamos!</string>
+
+    <string name="second_intro_title">Dime cual es tu nombre</string>
+    <string name="second_intro_subtitle">Esto es para señalar quien esta a cargo de un pedido</string>
+    <string name="third_intro_title">Todo listo! 🙌</string>
+    <string name="third_intro_subtitle">Genial! ahora puedes usar la aplicación 🎉</string>
+    <string name="finalize">Finalizar</string>
+    <string name="no_pending_orders">No hay pedidos pendientes</string>
+    <string name="order_responsible">Encargado</string>
+    <string name="update_order">Actualizar pedido</string>
+    <string name="save">Guardar</string>
+    <string name="delete_order_question">Eliminar pedido?</string>
+    <string name="delete_order_warning">Esta accion no tiene vuelta atrás!</string>
+
+</resources>
