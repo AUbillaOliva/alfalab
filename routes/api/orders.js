@@ -24,7 +24,7 @@ router.get('/', async (req, res) => {
   }
 });
 
-router.post('/', 
+router.post('/:number?', 
   [
     [
       check('responsible').not().isEmpty(),
@@ -60,7 +60,7 @@ router.post('/',
     if(responsible) { orderFields.responsible = responsible; } 
     
     try {
-      let order = await Order.findOne(orderFields);
+      let order = await Order.findOne({number: req.params.number});
       if(order) {
         order = await Order.findOneAndUpdate({
           $set: orderFields,
