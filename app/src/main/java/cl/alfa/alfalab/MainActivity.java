@@ -1,49 +1,51 @@
 package cl.alfa.alfalab;
 
+import android.Manifest;
 import android.animation.ObjectAnimator;
 import android.animation.StateListAnimator;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 
 import com.google.android.material.appbar.AppBarLayout;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.fragment.app.DialogFragment;
-import androidx.fragment.app.FragmentManager;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.viewpager2.widget.ViewPager2;
 import cl.alfa.alfalab.activities.OnBoardingActivity;
+import cl.alfa.alfalab.activities.SearchActivity;
 import cl.alfa.alfalab.activities.SettingsActivity;
 import cl.alfa.alfalab.adapters.TabsAdapter;
 import cl.alfa.alfalab.fragments.Delivered;
 import cl.alfa.alfalab.fragments.Orders;
-import cl.alfa.alfalab.fragments.Pending;
 import cl.alfa.alfalab.utils.SharedPreferences;
-import cl.alfa.alfalab.utils.databases.OrdersDatabaseHelper;
 
 import android.view.Gravity;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.ImageView;
 import android.widget.TextView;
 
-import java.util.ArrayList;
 import java.util.Objects;
 
 public class MainActivity extends AppCompatActivity {
 
-    public static final String TAG = "API_RESPONSE";
+    public static final String API = "API_RESPONSE";
     public static final String UI = "INTERFACE";
-    private final Context context = this;
+    public static final String SYS = "SYSTEM";
+    public static final String REP = "REPORT";
+
+    public static final int REQUEST_CODE = 1;
 
     public static final int cacheSize = 10 * 1024 * 1024; // 10 MiB
+
+    private final Context context = this;
 
     public Toolbar mToolbar;
     public AppBarLayout appBarLayout;
@@ -53,7 +55,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        SharedPreferences mSharedPreferences = new SharedPreferences(context);
+        final SharedPreferences mSharedPreferences = new SharedPreferences(context);
 
         if(mSharedPreferences.isFirstTime()){
             startActivity(new Intent(context, OnBoardingActivity.class));
@@ -92,7 +94,6 @@ public class MainActivity extends AppCompatActivity {
 
         final TabsAdapter adapter = new TabsAdapter(this, context);
         adapter.addFragment(new Orders(), context.getResources().getString(R.string.orders));
-        //adapter.addFragment(new Pending(), context.getResources().getString(R.string.pending));
         adapter.addFragment(new Delivered(), context.getResources().getString(R.string.delivered));
 
         mViewPager.setAdapter(adapter);
@@ -123,13 +124,25 @@ public class MainActivity extends AppCompatActivity {
             case R.id.action_settings:
                 startActivity(new Intent(context, SettingsActivity.class));
                 overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+                finish();
                 return true;
-            case R.id.search:
-                //startActivity(new Intent(context, SearchActivity.class));
+            /*TODO: WORK IN PROGRESS*/
+            /*case R.id.action_search:
+                startActivity(new Intent(context, SearchActivity.class));
                 overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
-                return true;
+                finish();
+                return true;*/
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onRequestPermissionsResult(final int requestCode, @NonNull final String[] permissions, @NonNull final int[] grantResults){
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode == REQUEST_CODE) {
+            if(ContextCompat.checkSelfPermission(context, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED)
+                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},REQUEST_CODE);
+        }
     }
 
     public AppBarLayout getAppBarLayout(){

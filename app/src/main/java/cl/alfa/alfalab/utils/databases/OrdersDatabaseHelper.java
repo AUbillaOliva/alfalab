@@ -1,16 +1,12 @@
 package cl.alfa.alfalab.utils.databases;
 
-import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.util.Log;
 
 import java.util.ArrayList;
-import java.util.Collections;
 
-import cl.alfa.alfalab.MainActivity;
 import cl.alfa.alfalab.models.Orders;
 
 public class OrdersDatabaseHelper extends SQLiteOpenHelper {
@@ -87,7 +83,7 @@ public class OrdersDatabaseHelper extends SQLiteOpenHelper {
     }
 
     public void addOrder(Orders order){
-
+        /*
         final SQLiteDatabase db = this.getWritableDatabase();
         final ContentValues values = new ContentValues();
 
@@ -102,11 +98,11 @@ public class OrdersDatabaseHelper extends SQLiteOpenHelper {
 
         db.insert(OrdersContract.OrdersEntry.TABLE_NAME, null, values);
         db.close();
-
+        */
     }
 
     public void addOrders(ArrayList<Orders> orders){
-
+        /*
         final SQLiteDatabase db = this.getWritableDatabase();
         final ContentValues values = new ContentValues();
 
@@ -122,7 +118,7 @@ public class OrdersDatabaseHelper extends SQLiteOpenHelper {
             db.insert(OrdersContract.OrdersEntry.TABLE_NAME, null, values);
         }
         db.close();
-
+        */
     }
 
     public void deleteOrder(String number){
@@ -162,6 +158,7 @@ public class OrdersDatabaseHelper extends SQLiteOpenHelper {
                 null,
                 sortOrder);
 
+        /*
         if (cursor.moveToFirst()){
             do {
                 final Orders order = new Orders();
@@ -178,6 +175,9 @@ public class OrdersDatabaseHelper extends SQLiteOpenHelper {
 
             }while(cursor.moveToNext());
         }
+
+
+         */
         cursor.close();
         db.close();
 

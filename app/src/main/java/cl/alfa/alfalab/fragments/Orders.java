@@ -1,22 +1,23 @@
 package cl.alfa.alfalab.fragments;
 
+import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Parcelable;
+import android.text.Html;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.CheckBox;
-import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -24,26 +25,33 @@ import android.widget.Toast;
 
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.tooltip.Tooltip;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Objects;
 
+import androidx.annotation.ColorInt;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.PopupMenu;
 import androidx.core.widget.NestedScrollView;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
+
+import org.joda.time.DateTime;
+import org.joda.time.Days;
+
 import cl.alfa.alfalab.MainActivity;
 import cl.alfa.alfalab.MainApplication;
 import cl.alfa.alfalab.R;
-import cl.alfa.alfalab.activities.CreateOrderActivity;
+import cl.alfa.alfalab.activities.CreateClientActivity;
 import cl.alfa.alfalab.activities.DetailListActivity;
-import cl.alfa.alfalab.activities.UpdateOrderActivity;
 import cl.alfa.alfalab.adapters.GenericAdapter;
 import cl.alfa.alfalab.api.ApiClient;
 import cl.alfa.alfalab.api.ApiService;
@@ -56,20 +64,17 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class Orders extends Fragment {
+
+    private final Context context = MainApplication.getContext();
+    private View view;
+    private GenericAdapter<cl.alfa.alfalab.models.Orders> adapter;
+    private final OrdersDatabaseHelper ordersDatabaseHelper = new OrdersDatabaseHelper(context);
     private SwipeRefreshLayout mSwipeRefreshLayout;
     private ProgressBar mProgressBar;
-    private GenericAdapter<cl.alfa.alfalab.models.Orders> adapter;
-    private final Context context = MainApplication.getContext();
-
-    private View view;
-
-    private final OrdersDatabaseHelper ordersDatabaseHelper = new OrdersDatabaseHelper(context);
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        setRetainInstance(true);
         view = inflater.inflate(R.layout.fragment_layout, container, false);
-        final FragmentManager manager = getFragmentManager();
 
         final RecyclerView mRecyclerView = view.findViewById(R.id.recycler_view);
         final NestedScrollView nestedScrollView = view.findViewById(R.id.nested);
@@ -78,20 +83,18 @@ public class Orders extends Fragment {
 
         mSwipeRefreshLayout.setOnRefreshListener(this::getData);
 
-        FloatingActionButton fab = view.findViewById(R.id.fab);
-        fab.setOnClickListener(fabView -> {
-            startActivity(new Intent(context, CreateOrderActivity.class));
-        });
+        final FloatingActionButton fab = view.findViewById(R.id.fab);
+        fab.setOnClickListener(fabView -> startActivity(new Intent(context, CreateClientActivity.class)));
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M)
             nestedScrollView.setOnScrollChangeListener((View.OnScrollChangeListener) (v, scrollX, scrollY, oldScrollX, oldScrollY) -> {
                 int initialscrollY = 0;
                 if (scrollY > initialscrollY){
-                    ((MainActivity) Objects.requireNonNull(getActivity())).getAppBarLayout().setElevation(8);
-                    ((MainActivity) getActivity()).getAppBarLayoutShadow().setVisibility(View.GONE);
+                    ((MainActivity) requireActivity()).getAppBarLayout().setElevation(8);
+                    ((MainActivity) requireActivity()).getAppBarLayoutShadow().setVisibility(View.GONE);
                 } else if(scrollY < oldScrollY - scrollY){
-                    ((MainActivity) Objects.requireNonNull(getActivity())).getAppBarLayout().setElevation(2);
-                    ((MainActivity) getActivity()).getAppBarLayoutShadow().setVisibility(View.VISIBLE);
+                    ((MainActivity) requireActivity()).getAppBarLayout().setElevation(2);
+                    ((MainActivity) requireActivity()).getAppBarLayoutShadow().setVisibility(View.VISIBLE);
                 }
             });
 
@@ -106,47 +109,46 @@ public class Orders extends Fragment {
             @Override
             public void onBindData(RecyclerView.ViewHolder holder, cl.alfa.alfalab.models.Orders val, int position){
                 final GenericViewHolder viewHolder = (GenericViewHolder) holder;
-                final CheckBox checkBox = viewHolder.get(R.id.facets_img_checkbox);
                 final TextView orderNumber = viewHolder.get(R.id.order_number),
                         orderClient = viewHolder.get(R.id.order_client),
-                        orderType = viewHolder.get(R.id.order_type),
-                        orderResponsible = viewHolder.get(R.id.order_responsible);
-                String orderTypeText = String.format(getResources().getString(R.string.order_number_text), String.valueOf(val.getNumber()));
-                orderNumber.setText(orderTypeText);
-                String orderClientText = String.format(getResources().getString(R.string.order_client_name), val.getClient().getFirstname(), val.getClient().getLastname());
-                orderClient.setText(orderClientText);
-                String ordersTypeText = String.format(getResources().getString(R.string.orders_type), val.getType());
-                orderType.setText(ordersTypeText);
-                String orderResponsibleText = String.format(getResources().getString(R.string.orders_responsible), val.getResponsible());
-                orderResponsible.setText(orderResponsibleText);
-                final ImageView menu = viewHolder.get(R.id.more_icon);
+                        orderZone = viewHolder.get(R.id.order_zone),
+                        itemDate = viewHolder.get(R.id.item_date),
+                        orderCheckIn = viewHolder.get(R.id.order_date);
+                final ImageView alertIcon = viewHolder.get(R.id.alert_icon);
+
+                final TypedValue typedValueNormal = new TypedValue();
+                final Resources.Theme theme = requireContext().getTheme();
+                theme.resolveAttribute(R.attr.textColor, typedValueNormal, true);
+                @ColorInt final int textColor = typedValueNormal.data;
+
+                orderClient.setText(Html.fromHtml(String.format(getResources().getString(R.string.order_client_name), textColor, capitalizeFirstLetter(val.getClient().getFirstname()), capitalizeFirstLetter(val.getClient().getLastname()))));
+                orderNumber.setText(Html.fromHtml(String.format(getResources().getString(R.string.order_number_text), val.getOrders_number())));
+                @SuppressLint("SimpleDateFormat") DateFormat sourceFormat = new SimpleDateFormat("dd/MM/yyyy hh:mm:ss");
+                String dateAsString = val.getCreated_at();
+                Date date = null;
                 try {
-                    menu.setOnClickListener(v -> {
-                        PopupMenu popup = new PopupMenu(Objects.requireNonNull(getContext()),v);
-                        popup.getMenuInflater().inflate(R.menu.order_menu,popup.getMenu());
-                        popup.show();
-                        popup.setOnMenuItemClickListener(item -> {
-                            switch (item.getItemId()) {
-                                case R.id.edit:
-                                    Intent intent = new Intent(context, UpdateOrderActivity.class);
-                                    intent.putExtra("order", val);
-                                    startActivity(intent);
-                                    break;
-                                case R.id.delete:
-                                    showDialog(val);
-                                    break;
-                                default:
-                                    break;
-                            }
-                            return true;
-                        });
-                    });
-                    checkBox.setOnCheckedChangeListener((compoundButton, b) -> {
-                        setDelivered(adapter.getItem(position));
-                    });
-                } catch (Exception e) {
+                    date = sourceFormat.parse(dateAsString);
+                } catch (ParseException e) {
                     e.printStackTrace();
                 }
+                assert date != null;
+                @SuppressLint("SimpleDateFormat") String outputFormat = new SimpleDateFormat("dd/MM/yy").format(date);
+                if(isBefore(new DateTime(date.getTime()), new DateTime()))
+                    alertIcon.setVisibility(View.GONE);
+                else
+                    alertIcon.setVisibility(View.VISIBLE);
+                itemDate.setText(getResources().getString(R.string.entered));
+                orderCheckIn.setText(outputFormat);
+                orderZone.setText(capitalizeFirstLetter(val.getZone()));
+
+                final Tooltip.Builder tooltip = new Tooltip.Builder(alertIcon)
+                        .setText("⌚ El pedido lleva más de 10 días sin entregar")
+                        .setTextColor(textColor)
+                        .setCancelable(true)
+                        .setCornerRadius(getResources().getDimension(R.dimen.corner_radius))
+                        .setArrowHeight(getResources().getDimension(R.dimen.arrow_dimension));
+
+                alertIcon.setOnClickListener(view -> tooltip.show());
             }
 
             @Override
@@ -156,11 +158,30 @@ public class Orders extends Fragment {
                     public void onClickListener(View view, int position){
                         final Intent intent = new Intent(getContext(), DetailListActivity.class);
                         intent.putExtra("data", getItem(position));
+                        intent.putExtra("delivered", false);
                         startActivity(intent);
+                        requireActivity().finish();
                     }
 
                     @Override
-                    public void onLongPressClickListener(View view, int position){}
+                    public void onLongPressClickListener(View view, int position){
+                        final PopupMenu popup = new PopupMenu(requireContext(),view);
+                        popup.getMenuInflater().inflate(R.menu.order_menu,popup.getMenu());
+                        popup.show();
+                        popup.setOnMenuItemClickListener(item -> {
+                            switch (item.getItemId()) {
+                                case R.id.edit:
+                                    //TODO: START CreateOrdersActivity WITH DATA FOR UPDATE
+                                    break;
+                                case R.id.delete:
+                                    showDialog(adapter.getItem(position));
+                                    break;
+                                default:
+                                    break;
+                            }
+                            return true;
+                        });
+                    }
                 };
             }
         };
@@ -172,42 +193,53 @@ public class Orders extends Fragment {
         return view;
     }
 
-    private boolean showDialog(cl.alfa.alfalab.models.Orders order){
-        final boolean[] status = new boolean[1];
-        final Dialog dialog = new Dialog(Objects.requireNonNull(getActivity()));
+    public boolean isBefore(DateTime begin, DateTime actual) {
+        return (Days.daysBetween(begin.plusDays(10), actual).getDays() < 10);
+    }
+    
+    private String capitalizeFirstLetter(String s){
+        final String[] in = s.split(" ");
+        final StringBuilder out = new StringBuilder();
+        for (String ss : in) {
+            final String upperString = ss.substring(0, 1).toUpperCase() + ss.substring(1).toLowerCase();
+            out.append(upperString);
+            out.append(" ");
+        }
+        return out.toString();
+    }
+
+    private void showDialog(cl.alfa.alfalab.models.Orders order){
+        final Dialog dialog = new Dialog(requireActivity());
         dialog.setCancelable(true);
         Objects.requireNonNull(dialog.getWindow()).setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-        final View view  = getActivity().getLayoutInflater().inflate(R.layout.confirmation_dialog_layout, null);
+        @SuppressLint("InflateParams") final View view  = requireActivity().getLayoutInflater().inflate(R.layout.confirmation_dialog_layout, null);
         dialog.setContentView(view);
 
         final ExtendedFloatingActionButton acceptButton;
         final TextView rejectButton, dialogTitle, dialogSubtitle;
-
-        acceptButton = view.findViewById(R.id.confirm_button);
-        acceptButton.setText(getResources().getString(R.string.positive_delete_dialog_button));
-        acceptButton.setOnClickListener(view1 -> {
-            dialog.dismiss();
-            status[0] = true;
-            deleteOrder(order.getNumber());
-            getData();
-        });
-
-        rejectButton = view.findViewById(R.id.negative_button);
-        rejectButton.setText(getResources().getString(R.string.cancel_dialog_buttton));
-        rejectButton.setOnClickListener(view12 -> {
-            dialog.dismiss();
-            status[0] = false;
-        });
 
         dialogTitle = view.findViewById(R.id.dialog_title);
         dialogTitle.setText(getResources().getString(R.string.delete_order_question));
         dialogSubtitle = view.findViewById(R.id.dialog_subtitle);
         dialogSubtitle.setText(getResources().getString(R.string.delete_order_warning));
 
-        dialog.show();
-        return status[0];
-    };
+        acceptButton = view.findViewById(R.id.confirm_button);
+        acceptButton.setText(getResources().getString(R.string.positive_delete_dialog_button));
+        acceptButton.setOnClickListener(view1 -> {
+            dialog.dismiss();
+            deleteOrder(order.getOrders_number());
+            Toast.makeText(context, "Pedido eliminado", Toast.LENGTH_SHORT).show();
+            getData();
+        });
 
+        rejectButton = view.findViewById(R.id.negative_button);
+        rejectButton.setText(getResources().getString(R.string.cancel_dialog_buttton));
+        rejectButton.setOnClickListener(view12 -> dialog.dismiss());
+
+        dialog.show();
+    }
+
+    @SuppressWarnings("deprecation")
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState){
         super.onActivityCreated(savedInstanceState);
@@ -216,10 +248,11 @@ public class Orders extends Fragment {
         else adapter.addItems(ordersDatabaseHelper.getAllOrders());
     }
 
+    @SuppressWarnings("deprecation")
     private boolean isNetworkAvailable() {
         boolean isConnected = false;
         if(getActivity() != null){
-            final ConnectivityManager connectivityManager = (ConnectivityManager) Objects.requireNonNull(getContext()).getSystemService(Context.CONNECTIVITY_SERVICE);
+            final ConnectivityManager connectivityManager = (ConnectivityManager) requireContext().getSystemService(Context.CONNECTIVITY_SERVICE);
             assert connectivityManager != null;
             final NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
             if(networkInfo != null && networkInfo.isConnected())
@@ -228,64 +261,33 @@ public class Orders extends Fragment {
         return isConnected;
     }
 
-    private void deleteOrder(int number){
+    private void deleteOrder(int number) {
         try {
             final ApiService.DeleteOrderService service = ApiClient.getClient().create(ApiService.DeleteOrderService.class);
             Call<ResponseBody> deleteRequest = service.deleteOrder(number);
             deleteRequest.enqueue(new Callback<ResponseBody>() {
                 @Override
-                public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                    Toast.makeText(context, "Pedido eliminado", Toast.LENGTH_SHORT).show();
-                    ordersDatabaseHelper.deleteOrder(String.valueOf(number));
-                    getData();
-                    adapter.notifyDataSetChanged();
+                public void onResponse(@NonNull Call<ResponseBody> call, @NonNull Response<ResponseBody> response) {
+                    if(response.isSuccessful()){
+                        ordersDatabaseHelper.deleteOrder(String.valueOf(number));
+                        ordersDatabaseHelper.close();
+                        getData();
+                        adapter.notifyDataSetChanged();
+                    } else {
+                        Log.e(MainActivity.API, "onResponse (errorBody): " + response.errorBody());
+                        Log.e(MainActivity.API, "onResponse (message):" + response.message());
+                    }
                 }
 
                 @Override
-                public void onFailure(Call<ResponseBody> call, Throwable t) {
+                public void onFailure(@NonNull Call<ResponseBody> call, @NonNull Throwable t) {
                     Toast.makeText(context, "Error al eliminar el pedido", Toast.LENGTH_SHORT).show();
+                    Log.e(MainActivity.API, "onFailure: " + t.getMessage());
                 }
             });
         } catch (Throwable err){
-            Log.e(MainActivity.TAG, Objects.requireNonNull(err.getMessage()));
+            Log.e(MainActivity.API, Objects.requireNonNull(err.getMessage()));
         }
-    }
-
-    private void setDelivered(cl.alfa.alfalab.models.Orders order){
-        final Date date = new Date();
-        long time = date.getTime();
-        java.sql.Timestamp timestamp = new java.sql.Timestamp(time);
-        order.setCheckout(timestamp.toString());
-        final ApiService.SetDeliveredService service = ApiClient.getClient().create(ApiService.SetDeliveredService.class);
-        final Call<cl.alfa.alfalab.models.Orders> responseCall = service.setDelivered(order);
-
-        responseCall.enqueue(new Callback<cl.alfa.alfalab.models.Orders>(){
-            @Override
-            public void onResponse(@NonNull Call<cl.alfa.alfalab.models.Orders> call, @NonNull Response<cl.alfa.alfalab.models.Orders> response){
-                mSwipeRefreshLayout.setRefreshing(false);
-                mProgressBar.setVisibility(View.GONE);
-                mSwipeRefreshLayout.setVisibility(View.VISIBLE);
-                if(response.isSuccessful()){
-                    final cl.alfa.alfalab.models.Orders apiResponse = response.body();
-                    assert apiResponse != null;
-                    deleteOrder(order.getNumber());
-                    adapter.notifyDataSetChanged();
-                } else{
-                    Log.e(MainActivity.TAG, "onResponse: " + response.errorBody());
-                    Log.e(MainActivity.TAG, response.message());
-                    Toast.makeText(MainApplication.getContext(), context.getResources().getString(R.string.check_internet_connection), Toast.LENGTH_SHORT).show();
-                }
-            }
-
-            @Override
-            public void onFailure(@NonNull Call<cl.alfa.alfalab.models.Orders> call, @NonNull Throwable t){
-                mSwipeRefreshLayout.setRefreshing(false);
-                mProgressBar.setVisibility(View.GONE);
-                mSwipeRefreshLayout.setVisibility(View.VISIBLE);
-                Log.d(MainActivity.TAG, "onFailure: " + t);
-                Toast.makeText(MainApplication.getContext(), context.getResources().getString(R.string.feed_update_error), Toast.LENGTH_SHORT).show();
-            }
-        });
     }
 
     @Override
@@ -309,10 +311,13 @@ public class Orders extends Fragment {
                     assert apiResponse != null;
                     adapter.addItems(apiResponse);
                     ordersDatabaseHelper.addOrders(apiResponse);
-                    Log.d(MainActivity.TAG, String.valueOf(apiResponse.toArray().length));
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                        Log.d(MainActivity.TAG, String.valueOf(adapter.getItemCount()));
                         if(adapter.getItemCount() < 1) {
+                            final View notItemsView = view.findViewById(R.id.no_items_layout);
+                            final ImageView notItemsIcon = notItemsView.findViewById(R.id.no_items_icon);
+                            final TextView noItemsText = notItemsView.findViewById(R.id.no_items_text);
+                            notItemsIcon.setBackgroundResource(R.drawable.ic_check_24dp);
+                            noItemsText.setText(String.format(getResources().getString(R.string.no_items), "pendientes"));
                             view.findViewById(R.id.no_items_layout).setVisibility(View.VISIBLE);
                         } else {
                             view.findViewById(R.id.no_items_layout).setVisibility(View.GONE);
@@ -320,8 +325,9 @@ public class Orders extends Fragment {
                     }
                     adapter.notifyDataSetChanged();
                 } else{
-                    Log.e(MainActivity.TAG, "onResponse: " + response.errorBody());
-                    Toast.makeText(MainApplication.getContext(), context.getResources().getString(R.string.check_internet_connection), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context, context.getResources().getString(R.string.check_internet_connection), Toast.LENGTH_SHORT).show();
+                    Log.e(MainActivity.API, "onResponse (errorBody): " + response.errorBody());
+                    Log.e(MainActivity.API, "onResponse (message):" + response.message());
                 }
             }
 
@@ -330,8 +336,8 @@ public class Orders extends Fragment {
                 mSwipeRefreshLayout.setRefreshing(false);
                 mProgressBar.setVisibility(View.GONE);
                 mSwipeRefreshLayout.setVisibility(View.VISIBLE);
-                Log.d(MainActivity.TAG, "onFailure: " + t);
-                Toast.makeText(MainApplication.getContext(), context.getResources().getString(R.string.feed_update_error), Toast.LENGTH_SHORT).show();
+                Log.d(MainActivity.API, "onFailure: " + t.getMessage());
+                Toast.makeText(context, context.getResources().getString(R.string.feed_update_error), Toast.LENGTH_SHORT).show();
             }
         });
     }

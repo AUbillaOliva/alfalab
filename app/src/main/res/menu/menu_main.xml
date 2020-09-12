@@ -5,16 +5,18 @@
 
     <item
         android:id="@+id/action_settings"
-        android:orderInCategory="100"
+        android:orderInCategory="1"
         android:title="@string/action_settings"
         app:showAsAction="never"
     />
 
-    <item
-        android:id="@+id/search"
+    <!--TODO: WORK IN PROGRESS-->
+    <!--item
+        android:id="@+id/action_search"
+        android:orderInCategory="0"
         android:title="@string/search"
-        android:icon="@drawable/ic_search_24dp"
         app:showAsAction="ifRoom"
-    />
+        android:icon="@drawable/ic_search_24dp"
+    /-->
 
 </menu>

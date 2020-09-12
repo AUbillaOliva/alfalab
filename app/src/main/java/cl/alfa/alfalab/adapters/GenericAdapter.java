@@ -49,6 +49,19 @@ public abstract class GenericAdapter<T> extends RecyclerView.Adapter<RecyclerVie
         this.notifyDataSetChanged();
     }
 
+    public void addItem(T savedCardItem){
+        items.add(savedCardItem);
+        this.notifyDataSetChanged();
+    }
+
+    public void deleteItem(T item){
+        ArrayList<T> tmpItems = new ArrayList<>();
+        for(int i= 0;i<items.size();i++)
+            if(item != items.get(i))
+                tmpItems.add(items.get(i));
+        this.items = tmpItems;
+    }
+
     public T getItem(int position){
         return items.get(position);
     }

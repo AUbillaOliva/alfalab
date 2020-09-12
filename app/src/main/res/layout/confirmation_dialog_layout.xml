@@ -4,7 +4,7 @@
     android:layout_height="wrap_content"
     android:layout_width="match_parent"
     android:layout_gravity="center"
-    android:background="?attr/backgroundColor"
+    app:cardBackgroundColor="?attr/colorSecondaryDark"
     android:layout_marginHorizontal="5dp"
     app:cardCornerRadius="15dp">
 
@@ -23,7 +23,8 @@
             android:textSize="@dimen/h6_size"
             android:fontFamily="@font/product_sans"
             android:textStyle="bold"
-            android:layout_gravity="center" />
+            android:layout_gravity="center"
+        />
 
         <TextView
             android:id="@+id/dialog_subtitle"
@@ -32,7 +33,8 @@
             android:layout_margin="15dp"
             android:textColor="?attr/textColor"
             android:textSize="@dimen/subtitle_1_size"
-            android:layout_gravity="center" />
+            android:layout_gravity="center"
+        />
 
         <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
             android:id="@+id/confirm_button"
@@ -42,12 +44,13 @@
             android:layout_margin="15dp"
             android:fontFamily="@font/product_sans"
             android:isScrollContainer="false"
-            android:text=" ELIMINAR"
+            android:text="@string/delete"
             android:textAlignment="center"
-            android:textColor="@android:color/white"
+            android:textColor="@android:color/black"
             android:textSize="12sp"
             android:textStyle="bold"
-            app:backgroundTint="@color/colorAccent" />
+            app:backgroundTint="@color/colorAccent"
+        />
 
         <TextView
             android:id="@+id/negative_button"
@@ -59,7 +62,8 @@
             android:fontFamily="@font/product_sans"
             android:textStyle="bold"
             android:layout_marginBottom="15dp"
-            android:layout_marginTop="10dp"/>
+            android:layout_marginTop="10dp"
+        />
 
     </LinearLayout>
 

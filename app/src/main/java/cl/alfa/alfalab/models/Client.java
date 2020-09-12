@@ -9,6 +9,14 @@ public class Client implements Serializable {
             instagram,
             email;
 
+    public Client(){}
+    public Client(String firstname, String lastname, String email, String instagram) {
+        this.firstname = firstname;
+        this.lastname = lastname;
+        this.email = email;
+        this.instagram = instagram;
+    }
+
     public String getFirstname() {
         return firstname;
     }

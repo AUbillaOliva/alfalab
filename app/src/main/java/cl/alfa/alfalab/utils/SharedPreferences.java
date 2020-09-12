@@ -15,15 +15,11 @@ public class SharedPreferences {
         editor.apply();
     }
 
-    public boolean loadNightModeState(){ return mSharedPreferences.getBoolean("NightMode",false); }
-
     public void setFirstTime (boolean state){
         final android.content.SharedPreferences.Editor editor = mSharedPreferences.edit();
         editor.putBoolean("isFirstTime", state);
         editor.apply();
     }
-
-    public boolean isFirstTime() { return mSharedPreferences.getBoolean("isFirstTime", true); }
 
     public void setResponsible(String name){
         final android.content.SharedPreferences.Editor editor = mSharedPreferences.edit();
@@ -31,6 +27,15 @@ public class SharedPreferences {
         editor.apply();
     }
 
+    public void sendReports(Boolean state){
+        final android.content.SharedPreferences.Editor editor = mSharedPreferences.edit();
+        editor.putBoolean("sendReports", state);
+        editor.apply();
+    }
+
+    public boolean loadNightModeState(){ return mSharedPreferences.getBoolean("NightMode",false); }
+    public boolean isFirstTime() { return mSharedPreferences.getBoolean("isFirstTime", true); }
     public String getResponsible() { return mSharedPreferences.getString("responsibleName", null); }
+    public boolean sendReport(){ return mSharedPreferences.getBoolean("sendReports", false); }
 
 }

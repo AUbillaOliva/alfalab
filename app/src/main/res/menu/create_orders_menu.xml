@@ -1,4 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".activities.CreateOrdersActivity">
+
+    <item
+        android:id="@+id/finalize"
+        android:title="@string/finalize"
+        android:icon="@drawable/ic_check_mark_24dp"
+        app:showAsAction="always"
+    />
 
 </menu>

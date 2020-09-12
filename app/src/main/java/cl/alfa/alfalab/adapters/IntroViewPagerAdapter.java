@@ -10,6 +10,7 @@ import cl.alfa.alfalab.fragments.intro_fragments.FirstIntroFragment;
 import cl.alfa.alfalab.fragments.intro_fragments.SecondIntroFragment;
 import cl.alfa.alfalab.fragments.intro_fragments.ThirdIntroFragment;
 
+@SuppressWarnings("deprecation")
 public class IntroViewPagerAdapter extends FragmentPagerAdapter {
 
     private ArrayList<Fragment> fragmentsList = new ArrayList<>();
@@ -21,21 +22,6 @@ public class IntroViewPagerAdapter extends FragmentPagerAdapter {
     public void addPage(Fragment fragment){
         fragmentsList.add(fragment);
     }
-
-    public int getItemPostion(Fragment fragment) {
-        int position = -1;
-        if(fragmentsList.contains(fragment)){
-            for(Fragment frag : fragmentsList){
-                if(fragment == frag){
-                    return position;
-                } else {
-                    position++;
-                }
-            }
-        }
-        return position;
-    }
-
 
     @NonNull
     @Override

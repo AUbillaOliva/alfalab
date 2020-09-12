@@ -1,34 +1,74 @@
 package cl.alfa.alfalab.models;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Date;
 
 public class Orders implements Serializable {
 
-    private String
-            _id,
-            responsible,
-            checkin,
-            checkout,
-            orderType,
-            commentaries;
-
+    private String delivered_by,
+            zone,
+            created_at,
+            delivered_date;
+    private int orders_number;
+    private boolean status;
+    private ArrayList<Order> order;
     private Client client;
 
-    private boolean status;
-
-    private int number,
-            price;
-
-    public String get_id() {
-        return _id;
-    }
-
-    public void set_id(String _id) {
-        this._id = _id;
-    }
-
-    public boolean isStatus() {
+    public boolean getStatus(){
         return status;
+    }
+
+    public void setStatus(boolean status){
+        this.status = status;
+    }
+
+    public String getDelivered_date() {
+        return delivered_date;
+    }
+
+    public void setDelivered_date(String delivered_date) {
+        this.delivered_date = delivered_date;
+    }
+
+    public String getCreated_at() {
+        return created_at;
+    }
+
+    public void setCreated_at(String created_at) {
+        this.created_at = created_at;
+    }
+
+    public String getDelivered_by() {
+        return delivered_by;
+    }
+
+    public void setDelivered_by(String delivered_by) {
+        this.delivered_by = delivered_by;
+    }
+
+    public String getZone() {
+        return zone;
+    }
+
+    public void setZone(String zone) {
+        this.zone = zone;
+    }
+
+    public int getOrders_number() {
+        return orders_number;
+    }
+
+    public void setOrders_number(int orders_number) {
+        this.orders_number = orders_number;
+    }
+
+    public ArrayList<Order> getOrder() {
+        return order;
+    }
+
+    public void setOrder(ArrayList<Order> order) {
+        this.order = order;
     }
 
     public Client getClient() {
@@ -38,69 +78,4 @@ public class Orders implements Serializable {
     public void setClient(Client client) {
         this.client = client;
     }
-
-    public String getResponsible() {
-        return responsible;
-    }
-
-    public void setResponsible(String responsible) {
-        this.responsible = responsible;
-    }
-
-    public String getCheckin() {
-        return checkin;
-    }
-
-    public void setCheckin(String checkin) {
-        this.checkin = checkin;
-    }
-
-    public String getCheckout() {
-        return checkout;
-    }
-
-    public void setCheckout(String checkout) {
-        this.checkout = checkout;
-    }
-
-    public String getType() {
-        return orderType;
-    }
-
-    public void setType(String type) {
-        this.orderType = type;
-    }
-
-    public String getCommentaries() {
-        return commentaries;
-    }
-
-    public void setCommentaries(String commentaries) {
-        this.commentaries = commentaries;
-    }
-
-    public boolean getStatus() {
-        return status;
-    }
-
-    public void setStatus(boolean status) {
-        this.status = status;
-    }
-
-    public int getNumber() {
-        return number;
-    }
-
-    public void setNumber(int number) {
-        this.number = number;
-    }
-
-    public int getPrice() {
-        return price;
-    }
-
-    public void setPrice(int price) {
-        this.price = price;
-    }
-
 }

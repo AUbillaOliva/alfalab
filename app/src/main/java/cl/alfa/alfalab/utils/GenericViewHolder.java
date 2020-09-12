@@ -46,7 +46,7 @@ public class GenericViewHolder extends RecyclerView.ViewHolder {
     }
 
     private void put(View view, Integer id){
-        if (id == -1) return;  // Mean that hasn't id
+        if (id == -1) return;
         holder.put(id, view);
     }
 

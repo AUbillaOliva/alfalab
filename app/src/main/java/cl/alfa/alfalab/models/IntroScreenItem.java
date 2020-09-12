@@ -1,6 +1,7 @@
 package cl.alfa.alfalab.models;
 
 public class IntroScreenItem {
+
     private String Title,Description;
     private int ScreenImg;
 

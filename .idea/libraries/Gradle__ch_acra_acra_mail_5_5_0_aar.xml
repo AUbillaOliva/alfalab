@@ -1,0 +1,15 @@
+<component name="libraryTable">
+  <library name="Gradle: ch.acra:acra-mail:5.5.0@aar">
+    <CLASSES>
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/ac11004b8d28d5828d912ecd4c182b60/jetified-acra-mail-5.5.0/AndroidManifest.xml" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/ac11004b8d28d5828d912ecd4c182b60/jetified-acra-mail-5.5.0/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/ac11004b8d28d5828d912ecd4c182b60/jetified-acra-mail-5.5.0/res" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/ch.acra/acra-mail/5.5.0/ad60671c8641f3f7f63e56e9a1ed2a24b967d088/acra-mail-5.5.0-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/ch.acra/acra-mail/5.5.0/47b75e52e70a4ead3a65e14aa4c8b92b76a0dc2e/acra-mail-5.5.0-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

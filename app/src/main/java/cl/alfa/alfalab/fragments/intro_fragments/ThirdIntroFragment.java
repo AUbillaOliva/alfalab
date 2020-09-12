@@ -23,16 +23,13 @@ public class ThirdIntroFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         final View view = inflater.inflate(R.layout.third_intro_fragment_layout, container, false);
-
-        ExtendedFloatingActionButton btnNext = view.findViewById(R.id.button);
-        Toolbar mToolbar = view.findViewById(R.id.toolbar);
+        final ExtendedFloatingActionButton btnNext = view.findViewById(R.id.button);
+        final Toolbar mToolbar = view.findViewById(R.id.toolbar);
 
         mToolbar.setNavigationIcon(R.drawable.ic_arrow_back_24dp);
         mToolbar.setNavigationOnClickListener(v -> OnBoardingActivity.setPosition(1));
 
-        btnNext.setOnClickListener(v -> {
-            startActivity(new Intent(context, MainActivity.class));
-        });
+        btnNext.setOnClickListener(v -> startActivity(new Intent(context, MainActivity.class)));
 
         return view;
     }

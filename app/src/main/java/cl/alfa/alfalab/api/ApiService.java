@@ -10,7 +10,6 @@ import retrofit2.http.DELETE;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
-import retrofit2.http.Query;
 
 public class ApiService {
     public interface OrderService {
@@ -49,24 +48,4 @@ public class ApiService {
         Call<Orders> setDelivered(@Body Orders order);
 
     }
-
-    /*public interface WordsService {
-        @GET("words")
-        Call<ArrayList<Word>> getWords(@Query("letter") String letter, @Query("category") String category);
-    }*/
-
-    /*public interface ExpressionsServiceCategories {
-        @GET("expressions")
-        Call<ArrayList<Word>> getExpressionsOfCategories(@Query("category") String category);
-    }*/
-
-    /*public interface ExpressionsCategoryService {
-        @GET("expressions/categories")
-        Call<ArrayList<String>> getExpressionsCategories();
-    }*/
-
-    /*public interface ThemesCategoryService {
-        @GET("words/categories")
-        Call<ArrayList<String>> getThemesCategories();
-    }*/
 }

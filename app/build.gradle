@@ -1,13 +1,13 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 29
+    compileSdkVersion 30
     buildToolsVersion "29.0.3"
 
     defaultConfig {
         applicationId "cl.alfa.alfalab"
-        minSdkVersion 21
-        targetSdkVersion 29
+        minSdkVersion 22
+        targetSdkVersion 30
         versionCode 1
         versionName "1.0"
 
@@ -24,25 +24,35 @@ android {
         sourceCompatibility = 1.8
         targetCompatibility = 1.8
     }
+    lintOptions {
+        checkReleaseBuilds false
+    }
 
 }
 
 dependencies {
     //ANDROID
     implementation fileTree(include: ['*.jar'], dir: 'libs')
-    implementation 'androidx.core:core:1.3.0-rc01'
-    implementation 'androidx.appcompat:appcompat:1.2.0-beta01'
-    implementation 'androidx.constraintlayout:constraintlayout:2.0.0-beta4'
-    implementation 'com.google.android.material:material:1.2.0-alpha06'
+    implementation 'androidx.core:core:1.5.0-alpha02'
+    implementation 'androidx.appcompat:appcompat:1.3.0-alpha02'
+    implementation 'androidx.constraintlayout:constraintlayout:2.0.1'
+    implementation 'com.google.android.material:material:1.3.0-alpha02'
     testImplementation 'junit:junit:4.12'
-    androidTestImplementation 'androidx.test:runner:1.3.0-beta01'
+    androidTestImplementation 'androidx.test:runner:1.3.0'
     implementation 'androidx.cardview:cardview:1.0.0'
-    implementation 'androidx.recyclerview:recyclerview:1.2.0-alpha02'
-    implementation "androidx.swiperefreshlayout:swiperefreshlayout:1.0.0"
-    //GLIDE
-    implementation('com.github.bumptech.glide:glide:4.9.0') {
-        exclude group: "com.android.support"
-    }
+    implementation 'androidx.recyclerview:recyclerview:1.2.0-alpha05'
+    implementation "androidx.swiperefreshlayout:swiperefreshlayout:1.1.0"
+    //TOOLTIP
+    implementation 'com.github.vihtarb:tooltip:0.2.0'
+    //ACRA
+    def acraVersion = '5.5.0'
+    implementation "ch.acra:acra-mail:$acraVersion"
+    implementation "ch.acra:acra-toast:$acraVersion"
+    implementation "ch.acra:acra-advanced-scheduler:$acraVersion"
+    implementation "ch.acra:acra-http:$acraVersion"
+    implementation "ch.acra:acra-core:$acraVersion"
+    //JODA-TIME
+    implementation 'joda-time:joda-time:2.9.4'
     //GSON
     implementation 'com.google.code.gson:gson:2.8.6'
     //RETROFIT
@@ -50,8 +60,8 @@ dependencies {
     implementation "com.squareup.retrofit2:retrofit:$retrofitVer"
     implementation "com.squareup.retrofit2:converter-gson:$retrofitVer"
     //OKHTTP3
-    //def okHttpVer = '3.11.0'
-    //implementation "com.squareup.okhttp3:okhttp:$okHttpVer"
+    def okHttpVer = '3.11.0'
+    implementation "com.squareup.okhttp3:okhttp:$okHttpVer"
     //LEAK CANARY
-    debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.2'
+    //debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.2'
 }

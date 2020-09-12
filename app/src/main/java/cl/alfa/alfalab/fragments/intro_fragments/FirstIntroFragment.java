@@ -16,14 +16,8 @@ public class FirstIntroFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         final View view = inflater.inflate(R.layout.first_intro_fragment_layout, container, false);
-
-        ExtendedFloatingActionButton btnNext = view.findViewById(R.id.button);
-
-        btnNext.setOnClickListener(v -> {
-            OnBoardingActivity.setPosition(1);
-        });
-
-
+        final ExtendedFloatingActionButton btnNext = view.findViewById(R.id.button);
+        btnNext.setOnClickListener(v -> OnBoardingActivity.setPosition(1));
         return view;
     }
 

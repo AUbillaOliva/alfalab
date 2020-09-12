@@ -1,8 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
+
     <item android:id="@+id/edit"
-        android:title="@string/edit_order"/>
+        android:title="@string/edit_order"
+    />
 
     <item android:id="@+id/delete"
-        android:title="@string/delete_order"/>
+        android:title="@string/delete_order"
+    />
+
 </menu>

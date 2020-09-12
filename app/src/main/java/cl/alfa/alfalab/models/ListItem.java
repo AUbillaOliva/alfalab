@@ -1,6 +1,7 @@
 package cl.alfa.alfalab.models;
 
 public class ListItem {
+
     private String title, subtitle;
     private boolean isDisabled, expanded = false;
 
