@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -12,15 +13,15 @@
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        android:background="?attr/colorSecondaryDark"
+        android:background="?attr/colorPrimary"
         android:elevation="4dp">
 
         <TextView
             android:id="@+id/toolbar_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="@dimen/h6_size"
             android:fontFamily="@font/product_sans"
+            android:textSize="@dimen/h6_size"
             style="@style/TextAppearance.AppCompat.Widget.ActionBar.Title"
         />
 
@@ -34,7 +35,6 @@
         android:background="?attr/backgroundColor">
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/edit_text_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="15dp"
@@ -50,15 +50,14 @@
                 android:id="@+id/edit_text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textCursorDrawable="@drawable/edit_text_cursor"
+                android:textCursorDrawable="@drawable/cursor_drawable"
             />
 
         </com.google.android.material.textfield.TextInputLayout>
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="?attr/backgroundColor">
+            android:layout_height="match_parent">
 
             <ImageView
                 android:id="@+id/report_image"
@@ -92,6 +91,5 @@
         />
 
     </LinearLayout>
-
 
 </LinearLayout>

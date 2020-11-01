@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -13,7 +14,8 @@
         android:textSize="@dimen/body_1_size"
         android:textColor="@color/colorAccent"
         android:fontFamily="@font/product_sans_bold"
-        android:layout_marginBottom="5dp"/>
+        android:layout_marginBottom="5dp"
+    />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -29,7 +31,8 @@
             android:textColor="?attr/subtitleTextColor"
             android:textSize="@dimen/subtitle_2_size"
             android:fontFamily="@font/console"
-            android:textAlignment="center"/>
+            android:textAlignment="center"
+        />
 
     </LinearLayout>
 

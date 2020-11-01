@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/bottom_sheet"
     android:layout_width="match_parent"
     android:layout_height="480dp"
     android:orientation="vertical"
@@ -22,17 +21,24 @@
         android:id="@+id/type_input_layout"
         android:layout_height="wrap_content"
         android:layout_width="match_parent"
-        style="@style/TypeInputLayoutStyle"
-        android:layout_marginTop="15dp">
+        android:layout_marginTop="15dp"
+        style="@style/TypeInputLayoutStyle.Light">
 
         <androidx.appcompat.widget.AppCompatAutoCompleteTextView
             android:id="@+id/type_input_autocomplete"
+            style="@style/Widget.MaterialComponents.AutoCompleteTextView.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:singleLine="true"
+            android:lines="1"
             android:hint="@string/order_type_label"
             android:textColor="?attr/textColor"
             android:labelFor="@+id/client_order_type"
-            android:inputType="none"
+            android:nextFocusForward="@+id/email_input_layout"
+            android:imeOptions="actionNext"
+            android:textSelectHandle="?attr/colorAccent"
+            android:textCursorDrawable="@drawable/cursor_drawable"
         />
 
     </com.google.android.material.textfield.TextInputLayout>
@@ -51,6 +57,8 @@
             android:layout_height="wrap_content"
             android:textColor="?attr/textColor"
             android:inputType="numberSigned"
+            android:textSelectHandle="?attr/colorAccent"
+            android:textCursorDrawable="@drawable/cursor_drawable"
         />
 
     </com.google.android.material.textfield.TextInputLayout>
@@ -69,8 +77,8 @@
             android:textAlignment="center"
             android:textColor="?attr/textColor"
             android:fontFamily="@font/product_sans"
-            style="@style/Widget.App.CheckBox"
-            app:buttonTint="@color/colorAccent"
+            android:buttonTint="?attr/colorAccent"
+            app:buttonTint="?attr/colorAccent"
         />
 
     </LinearLayout>
@@ -87,6 +95,8 @@
             android:layout_height="wrap_content"
             android:textColor="?attr/textColor"
             android:inputType="number"
+            android:textSelectHandle="?attr/colorAccent"
+            android:textCursorDrawable="@drawable/cursor_drawable"
         />
 
     </com.google.android.material.textfield.TextInputLayout>
@@ -105,6 +115,8 @@
             android:inputType="textMultiLine"
             android:textColor="?attr/textColor"
             android:lines="2"
+            android:textSelectHandle="?attr/colorAccent"
+            android:textCursorDrawable="@drawable/cursor_drawable"
         />
 
     </com.google.android.material.textfield.TextInputLayout>
@@ -114,21 +126,15 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:layout_margin="10dp"
-        android:layout_marginTop="77dp"
+        android:layout_marginTop="20dp"
         android:text="@string/save"
         android:textAlignment="center"
-        android:textColor="@android:color/black"
-        app:backgroundTint="@color/colorAccent"
+        android:textColor="?attr/buttonTextColor"
+        app:backgroundTint="?attr/colorAccent"
         app:cornerRadius="25dp"
         app:icon="@drawable/ic_check_24dp"
+        app:iconTint="?attr/buttonTextColor"
         app:iconGravity="end"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.9"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/name_intro_input_layout"
-        app:layout_constraintVertical_bias="0.959"
     />
 
 </LinearLayout>

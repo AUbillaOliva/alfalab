@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:background="?attr/backgroundColor"
     tools:context=".activities.SettingsActivity">
@@ -12,7 +13,7 @@
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        android:background="?attr/colorSecondaryDark"
+        android:background="?attr/colorPrimary"
         android:elevation="4dp">
 
         <TextView
@@ -36,14 +37,14 @@
             android:layout_height="wrap_content">
 
             <!--PROFILE-->
-            <androidx.cardview.widget.CardView
+            <com.google.android.material.card.MaterialCardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
                 android:layout_marginStart="20dp"
                 android:layout_marginEnd="20dp"
                 android:layout_marginBottom="10dp"
-                app:cardBackgroundColor="?attr/colorSecondaryDark"
+                app:cardBackgroundColor="?attr/colorSecondary"
                 app:cardCornerRadius="5dp"
                 app:cardElevation="1dp">
 
@@ -71,7 +72,6 @@
                         android:layout_marginTop="10dp">
 
                         <ImageView
-                            android:id="@+id/profile_picture"
                             android:layout_width="30dp"
                             android:layout_height="30dp"
                             android:layout_gravity="center"
@@ -107,17 +107,17 @@
 
                 </LinearLayout>
 
-            </androidx.cardview.widget.CardView>
+            </com.google.android.material.card.MaterialCardView>
 
             <!--GENERAL-->
-            <androidx.cardview.widget.CardView
+            <com.google.android.material.card.MaterialCardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
                 android:layout_marginStart="20dp"
                 android:layout_marginEnd="20dp"
                 android:layout_marginBottom="10dp"
-                app:cardBackgroundColor="?attr/colorSecondaryDark"
+                app:cardBackgroundColor="?attr/colorSecondary"
                 app:cardCornerRadius="5dp"
                 app:cardElevation="1dp">
 
@@ -199,17 +199,17 @@
 
                 </LinearLayout>
 
-            </androidx.cardview.widget.CardView>
+            </com.google.android.material.card.MaterialCardView>
 
             <!--HELP-->
-            <androidx.cardview.widget.CardView
+            <com.google.android.material.card.MaterialCardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
                 android:layout_marginStart="20dp"
                 android:layout_marginEnd="20dp"
                 android:layout_marginBottom="10dp"
-                app:cardBackgroundColor="?attr/colorSecondaryDark"
+                app:cardBackgroundColor="?attr/colorSecondary"
                 app:cardCornerRadius="5dp"
                 app:cardElevation="1dp">
 
@@ -237,7 +237,7 @@
 
                 </LinearLayout>
 
-            </androidx.cardview.widget.CardView>
+            </com.google.android.material.card.MaterialCardView>
 
         </LinearLayout>
 

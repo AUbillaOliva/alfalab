@@ -1,22 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.google.android.material.card.MaterialCardView xmlns:app="http://schemas.android.com/apk/res-auto"
+<com.google.android.material.card.MaterialCardView
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/order_card"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginTop="10dp"
     android:layout_marginStart="20dp"
     android:layout_marginEnd="20dp"
-    app:cardElevation="1dp"
+    android:layout_marginBottom="10dp"
+    app:cardElevation="3dp"
     app:cardUseCompatPadding="false"
     app:cardPreventCornerOverlap="true"
-    app:cardBackgroundColor="?attr/colorSecondaryDark"
-    app:cardCornerRadius="10dp"
-    app:strokeColor="#888888"
-    app:strokeWidth="0.5dp">
+    app:cardBackgroundColor="?attr/colorSecondary"
+    app:cardCornerRadius="10dp">
 
     <LinearLayout
-        android:id="@+id/facets"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center_vertical"

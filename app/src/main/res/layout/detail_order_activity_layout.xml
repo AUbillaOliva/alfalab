@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="?attr/backgroundColor"
-    tools:context=".activities.DetailListActivity">
+    tools:context=".activities.DetailOrderActivity">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
@@ -34,16 +35,15 @@
             />
 
             <androidx.cardview.widget.CardView
-                android:id="@+id/cardView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="10dp"
                 android:layout_marginVertical="15dp"
                 android:paddingHorizontal="15dp"
                 app:cardCornerRadius="15dp"
-                app:cardElevation="8dp"
+                app:cardElevation="4dp"
                 app:contentPadding="15dp"
-                app:cardBackgroundColor="?attr/colorSecondaryDark"
+                app:cardBackgroundColor="?attr/colorSecondary"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textView4"
                 app:layout_constraintVertical_bias="0.166"
@@ -181,6 +181,7 @@
                             android:id="@+id/recycler_view"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:paddingVertical="10dp"
                         />
 
                     </ScrollView>
@@ -222,29 +223,23 @@
 
                     </LinearLayout>
 
-                    <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
-                        android:id="@+id/button"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_horizontal"
-                        android:layout_margin="10dp"
-                        android:layout_marginTop="87dp"
-                        android:text="@string/finalize"
-                        android:textAlignment="center"
-                        android:textColor="@android:color/black"
-                        app:backgroundTint="@color/colorAccent"
-                        app:cornerRadius="25dp"
-                        app:icon="@drawable/ic_move_to_inbox_24dp"
-                        app:iconGravity="end"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintHorizontal_bias="0.9"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/name_intro_input_layout"
-                        app:layout_constraintVertical_bias="0.959"
-                    />
-
                 </LinearLayout>
+
+            <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+                android:id="@+id/button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginVertical="30dp"
+                android:text="@string/finalize"
+                android:textAlignment="center"
+                android:textColor="?attr/buttonTextColor"
+                app:backgroundTint="?attr/colorAccent"
+                app:cornerRadius="25dp"
+                app:icon="@drawable/ic_move_to_inbox_24dp"
+                app:iconGravity="end"
+                app:iconTint="?attr/buttonTextColor"
+            />
 
         </LinearLayout>
 

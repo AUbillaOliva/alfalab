@@ -1,4 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
+    <item
+        android:enabled="true"
+        android:icon="@drawable/ic_move_to_inbox_24dp"
+        android:title="@string/orders"
+    />
+
+    <item
+        android:enabled="true"
+        android:icon="@drawable/ic_baseline_home_24"
+        android:title="@string/home_bottom_item_text"
+    />
+
+    <item
+        android:enabled="true"
+        android:icon="@drawable/ic_baseline_notifications_24"
+        android:title="@string/notifications_label"
+    />
+
+    <!--item
+        android:enabled="true"
+        android:icon="@drawable/ic_baseline_person_24"
+        android:title="@string/profile_setting_label"
+    /-->
+
 </menu>

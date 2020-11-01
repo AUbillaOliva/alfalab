@@ -1,25 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="?attr/backgroundColor"
     tools:context=".MainActivity">
 
-    <com.google.android.material.appbar.AppBarLayout
-        android:id="@+id/main_appbar_layout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="?attr/colorPrimaryDark"
-        android:layout_gravity="center_horizontal"
-        android:elevation="2dp">
-
-        <androidx.appcompat.widget.Toolbar
-            android:id="@+id/toolbar"
+        <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/main_appbar_layout"
             android:layout_width="match_parent"
-            android:layout_height="48dp"
-            android:background="?attr/colorPrimaryDark"
-            android:transitionName="toolbar">
+            android:layout_height="wrap_content"
+            android:background="?attr/colorPrimary"
+            android:layout_gravity="center_horizontal"
+            android:elevation="2dp">
+
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:background="?attr/colorPrimary"
+                android:transitionName="toolbar">
 
                 <TextView
                     android:id="@+id/toolbar_title"
@@ -33,41 +36,70 @@
                     android:textColor="?attr/textColor"
                 />
 
-        </androidx.appcompat.widget.Toolbar>
+            </androidx.appcompat.widget.Toolbar>
 
-        <com.google.android.material.tabs.TabLayout
-            android:id="@+id/stl_tabs"
+            <com.google.android.material.tabs.TabLayout
+                android:id="@+id/stl_tabs"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:minHeight="?attr/actionBarSize"
+                app:tabGravity="start"
+                app:tabTextAppearance="@style/ToolbarTypefaceDark"
+                app:tabTextColor="?attr/textColor"
+                app:tabIndicator="@drawable/indicator"
+                app:tabIndicatorFullWidth="false"
+                app:tabPaddingStart="25dp"
+                app:tabPaddingEnd="25dp"
+                app:tabIndicatorColor="?attr/colorAccent"
+                app:tabIndicatorHeight="4dp"
+                app:tabBackground="?attr/colorPrimary"
+                app:tabMode="fixed"
+            />
+
+            <View
+                android:id="@+id/divider"
+                android:background="#19ffffff"
+                android:layout_width="match_parent"
+                android:layout_height="0.1dp"
+            />
+
+        </com.google.android.material.appbar.AppBarLayout>
+
+        <androidx.viewpager2.widget.ViewPager2
+            android:id="@+id/vp_tabs"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:minHeight="?attr/actionBarSize"
-            app:tabGravity="start"
-            app:tabTextAppearance="@style/ToolbarTypefaceDark"
-            app:tabTextColor="?attr/textColor"
-            app:tabIndicator="@drawable/indicator"
-            app:tabIndicatorFullWidth="false"
-            app:tabPaddingStart="25dp"
-            app:tabPaddingEnd="25dp"
-            app:tabIndicatorColor="@color/colorAccent"
-            app:tabIndicatorHeight="4dp"
-            app:tabBackground="?attr/colorPrimaryDark"
-            app:tabMode="fixed">
-        </com.google.android.material.tabs.TabLayout>
-
-        <View
-            android:id="@+id/divider"
-            android:background="#19ffffff"
-            android:layout_width="match_parent"
-            android:layout_height="0.1dp"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"
         />
 
-    </com.google.android.material.appbar.AppBarLayout>
-
-    <androidx.viewpager2.widget.ViewPager2
-        android:background="?attr/colorPrimary"
-        android:id="@+id/vp_tabs"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    />
+        android:orientation="vertical"
+        android:layout_gravity="bottom">
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:layout_margin="@dimen/fab_margin"
+            android:src="@drawable/ic_add_24dp"
+            app:tint="?attr/buttonTextColor"
+            app:backgroundTint="?attr/colorAccent"
+        />
+
+        <com.google.android.material.bottomnavigation.BottomNavigationView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="?attr/colorSecondary"
+            android:elevation="8dp"
+            app:elevation="8dp"
+            app:menu="@menu/bottom_navigation_menu"
+            app:itemTextColor="@color/button_tint"
+            app:itemIconTint="@color/button_tint"
+        />
+
+    </LinearLayout>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

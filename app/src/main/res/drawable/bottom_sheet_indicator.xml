@@ -8,7 +8,7 @@
         tools:targetApi="m">
         <shape android:shape="rectangle">
             <corners android:radius="20dp"/>
-            <solid android:color="?attr/textColor" />
+            <solid android:color="?attr/subtitleTextColor" />
         </shape>
     </item>
 </layer-list>
