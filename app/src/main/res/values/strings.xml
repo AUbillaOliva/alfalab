@@ -17,10 +17,11 @@
     <!--ITEM STRING-->
     <string name="entered">Ingresado</string>
     <string name="delivered_date_text">Entregado</string>
+    <string name="notifications_label">Notificaciones</string>
+    <string name="home_bottom_item_text">Inicio</string>
 
     <!--FRAGMENT STRINGS-->
     <string name="orders">Pedidos</string>
-    <string name="pending">Pendientes</string>
     <string name="delivered">Entregados</string>
     <string name="no_items">No hay pedidos %1$s</string>
 
@@ -29,11 +30,11 @@
     <string name="feed_update_error">El feed no se pudo actualizar</string>
 
     <!--DIALOG STRINGS-->
-    <string name="positive_delete_dialog_button">" CONFIRMAR"</string>
+    <string name="positive_delete_dialog_button">ELIMINAR</string>
     <string name="cancel_dialog_buttton">CANCELAR</string>
     <string name="positive_discard_dialog_button">DESCARTAR</string>
     <string name="delete_order_dialog_title">Descartar pedido?</string>
-    <string name="delete_order_dialog_subtitle">Estas seguro que deseas descartar el pedido?</string>
+    <string name="delete_order_dialog_subtitle">Estás seguro que deseas descartar el pedido?</string>
     <string name="delete_order_question">Eliminar pedido?</string>
     <string name="delete_order_warning">Esta accion no tiene vuelta atrás!</string>
 
@@ -51,35 +52,18 @@
 
     <!--CDATA STRINGS-->
     <string name="order_number_text"><![CDATA[# %1$d]]></string>
-    <string name="order_checkin_text"><![CDATA[<font color=\'%1$d\'>Ingresado</font><br/>]]>%3$s</string>
-    <string name="order_checkout_text"><![CDATA[<font color=\'%1$s\'>Entregado</font>: %2$s]]></string>
     <string name="order_client_name"><![CDATA[<font color=\'%1$d\'>%2$s %3$s</font>]]></string>
-    <string name="order_client_email"><![CDATA[<font color=\'%1$s\'>Correo</font>: %2$s]]></string>
-    <string name="order_client_instagram"><![CDATA[<font color=\'%1$d\'>@%2$s</font>]]></string>
     <string name="order_price"><![CDATA[<font color=\'%1$d\'>Precio</font>: %2$d]]></string>
-    <string name="order_zone"><![CDATA[<font color=\'%1$d\'>Zona</font><br/>]]>%3$s</string>
-    <string name="order_comments"><![CDATA[<font color=\'%1$s\'>Comentarios</font>:<br/> %2$s]]></string>
     <string name="order_quantity"><![CDATA[<font color=\'%1$d\'>Digitalizado</font>: %2$s]]></string>
-    <string name="order_checkin"><![CDATA[<font color=\'%1$s\'>CheckIn</font>: %2$s]]></string>
-    <string name="order_checkout"><![CDATA[<font color=\'%1$s\'>CheckOut</font>: %2$s]]></string>
     <string name="order_type"><![CDATA[<font color=\'%1$d\'>Tipo</font>: %2$s]]></string>
-    <string name="order_responsible"><![CDATA[<font color=\'%1$s\'>Encargado</font>: %2$s]]></string>
-    <string name="order_commentaries">Comentarios</string>
 
     <!--TEXT INPUT STRINGS-->
     <string name="order_client_firstname_hint"><![CDATA[Nombre<font color=\'#cc0029\'>*</font>]]></string>
     <string name="order_client_lastname_hint"><![CDATA[Apellido<font color=\'#cc0029\'>*</font>]]></string>
-    <string name="order_client_email_hint"><![CDATA[Correo<font color=\'#cc0029\'>*</font>]]></string>
-    <string name="order_client_instagram_hint">Instagram</string>
-    <string name="order_type_hint"><![CDATA[Tipo<font color=\'#cc0029\'>*</font>]]></string>
     <string name="order_level_hint">Forzado</string>
-    <string name="order_quantity_hint"><![CDATA[Cantidad<font color=\'#cc0029\'>*</font>]]></string>
     <string name="order_price_hint"><![CDATA[Precio<font color=\'#cc0029\'>*</font>]]></string>
-    <string name="order_responsible_hint"><![CDATA[Encargado<font color=\'#cc0029\'>*</font>]]></string>
     <string name="order_comments_hint">Comentarios</string>
 
-    <string name="client_firstname_label">Nombre</string>
-    <string name="client_lastname_label">Apellido</string>
     <string name="client_email_label">Correo</string>
     <string name="client_zone_label">Zona</string>
     <string name="client_instagram_label">Instagram</string>
@@ -93,14 +77,9 @@
     <string name="chilean_peso_code">CLP</string>
 
     <string name="order_type_label">Tipo</string>
-    <string name="order_type_two_label">De no tener forzado, omitir</string>
-    <string name="max_length_error">Ingrese un valor entre -7 y 7</string>
     <string name="required">Requerido</string>
 
     <!--INTRO STRINGS-->
-    <string name="welcome_title">Hola! bienvenido a Alfalab App</string>
-    <string name="get_started">Empecemos</string>
-    <string name="skip">Omitir</string>
     <string name="first_intro_title">Bienvenido a Alfa-lab app!</string>
     <string name="first_intro_subtitle">Antes de empezar, es necesario ajustar tu nombre para que la app funcione, asi se sabe quien creó un pedido, Listo? Vamos!</string>
     <string name="second_intro_subtitle">Esto es para señalar quien esta a cargo de un pedido. Puedes editar el nombre en ajustes.</string>
@@ -113,7 +92,6 @@
     <string name="order_email_label">Correo:</string>
     <string name="profile_setting_label">Perfil</string>
     <string name="edit_profile_text">Editar perfil</string>
-    <string name="brigthness_icon_description">Brigthness icon</string>
 
     <!--REPORT STRINGS-->
     <string name="report_error">Reportar un problema</string>
@@ -136,19 +114,18 @@
     <!--HELP STRINGS-->
     <string name="help">Ayuda</string>
     <string name="help_list_item_1_title">¿Porqué la app necesita de mi nombre?</string>
-    <string name="help_list_item_1_subtitle">Al crear un pedido, se señala quien fue quien creó el pedido, solo para tener mas órden 😉</string>
-    <string name="help_list_item_2_title">¿Qué es el icono de información que aparece en los pedidos en el inicio?</string>
+    <string name="help_list_item_1_subtitle">Al crear un pedido, se señala quien fue quién creó el pedido, solo para tener más órden 😉</string>
+    <string name="help_list_item_2_title">¿Qué es el ícono de información que aparece en los pedidos en el inicio?</string>
     <string name="help_list_item_2_subtitle">Es solo un recordatorio que te avisa que un pedido lleva más de 10 dias sin entregar.</string>
     <string name="help_list_item_3_title">¿La aplicación envía reportes de error?</string>
-    <string name="help_list_item_3_subtitle">Los reportes ayudan al desarrollador identificar problemas en el funcionamiento de la aplicación 👨‍💻. Estos son enviados de forma automática y anónima, por lo que no tienes por qué preocuparte 🙆‍♂️. Puedes ajustar esto en Ajustes.</string>
+    <string name="help_list_item_3_subtitle">Los reportes ayudan al desarrollador identificar problemas en el funcionamiento de la aplicación. Estos son enviados de forma automática y anónima, por lo que no tienes por qué preocuparte. De igual manera puedes generar un reporte de error en Ajustes. Puedes ajustar esto en Ajustes.</string>
     <string name="help_list_item_4_title">¿La App funciona sin internet?</string>
-    <string name="help_list_item_4_subtitle">Por el momento no 😔, pero pronto se incorporará la funcion en la App. Mientras tanto puedes vizualizar los pedidos que se hayan cargado cuando inicias la App.</string>
+    <string name="help_list_item_4_subtitle">Por el momento no 😔, pero pronto se incorporará la función en la App. Mientras tanto puedes vizualizar los pedidos que se hayan cargado cuando inicias la App.</string>
 
     <!--THIRD PARTY LIBRARIES STRINGS-->
     <string name="libraries_we_use">Librerías que utilizamos</string>
     <string name="third_party_libraries_title">Librerías de Terceros</string>
-    <string name="third_party_libraries_subtitle">Gracias a la ayuda de esta librería!</string>
-    <string name="third_party_libraries_text">Lo siguiente establece la atribución para el software de terceros que puede estar contenido en partes del producto LSCH App. Agradecemos a la comunidad de código abierto por todas sus contribuciones.</string>
+    <string name="third_party_libraries_text">Lo siguiente establece la atribución para el software de terceros que puede estar contenido en partes del producto Alfalab App. Agradecemos a la comunidad de código abierto por todas sus contribuciones.</string>
 
     <!--CONTENT DESCRIPTIONS STRINGS-->
     <string name="expandable_item_icon_content_description">Item arrow down</string>
