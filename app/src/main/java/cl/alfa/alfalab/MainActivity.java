@@ -9,6 +9,7 @@ import android.content.pm.PackageManager;
 import android.os.Bundle;
 
 import com.google.android.material.appbar.AppBarLayout;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
 
@@ -18,12 +19,13 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.viewpager2.widget.ViewPager2;
+
 import cl.alfa.alfalab.activities.OnBoardingActivity;
-import cl.alfa.alfalab.activities.SearchActivity;
 import cl.alfa.alfalab.activities.SettingsActivity;
 import cl.alfa.alfalab.adapters.TabsAdapter;
 import cl.alfa.alfalab.fragments.Delivered;
 import cl.alfa.alfalab.fragments.Orders;
+import cl.alfa.alfalab.interfaces.FabInterface;
 import cl.alfa.alfalab.utils.SharedPreferences;
 
 import android.view.Gravity;
@@ -47,9 +49,10 @@ public class MainActivity extends AppCompatActivity {
 
     private final Context context = this;
 
-    public Toolbar mToolbar;
     public AppBarLayout appBarLayout;
     public View appBarLayoutShadow;
+    private FabInterface fabInterface;
+    private FloatingActionButton fab;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,33 +60,42 @@ public class MainActivity extends AppCompatActivity {
 
         final SharedPreferences mSharedPreferences = new SharedPreferences(context);
 
-        if(mSharedPreferences.isFirstTime()){
+        if(mSharedPreferences.isFirstTime()) {
             startActivity(new Intent(context, OnBoardingActivity.class));
             overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
             finish();
         }
 
-        if (mSharedPreferences.loadNightModeState())
+        if (mSharedPreferences.loadNightModeState()) {
             setTheme(R.style.AppThemeDark);
-        else
+        } else {
             setTheme(R.style.AppTheme);
+        }
         setContentView(R.layout.activity_main);
 
         final ViewPager2 mViewPager = findViewById(R.id.vp_tabs);
         final StateListAnimator stateListAnimator = new StateListAnimator();
         final TabLayout mSlidingTabLayout = findViewById(R.id.stl_tabs);
-        mToolbar = findViewById(R.id.toolbar);
+        final Toolbar mToolbar = findViewById(R.id.toolbar);
+        final TextView toolbarTitle = mToolbar.findViewById(R.id.toolbar_title);
+        fab = findViewById(R.id.fab);
         appBarLayout = findViewById(R.id.main_appbar_layout);
         appBarLayoutShadow = findViewById(R.id.divider);
-        TextView toolbarTitle = mToolbar.findViewById(R.id.toolbar_title);
+
+        fab.setOnClickListener(v -> {
+            if (mViewPager.getCurrentItem() == 0) {
+                fabInterface.onFabClicked();
+            }
+        });
 
         stateListAnimator.addState(new int[0], ObjectAnimator.ofFloat(appBarLayout, "elevation", 2));
         appBarLayout.setStateListAnimator(stateListAnimator);
 
-        if(mSharedPreferences.loadNightModeState())
+        if(mSharedPreferences.loadNightModeState()) {
             mToolbar.setTitleTextAppearance(context, R.style.ToolbarTypefaceDark);
-        else
+        } else {
             mToolbar.setTitleTextAppearance(context, R.style.ToolbarTypefaceLight);
+        }
         setSupportActionBar(mToolbar);
         Objects.requireNonNull(getSupportActionBar()).setDisplayShowTitleEnabled(false);
 
@@ -98,29 +110,45 @@ public class MainActivity extends AppCompatActivity {
 
         mViewPager.setAdapter(adapter);
         mSlidingTabLayout.setElevation(0);
-        TabLayoutMediator tabLayoutMediator = new TabLayoutMediator(mSlidingTabLayout, mViewPager, true, (tab, position) -> {
+        final TabLayoutMediator tabLayoutMediator = new TabLayoutMediator(mSlidingTabLayout, mViewPager, true, (tab, position) -> {
             tab.setText(adapter.getPageTitle(position));
             tab.setCustomView(adapter.getTabView(position));
         });
         tabLayoutMediator.attach();
-        if (mSharedPreferences.loadNightModeState())
-            mSlidingTabLayout.setBackgroundColor(getResources().getColor(R.color.colorSecondaryDark)); //NIGHT MODE
-        else
-            mSlidingTabLayout.setBackgroundColor(getResources().getColor(R.color.colorSecondaryLight)); //DAY MODE
+        if (mSharedPreferences.loadNightModeState()) {
+            mSlidingTabLayout.setBackgroundColor(getResources().getColor(R.color.colorPrimaryDark)); //NIGHT MODE
+        } else {
+            mSlidingTabLayout.setBackgroundColor(getResources().getColor(R.color.colorPrimaryLight)); //DAY MODE
+        }
+        mSlidingTabLayout.setUnboundedRipple(false);
+        mSlidingTabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                if (tab.getPosition() == 1) {
+                    fab.hide();
+                } else {
+                    fab.show();
+                }
+            }
 
-        mSlidingTabLayout.setUnboundedRipple(true);
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {}
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {}
+        });
     }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()){
+        switch (item.getItemId()) {
             case R.id.action_settings:
                 startActivity(new Intent(context, SettingsActivity.class));
                 overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
@@ -137,11 +165,12 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
-    public void onRequestPermissionsResult(final int requestCode, @NonNull final String[] permissions, @NonNull final int[] grantResults){
+    public void onRequestPermissionsResult(final int requestCode, @NonNull final String[] permissions, @NonNull final int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         if (requestCode == REQUEST_CODE) {
-            if(ContextCompat.checkSelfPermission(context, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED)
+            if(ContextCompat.checkSelfPermission(context, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
                 ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},REQUEST_CODE);
+            }
         }
     }
 
@@ -153,4 +182,7 @@ public class MainActivity extends AppCompatActivity {
         return appBarLayoutShadow;
     }
 
+    public void setListener(FabInterface fabInterface) {
+        this.fabInterface = fabInterface;
+    }
 }
