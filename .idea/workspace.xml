@@ -22,70 +22,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="e8a9a5e7-8508-4e90-a8e3-e1f950f625e9" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/cl/alfa/alfalab/fragments/bottom_menu_fragments/HomeFragment.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/cl/alfa/alfalab/fragments/bottom_menu_fragments/OrdersFragment.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/cl/alfa/alfalab/fragments/bottom_menu_fragments/ProfileFragment.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gitignore.swp" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore.swp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/assetWizardSettings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/assetWizardSettings.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/caches/build_file_checksums.ser" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/caches/build_file_checksums.ser" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dictionaries/alvar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dictionaries/alvar.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/app/build.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/cl/alfa/alfalab/MainActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/cl/alfa/alfalab/MainActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/cl/alfa/alfalab/MainApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/cl/alfa/alfalab/MainApplication.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/cl/alfa/alfalab/activities/CreateClientActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/cl/alfa/alfalab/activities/CreateClientActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/cl/alfa/alfalab/activities/CreateOrdersActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/cl/alfa/alfalab/activities/CreateOrdersActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/cl/alfa/alfalab/activities/DetailOrderActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/cl/alfa/alfalab/activities/DetailOrderActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/cl/alfa/alfalab/activities/HelpActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/cl/alfa/alfalab/activities/HelpActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/cl/alfa/alfalab/activities/OnBoardingActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/cl/alfa/alfalab/activities/OnBoardingActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/cl/alfa/alfalab/activities/ProfileDetailActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/cl/alfa/alfalab/activities/ProfileDetailActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/cl/alfa/alfalab/activities/ReportActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/cl/alfa/alfalab/activities/ReportActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/cl/alfa/alfalab/activities/SettingsActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/cl/alfa/alfalab/activities/SettingsActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/cl/alfa/alfalab/activities/ThirdPartyLibrariesActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/cl/alfa/alfalab/activities/ThirdPartyLibrariesActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/cl/alfa/alfalab/adapters/GenericAdapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/cl/alfa/alfalab/adapters/GenericAdapter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/cl/alfa/alfalab/adapters/IntroViewPagerAdapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/cl/alfa/alfalab/adapters/IntroViewPagerAdapter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/cl/alfa/alfalab/adapters/TabsAdapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/cl/alfa/alfalab/adapters/TabsAdapter.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/cl/alfa/alfalab/api/ApiClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/cl/alfa/alfalab/api/ApiClient.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/cl/alfa/alfalab/api/ApiService.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/cl/alfa/alfalab/api/ApiService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/cl/alfa/alfalab/fragments/CustomBottomSheetDialogFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/cl/alfa/alfalab/fragments/CustomBottomSheetDialogFragment.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/cl/alfa/alfalab/fragments/Delivered.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/cl/alfa/alfalab/fragments/Delivered.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/cl/alfa/alfalab/fragments/Orders.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/cl/alfa/alfalab/fragments/Orders.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/cl/alfa/alfalab/fragments/intro_fragments/FirstIntroFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/cl/alfa/alfalab/fragments/intro_fragments/FirstIntroFragment.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/cl/alfa/alfalab/fragments/intro_fragments/SecondIntroFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/cl/alfa/alfalab/fragments/intro_fragments/SecondIntroFragment.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/cl/alfa/alfalab/fragments/intro_fragments/ThirdIntroFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/cl/alfa/alfalab/fragments/intro_fragments/ThirdIntroFragment.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/cl/alfa/alfalab/interfaces/FabInterface.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/cl/alfa/alfalab/interfaces/FabInterface.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/cl/alfa/alfalab/interfaces/RecyclerViewOnClickListenerHack.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/cl/alfa/alfalab/interfaces/RecyclerViewOnClickListenerHack.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/cl/alfa/alfalab/models/Orders.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/cl/alfa/alfalab/models/Orders.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/color/button_tint.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/color/button_tint.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/bottom_sheet_background.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/bottom_sheet_background.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/bottom_sheet_indicator.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/bottom_sheet_indicator.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/indicator.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/indicator.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_main.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_main.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_search_layout.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_search_layout.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/bottom_sheet_layout.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/bottom_sheet_layout.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/confirmation_dialog_layout.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/confirmation_dialog_layout.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/create_client_activity_layout.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/create_client_activity_layout.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/create_order_activity_layout.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/create_order_activity_layout.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/detail_order_activity_layout.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/detail_order_activity_layout.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/dropdown_menu_popup_item.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/dropdown_menu_popup_item.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/expandable_list_item.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/expandable_list_item.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/first_intro_fragment_layout.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/first_intro_fragment_layout.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/fragment_layout.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/fragment_layout.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/help_activity_layout.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/help_activity_layout.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/item_card.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/item_card.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/item_order_card.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/item_order_card.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/no_items_layout.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/no_items_layout.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/profile_detail_activity_layout.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/profile_detail_activity_layout.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/report_activity_layout.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/report_activity_layout.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/second_intro_fragment_layout.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/second_intro_fragment_layout.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/settings_activity_layout.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/settings_activity_layout.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/settings_list_item.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/settings_list_item.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/tab_view.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/tab_view.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/third_intro_fragment_layout.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/third_intro_fragment_layout.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/third_party_libraries_item.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/third_party_libraries_item.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/third_party_libraries_layout.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/third_party_libraries_layout.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/menu/bottom_navigation_menu.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/menu/bottom_navigation_menu.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/res/values/attrs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/values/attrs.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/res/values/colors.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/values/colors.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/res/values/dimens.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/values/dimens.xml" afterDir="false" />
@@ -346,10 +284,10 @@
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
     <state x="147" y="127" width="1640" height="800" key="com.intellij.history.integration.ui.views.FileHistoryDialog/0.0.1920.1050@0.0.1920.1050" timestamp="1602993778879" />
-    <state x="656" y="349" key="com.intellij.ide.util.TipDialog" timestamp="1603981358268">
+    <state x="332" y="281" key="com.intellij.ide.util.TipDialog" timestamp="1604199531378">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
-    <state x="656" y="349" key="com.intellij.ide.util.TipDialog/0.0.1920.1050@0.0.1920.1050" timestamp="1603981358268" />
+    <state x="332" y="281" key="com.intellij.ide.util.TipDialog/0.0.1920.1050@0.0.1920.1050" timestamp="1604199531378" />
     <state x="728" y="371" key="edit.logcat.filter.dialog.dimensions" timestamp="1599621140152">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
