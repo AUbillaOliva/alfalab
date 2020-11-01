@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 
@@ -55,7 +56,7 @@ public class CustomBottomSheetDialogFragment extends BottomSheetDialogFragment {
         try {
             createOrder = (OnCreateOrderListener) activity;
             editOrder = (OnEditOrderListener) activity;
-            this.context = activity.getApplicationContext();
+            this.context = activity.getBaseContext();
         } catch (ClassCastException e) {
             throw new ClassCastException(activity.toString() + " must implement methods");
         }
@@ -64,16 +65,21 @@ public class CustomBottomSheetDialogFragment extends BottomSheetDialogFragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View v = inflater.inflate(R.layout.bottom_sheet_layout, container, false);
+        final View v = inflater.inflate(R.layout.bottom_sheet_layout, container, false);
         v.setClipToOutline(true);
 
         final SharedPreferences mSharedPreferences = new SharedPreferences(MainApplication.getContext());
 
+        final TextInputLayout commentariesInputLayout = v.findViewById(R.id.commentaries_input_layout);
         typeAutoCompleteTextView = v.findViewById(R.id.type_input_autocomplete);
         typeInputLayout = v.findViewById(R.id.type_input_layout);
+        typeInputLayout.setOnClickListener(view -> {
+            final InputMethodManager in = (InputMethodManager) context.getSystemService(Context.INPUT_METHOD_SERVICE);
+            in.hideSoftInputFromWindow(view.getApplicationWindowToken(), 0);
+        });
+        typeAutoCompleteTextView.setShowSoftInputOnFocus(false);
         levelInputLayout = v.findViewById(R.id.level_input_layout);
         priceInputLayout = v.findViewById(R.id.price_input_layout);
-        TextInputLayout commentariesInputLayout = v.findViewById(R.id.commentaries_input_layout);
         digitalizedCheckbox = v.findViewById(R.id.digitized_checkbox);
 
         levelInputEditText = levelInputLayout.findViewById(R.id.level_edit_text);
@@ -84,7 +90,7 @@ public class CustomBottomSheetDialogFragment extends BottomSheetDialogFragment {
 
         if (getArguments() != null && getArguments().getSerializable("order") != null) {
             order = (Order) getArguments().getSerializable("order");
-            if(getArguments().get("update") != null){
+            if(getArguments().get("update") != null) {
                 Log.d(MainActivity.API, "isUpdating");
                 levelInputEditText.setText(String.valueOf(order.getForcedLevel()));
                 typeAutoCompleteTextView.setText(order.getOrder_type());
@@ -96,7 +102,8 @@ public class CustomBottomSheetDialogFragment extends BottomSheetDialogFragment {
 
         final ExtendedFloatingActionButton button = v.findViewById(R.id.button);
         final String[] TYPES = new String[] {"Blanco y negro", "Color", "Cine", "Diapo"};
-        final ArrayAdapter<String> adapter = new ArrayAdapter<>(context, android.R.layout.simple_list_item_1, TYPES);
+
+        final ArrayAdapter<String> adapter = new ArrayAdapter<>(requireActivity(), R.layout.dropdown_menu_popup_item, TYPES);
         typeAutoCompleteTextView.setAdapter(adapter);
 
         final java.util.Date date = new Date();
@@ -104,27 +111,30 @@ public class CustomBottomSheetDialogFragment extends BottomSheetDialogFragment {
         final java.sql.Timestamp timestamp = new java.sql.Timestamp(time);
 
         button.setOnClickListener(view -> {
-            if(typeAutoCompleteTextView.getText().length() < 1)
+            if(typeAutoCompleteTextView.getText().length() < 1){
                 typeInputLayout.setError(getResources().getString(R.string.required));
-            else if(Objects.requireNonNull(priceInputEditText.getText()).length() <  1)
+
+            } else if(Objects.requireNonNull(priceInputEditText.getText()).length() <  1) {
                 priceInputLayout.setError(getResources().getString(R.string.required));
-            else if(Objects.requireNonNull(levelInputEditText.getText()).length() < 1)
+            } else if(Objects.requireNonNull(levelInputEditText.getText()).length() < 1) {
                 levelInputLayout.setError(getResources().getString(R.string.required));
-            else if(typeAutoCompleteTextView.getText().length() < 1 && priceInputEditText.getText().length() <  1) {
+            } else if(typeAutoCompleteTextView.getText().length() < 1 && priceInputEditText.getText().length() <  1) {
                 typeInputLayout.setError(getResources().getString(R.string.required));
                 priceInputLayout.setError(getResources().getString(R.string.required));
             } else if(typeAutoCompleteTextView.getText().length() < 1 && levelInputEditText.getText().length() <  1) {
                 typeInputLayout.setError(getResources().getString(R.string.required));
                 levelInputLayout.setError(getResources().getString(R.string.required));
-            } else if(typeAutoCompleteTextView.getText().length() < 1 && priceInputEditText.getText().length() <  1 && levelInputEditText.getText().length() <  1){
+            } else if(typeAutoCompleteTextView.getText().length() < 1 && priceInputEditText.getText().length() <  1 && levelInputEditText.getText().length() <  1) {
                 typeInputLayout.setError(getResources().getString(R.string.required));
                 priceInputLayout.setError(getResources().getString(R.string.required));
                 levelInputLayout.setError(getResources().getString(R.string.required));
             } else {
-                if(getArguments() != null && getArguments().get("update") != null)
+                if(getArguments() != null && getArguments().get("update") != null) {
                     editOrder.editOrder(new Order(typeAutoCompleteTextView.getText().toString(), timestamp.toString(), mSharedPreferences.getResponsible(), Objects.requireNonNull(commentariesInputEditText.getText()).toString(), Integer.parseInt(Objects.requireNonNull(priceInputEditText.getText()).toString()), Integer.parseInt(Objects.requireNonNull(levelInputEditText.getText()).toString()),  digitalizedCheckbox.isChecked(), false), order);
-                else
+
+                } else {
                     createOrder.saveOrder(new Order(typeAutoCompleteTextView.getText().toString(), timestamp.toString(), mSharedPreferences.getResponsible(), Objects.requireNonNull(commentariesInputEditText.getText()).toString(), Integer.parseInt(Objects.requireNonNull(priceInputEditText.getText()).toString()), Integer.parseInt(Objects.requireNonNull(levelInputEditText.getText()).toString()),  digitalizedCheckbox.isChecked(), false));
+                }
                 dismissAllowingStateLoss();
             }
         });
