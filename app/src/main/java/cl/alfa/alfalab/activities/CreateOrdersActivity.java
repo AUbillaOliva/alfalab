@@ -12,6 +12,7 @@ import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -54,6 +55,7 @@ public class CreateOrdersActivity extends AppCompatActivity implements CustomBot
     private final Context context = this;
     private final ArrayList<Order> orders = new ArrayList<>();
     private Client client;
+    private Orders data;
     private String orderZone;
     private TextView totalPriceText;
     private CustomBottomSheetDialogFragment fragObj;
@@ -66,15 +68,20 @@ public class CreateOrdersActivity extends AppCompatActivity implements CustomBot
 
         client = (Client) getIntent().getSerializableExtra("client");
         orderZone = getIntent().getStringExtra("zone");
+        data = (Orders) getIntent().getSerializableExtra("data");
+        if(data != null) {
+            orders.addAll(data.getOrderList());
+        }
 
         final Bundle bundle = new Bundle();
         fragObj = new CustomBottomSheetDialogFragment();
 
         final SharedPreferences mSharedPreferences = new SharedPreferences(context);
-        if(mSharedPreferences.loadNightModeState())
+        if(mSharedPreferences.loadNightModeState()) {
             setTheme(R.style.AppThemeDark);
-        else
+        } else {
             setTheme(R.style.AppTheme);
+        }
         setContentView(R.layout.create_order_activity_layout);
 
         final Toolbar mToolbar = findViewById(R.id.toolbar);
@@ -90,11 +97,16 @@ public class CreateOrdersActivity extends AppCompatActivity implements CustomBot
         setSupportActionBar(mToolbar);
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
-        if(mSharedPreferences.loadNightModeState())
+        if(mSharedPreferences.loadNightModeState()) {
             mToolbar.setTitleTextAppearance(context, R.style.ToolbarTypefaceDark);
-        else
+        } else {
             mToolbar.setTitleTextAppearance(context, R.style.ToolbarTypefaceLight);
-        toolbarTitle.setText(R.string.create_order);
+        }
+        if(data != null) {
+            toolbarTitle.setText(context.getResources().getString(R.string.update_order));
+        } else {
+            toolbarTitle.setText(R.string.create_order);
+        }
 
         mRecyclerView.setHasFixedSize(true);
         adapter = new GenericAdapter<Order>() {
@@ -149,9 +161,47 @@ public class CreateOrdersActivity extends AppCompatActivity implements CustomBot
 
             @Override
             public RecyclerViewOnClickListenerHack onGetRecyclerViewOnClickListenerHack() {
-                return null;
+                return new RecyclerViewOnClickListenerHack() {
+                    @Override
+                    public void onClickListener(View view, int position) {}
+
+                    @Override
+                    public void onLongPressClickListener(View view, int position) {
+                        try {
+                            final PopupMenu popup = new PopupMenu(context, view);
+                            popup.getMenuInflater().inflate(R.menu.order_menu, popup.getMenu());
+                            popup.show();
+                            popup.setOnMenuItemClickListener(item -> {
+                                switch (item.getItemId()) {
+                                    case R.id.edit:
+                                        bundle.putSerializable("order", adapter.getItem(position));
+                                        bundle.putBoolean("update", true);
+                                        fragObj.setArguments(bundle);
+                                        fragObj.show(getSupportFragmentManager(), "Dialog");
+                                        break;
+                                    case R.id.delete:
+                                        adapter.deleteItem(adapter.getItem(position));
+                                        adapter.notifyDataSetChanged();
+                                        break;
+                                    default:
+                                        break;
+                                }
+                                return true;
+                            });
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
+                };
             }
         };
+
+        if(data != null) {
+            Log.e(MainActivity.API, "order number: " + data.getOrders_number());
+            adapter.addItems(data.getOrderList());
+            adapter.notifyDataSetChanged();
+        }
+
         mRecyclerView.setAdapter(adapter);
         mRecyclerView.setNestedScrollingEnabled(false);
         final LinearLayoutManager layoutManager = new LinearLayoutManager(context);
@@ -167,44 +217,78 @@ public class CreateOrdersActivity extends AppCompatActivity implements CustomBot
         createExtendedFloatinButton.setOnClickListener(view1 -> new CustomBottomSheetDialogFragment().show(getSupportFragmentManager(), "Dialog"));
     }
 
+    private void updateOrder(Orders order, ArrayList<Order> orderList) {
+        progressDialog = ProgressDialog.show(context, "🙌 Actualizando pedido...",  "El pedido se está actualizando, espera.", true);
 
-    private void createOrder(ArrayList<Order> order) {
-        progressDialog = ProgressDialog.show(this, "🙌 Creando pedido...",
-                "El pedido se está creando, espera.", true);
+        order.setOrderList(orderList);
+        order.setOrders_number(order.getOrders_number());
+        final ApiService.UpdateOrderService service = ApiClient.getClient().create(ApiService.UpdateOrderService.class);
+        final Call<Orders> responseCall = service.updateOrder(order.getOrders_number(), order);
 
-        final Orders orders = new Orders();
-        orders.setOrder(order);
-        assert client != null;
-        orders.setClient(client);
-
-        final Date date = new Date();
-        @SuppressLint("SimpleDateFormat") final String formattedDate = new SimpleDateFormat("dd/MM/yyyy hh:mm:ss").format(date);
-        orders.setCreated_at(formattedDate);
-        orders.setZone(orderZone);
-        orders.setStatus(false);
-        final ApiService.PostOrderService service = ApiClient.getClient().create(ApiService.PostOrderService.class);
-        final Call<Orders> responseCall = service.postOrder(orders);
-
-        responseCall.enqueue(new Callback<Orders>(){
+        responseCall.enqueue(new Callback<Orders>() {
             @Override
-            public void onResponse(@NonNull Call<cl.alfa.alfalab.models.Orders> call, @NonNull Response<Orders> response){
+            public void onResponse(@NonNull Call<cl.alfa.alfalab.models.Orders> call, @NonNull Response<Orders> response) {
                 progressDialog.dismiss();
-                if(response.isSuccessful()){
-                    Toast.makeText(context, "Pedido creado", Toast.LENGTH_SHORT).show();
+                if(response.isSuccessful()) {
+                    Toast.makeText(context, "Pedido actualizado!", Toast.LENGTH_SHORT).show();
                     startActivity(new Intent(context, MainActivity.class));
                     overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
-                } else{
+                    finish();
+                } else {
                     Log.e(MainActivity.API, "onResponse (errorBody): " + response.errorBody());
+                    Log.e(MainActivity.API, "onResponse (response.raw): " + response.raw().toString());
                     Log.e(MainActivity.API, "onResponse (message): " + response.message());
                     Toast.makeText(context, context.getResources().getString(R.string.check_internet_connection), Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
-            public void onFailure(@NonNull Call<cl.alfa.alfalab.models.Orders> call, @NonNull Throwable t){
+            public void onFailure(@NonNull Call<cl.alfa.alfalab.models.Orders> call, @NonNull Throwable t) {
                 progressDialog.dismiss();
-                Log.d(MainActivity.API, "onFailure: " + t.getMessage());
                 Toast.makeText(context, context.getResources().getString(R.string.feed_update_error), Toast.LENGTH_SHORT).show();
+                Log.d(MainActivity.API, "onFailure: " + t.getMessage());
+            }
+        });
+    }
+
+    private void createOrder(ArrayList<Order> orderList) {
+        progressDialog = ProgressDialog.show(context, "🙌 Creando pedido...", "El pedido se está creando, espera.", true);
+
+        final Orders order = new Orders();
+        order.setOrderList(orderList);
+        assert client != null;
+        order.setClient(client);
+
+        final Date date = new Date();
+        @SuppressLint("SimpleDateFormat") final String formattedDate = new SimpleDateFormat("dd/MM/yyyy hh:mm:ss").format(date);
+        order.setCreated_at(formattedDate);
+        order.setZone(orderZone);
+        order.setStatus(false);
+        final ApiService.PostOrderService service = ApiClient.getClient().create(ApiService.PostOrderService.class);
+        final Call<Orders> responseCall = service.postOrder(order);
+
+        responseCall.enqueue(new Callback<Orders>() {
+            @Override
+            public void onResponse(@NonNull Call<cl.alfa.alfalab.models.Orders> call, @NonNull Response<Orders> response) {
+                progressDialog.dismiss();
+                if(response.isSuccessful()) {
+                    Toast.makeText(context, "Pedido creado", Toast.LENGTH_SHORT).show();
+                    startActivity(new Intent(context, MainActivity.class));
+                    overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+                    finish();
+                } else {
+                    Log.e(MainActivity.API, "createOrder - onResponse (errorBody): " + response.errorBody());
+                    Log.e(MainActivity.API, "createOrder - onResponse (response.raw): " + response.raw().toString());
+                    Log.e(MainActivity.API, "createOrder - onResponse (message): " + response.message());
+                    Toast.makeText(context, context.getResources().getString(R.string.check_internet_connection), Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<cl.alfa.alfalab.models.Orders> call, @NonNull Throwable t) {
+                progressDialog.dismiss();
+                Toast.makeText(context, context.getResources().getString(R.string.feed_update_error), Toast.LENGTH_SHORT).show();
+                Log.d(MainActivity.API, "onFailure: " + t.getMessage());
             }
         });
     }
@@ -223,8 +307,14 @@ public class CreateOrdersActivity extends AppCompatActivity implements CustomBot
                 overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
                 return true;
             case R.id.finalize:
-                if(!orders.isEmpty())
-                    createOrder(orders);
+                if(data != null) {
+                    data.setClient(client);
+                    updateOrder(data, adapter.getItems());
+                } else {
+                    if (!orders.isEmpty()) {
+                        createOrder(orders);
+                    }
+                }
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
@@ -262,10 +352,11 @@ public class CreateOrdersActivity extends AppCompatActivity implements CustomBot
             adapter.addItem(newOrder);
         } else {
             for (int i = 0; i < adapter.getItemCount(); i++) {
-                if(adapter.getItem(i) != oldOrder)
+                if(adapter.getItem(i) != oldOrder) {
                     tmpList.add(adapter.getItem(i));
-                else
+                } else {
                     tmpList.add(newOrder);
+                }
             }
             adapter.clear();
             adapter.addItems(tmpList);
