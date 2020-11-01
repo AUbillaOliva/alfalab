@@ -15,11 +15,10 @@ public class ApiClient {
     private static final String BASE_URL = "https://alfa-lab.herokuapp.com/api/";
     public final static String REPORT_URL = "https://alfa-lab.herokuapp.com/support/report";
 
-    public static Retrofit getClient(){
+    public static Retrofit getClient() {
         return new Retrofit.Builder()
                 .baseUrl(BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
-
     }
 }
