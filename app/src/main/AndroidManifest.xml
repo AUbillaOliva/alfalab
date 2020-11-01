@@ -27,7 +27,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activities.DetailListActivity"
+        <activity android:name=".activities.DetailOrderActivity"
             android:screenOrientation="portrait" />
         <activity android:name=".activities.SettingsActivity"
             android:screenOrientation="portrait" />
