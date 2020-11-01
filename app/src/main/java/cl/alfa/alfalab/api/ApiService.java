@@ -12,6 +12,7 @@ import retrofit2.http.POST;
 import retrofit2.http.Path;
 
 public class ApiService {
+
     public interface OrderService {
         @GET("orders")
         Call<ArrayList<Orders>> getOrders();
@@ -25,12 +26,11 @@ public class ApiService {
     public interface PostOrderService {
         @POST("orders")
         Call<Orders> postOrder(@Body Orders order);
-
     }
 
     public interface UpdateOrderService {
         @POST("orders/{number}")
-        Call<ResponseBody> updateOrder(@Path("number") int id, @Body Orders order);
+        Call<Orders> updateOrder(@Path("number") int id, @Body Orders order);
     }
 
     public interface DeliveredService {
@@ -46,6 +46,5 @@ public class ApiService {
     public interface SetDeliveredService {
         @POST("delivered")
         Call<Orders> setDelivered(@Body Orders order);
-
     }
 }
