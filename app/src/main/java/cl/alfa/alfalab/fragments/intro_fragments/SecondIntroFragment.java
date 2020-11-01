@@ -29,9 +29,11 @@ public class SecondIntroFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         final View view = inflater.inflate(R.layout.second_intro_fragment_layout, container, false);
+
         final SharedPreferences mSharedPreferences = new SharedPreferences(context);
+
         final Toolbar mToolbar = view.findViewById(R.id.toolbar);
-        ExtendedFloatingActionButton button = view.findViewById(R.id.button);
+        final ExtendedFloatingActionButton button = view.findViewById(R.id.button);
         firstnameInputLayout = view.findViewById(R.id.name_intro_input_layout);
         lastnameInputLayout = view.findViewById(R.id.lastname_intro_input_layout);
         nameInputEditText = view.findViewById(R.id.name_intro_edit_text);
@@ -45,35 +47,45 @@ public class SecondIntroFragment extends Fragment {
         nameInputEditText.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                if(charSequence.length() > 1) firstnameInputLayout.setErrorEnabled(false);
+                if(charSequence.length() > 1) {
+                    firstnameInputLayout.setErrorEnabled(false);
+                }
             }
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                if (charSequence.length() < 1) firstnameInputLayout.setError(getResources().getString(R.string.required));
-                firstnameInputLayout.setEndIconDrawable(R.drawable.ic_check_mark_24dp);
+                if (charSequence.length() < 1) {
+                    firstnameInputLayout.setError(getResources().getString(R.string.required));
+                }
             }
 
             @Override
             public void afterTextChanged(Editable editable) {
-                if(editable.length() < 1) firstnameInputLayout.setError(getResources().getString(R.string.required));
+                if(editable.length() < 1) {
+                    firstnameInputLayout.setError(getResources().getString(R.string.required));
+                }
             }
         });
         lastInputEditText.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                if(charSequence.length() > 1) lastnameInputLayout.setErrorEnabled(false);
+                if(charSequence.length() > 1) {
+                    lastnameInputLayout.setErrorEnabled(false);
+                }
             }
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                if (charSequence.length() < 1) lastnameInputLayout.setError(getResources().getString(R.string.required));
-                lastnameInputLayout.setEndIconDrawable(R.drawable.ic_check_mark_24dp);
+                if (charSequence.length() < 1) {
+                    lastnameInputLayout.setError(getResources().getString(R.string.required));
+                }
             }
 
             @Override
             public void afterTextChanged(Editable editable) {
-                if(editable.length() < 1) lastnameInputLayout.setError(getResources().getString(R.string.required));
+                if(editable.length() < 1) {
+                    lastnameInputLayout.setError(getResources().getString(R.string.required));
+                }
             }
         });
 
@@ -81,9 +93,9 @@ public class SecondIntroFragment extends Fragment {
             if(nameInputEditText.getEditableText().length() < 1 && lastInputEditText.getEditableText().length() < 1) {
                 firstnameInputLayout.setError(getResources().getString(R.string.required));
                 lastnameInputLayout.setError(getResources().getString(R.string.required));
-            } else if(lastInputEditText.getEditableText().length() < 1){
+            } else if(lastInputEditText.getEditableText().length() < 1) {
                 lastnameInputLayout.setError(getResources().getString(R.string.required));
-            } else if(nameInputEditText.getEditableText().length() < 1){
+            } else if(nameInputEditText.getEditableText().length() < 1) {
                 firstnameInputLayout.setError(getResources().getString(R.string.required));
             } else {
                 mSharedPreferences.setResponsible(nameInputEditText.getEditableText().toString() + " " + lastInputEditText.getEditableText().toString());
@@ -98,7 +110,8 @@ public class SecondIntroFragment extends Fragment {
         return nameInputEditText.getEditableText().toString();
     }
 
-    public static Fragment newInstance(){
+    public static Fragment newInstance() {
         return new SecondIntroFragment();
     }
+
 }

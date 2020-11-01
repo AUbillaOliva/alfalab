@@ -24,7 +24,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.tooltip.Tooltip;
 
 import java.text.DateFormat;
@@ -51,10 +50,11 @@ import cl.alfa.alfalab.MainActivity;
 import cl.alfa.alfalab.MainApplication;
 import cl.alfa.alfalab.R;
 import cl.alfa.alfalab.activities.CreateClientActivity;
-import cl.alfa.alfalab.activities.DetailListActivity;
+import cl.alfa.alfalab.activities.DetailOrderActivity;
 import cl.alfa.alfalab.adapters.GenericAdapter;
 import cl.alfa.alfalab.api.ApiClient;
 import cl.alfa.alfalab.api.ApiService;
+import cl.alfa.alfalab.interfaces.FabInterface;
 import cl.alfa.alfalab.interfaces.RecyclerViewOnClickListenerHack;
 import cl.alfa.alfalab.utils.GenericViewHolder;
 import cl.alfa.alfalab.utils.databases.OrdersDatabaseHelper;
@@ -63,7 +63,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class Orders extends Fragment {
+public class Orders extends Fragment implements FabInterface {
 
     private final Context context = MainApplication.getContext();
     private View view;
@@ -81,18 +81,17 @@ public class Orders extends Fragment {
         mSwipeRefreshLayout = view.findViewById(R.id.swipe_layout);
         mProgressBar = view.findViewById(R.id.progress_circular);
 
-        mSwipeRefreshLayout.setOnRefreshListener(this::getData);
+        ((MainActivity) requireActivity()).setListener(this);
 
-        final FloatingActionButton fab = view.findViewById(R.id.fab);
-        fab.setOnClickListener(fabView -> startActivity(new Intent(context, CreateClientActivity.class)));
+        mSwipeRefreshLayout.setOnRefreshListener(this::getData);
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M)
             nestedScrollView.setOnScrollChangeListener((View.OnScrollChangeListener) (v, scrollX, scrollY, oldScrollX, oldScrollY) -> {
                 int initialscrollY = 0;
-                if (scrollY > initialscrollY){
+                if (scrollY > initialscrollY) {
                     ((MainActivity) requireActivity()).getAppBarLayout().setElevation(8);
                     ((MainActivity) requireActivity()).getAppBarLayoutShadow().setVisibility(View.GONE);
-                } else if(scrollY < oldScrollY - scrollY){
+                } else if(scrollY < oldScrollY - scrollY) {
                     ((MainActivity) requireActivity()).getAppBarLayout().setElevation(2);
                     ((MainActivity) requireActivity()).getAppBarLayoutShadow().setVisibility(View.VISIBLE);
                 }
@@ -100,14 +99,14 @@ public class Orders extends Fragment {
 
 
         mRecyclerView.setHasFixedSize(true);
-        adapter = new GenericAdapter<cl.alfa.alfalab.models.Orders>(){
+        adapter = new GenericAdapter<cl.alfa.alfalab.models.Orders>() {
             @Override
             public RecyclerView.ViewHolder setViewHolder(ViewGroup parent, RecyclerViewOnClickListenerHack recyclerViewOnClickListenerHack){
-                return new GenericViewHolder(LayoutInflater.from(getContext()).inflate(R.layout.item_card, parent, false), recyclerViewOnClickListenerHack);
+                return new GenericViewHolder(LayoutInflater.from(requireContext()).inflate(R.layout.item_card, parent, false), recyclerViewOnClickListenerHack);
             }
 
             @Override
-            public void onBindData(RecyclerView.ViewHolder holder, cl.alfa.alfalab.models.Orders val, int position){
+            public void onBindData(RecyclerView.ViewHolder holder, cl.alfa.alfalab.models.Orders val, int position) {
                 final GenericViewHolder viewHolder = (GenericViewHolder) holder;
                 final TextView orderNumber = viewHolder.get(R.id.order_number),
                         orderClient = viewHolder.get(R.id.order_client),
@@ -133,10 +132,11 @@ public class Orders extends Fragment {
                 }
                 assert date != null;
                 @SuppressLint("SimpleDateFormat") String outputFormat = new SimpleDateFormat("dd/MM/yy").format(date);
-                if(isBefore(new DateTime(date.getTime()), new DateTime()))
+                if(isBefore(new DateTime(date.getTime()), new DateTime())) {
                     alertIcon.setVisibility(View.GONE);
-                else
+                } else {
                     alertIcon.setVisibility(View.VISIBLE);
+                }
                 itemDate.setText(getResources().getString(R.string.entered));
                 orderCheckIn.setText(outputFormat);
                 orderZone.setText(capitalizeFirstLetter(val.getZone()));
@@ -152,11 +152,11 @@ public class Orders extends Fragment {
             }
 
             @Override
-            public RecyclerViewOnClickListenerHack onGetRecyclerViewOnClickListenerHack(){
-                return new RecyclerViewOnClickListenerHack(){
+            public RecyclerViewOnClickListenerHack onGetRecyclerViewOnClickListenerHack() {
+                return new RecyclerViewOnClickListenerHack() {
                     @Override
-                    public void onClickListener(View view, int position){
-                        final Intent intent = new Intent(getContext(), DetailListActivity.class);
+                    public void onClickListener(View view, int position) {
+                        final Intent intent = new Intent(getContext(), DetailOrderActivity.class);
                         intent.putExtra("data", getItem(position));
                         intent.putExtra("delivered", false);
                         startActivity(intent);
@@ -164,14 +164,20 @@ public class Orders extends Fragment {
                     }
 
                     @Override
-                    public void onLongPressClickListener(View view, int position){
+                    public void onLongPressClickListener(View view, int position) {
                         final PopupMenu popup = new PopupMenu(requireContext(),view);
                         popup.getMenuInflater().inflate(R.menu.order_menu,popup.getMenu());
                         popup.show();
                         popup.setOnMenuItemClickListener(item -> {
                             switch (item.getItemId()) {
                                 case R.id.edit:
-                                    //TODO: START CreateOrdersActivity WITH DATA FOR UPDATE
+                                    final Intent intent = new Intent(requireContext(), CreateClientActivity.class);
+                                    intent.putExtra("client", adapter.getItem(position).getClient());
+                                    intent.putExtra("zone", adapter.getItem(position).getZone());
+                                    intent.putExtra("data", adapter.getItem(position));
+                                    startActivity(intent);
+                                    requireActivity().overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+                                    requireActivity().finish();
                                     break;
                                 case R.id.delete:
                                     showDialog(adapter.getItem(position));
@@ -187,7 +193,7 @@ public class Orders extends Fragment {
         };
         mRecyclerView.setAdapter(adapter);
         mRecyclerView.setNestedScrollingEnabled(false);
-        final LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
+        final LinearLayoutManager layoutManager = new LinearLayoutManager(requireContext());
         mRecyclerView.setLayoutManager(layoutManager);
 
         return view;
@@ -197,8 +203,8 @@ public class Orders extends Fragment {
         return (Days.daysBetween(begin.plusDays(10), actual).getDays() < 10);
     }
     
-    private String capitalizeFirstLetter(String s){
-        final String[] in = s.split(" ");
+    private String capitalizeFirstLetter(String s) {
+        final String[] in = s.split("^/([ ]?\\.?[a-zA-Z]+)+/$");
         final StringBuilder out = new StringBuilder();
         for (String ss : in) {
             final String upperString = ss.substring(0, 1).toUpperCase() + ss.substring(1).toLowerCase();
@@ -208,7 +214,7 @@ public class Orders extends Fragment {
         return out.toString();
     }
 
-    private void showDialog(cl.alfa.alfalab.models.Orders order){
+    private void showDialog(cl.alfa.alfalab.models.Orders order) {
         final Dialog dialog = new Dialog(requireActivity());
         dialog.setCancelable(true);
         Objects.requireNonNull(dialog.getWindow()).setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
@@ -225,6 +231,7 @@ public class Orders extends Fragment {
 
         acceptButton = view.findViewById(R.id.confirm_button);
         acceptButton.setText(getResources().getString(R.string.positive_delete_dialog_button));
+        acceptButton.setBackgroundColor(context.getResources().getColor(R.color.design_default_color_error));
         acceptButton.setOnClickListener(view1 -> {
             dialog.dismiss();
             deleteOrder(order.getOrders_number());
@@ -241,7 +248,7 @@ public class Orders extends Fragment {
 
     @SuppressWarnings("deprecation")
     @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState){
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         mSwipeRefreshLayout.setOnRefreshListener(this::getData);
         if(isNetworkAvailable()) getData();
@@ -269,12 +276,11 @@ public class Orders extends Fragment {
                 @Override
                 public void onResponse(@NonNull Call<ResponseBody> call, @NonNull Response<ResponseBody> response) {
                     if(response.isSuccessful()){
-                        ordersDatabaseHelper.deleteOrder(String.valueOf(number));
-                        ordersDatabaseHelper.close();
                         getData();
                         adapter.notifyDataSetChanged();
                     } else {
                         Log.e(MainActivity.API, "onResponse (errorBody): " + response.errorBody());
+                        Log.e(MainActivity.API, "onResponse (response.raw): " + response.raw().toString());
                         Log.e(MainActivity.API, "onResponse (message):" + response.message());
                     }
                 }
@@ -285,7 +291,7 @@ public class Orders extends Fragment {
                     Log.e(MainActivity.API, "onFailure: " + t.getMessage());
                 }
             });
-        } catch (Throwable err){
+        } catch (Throwable err) {
             Log.e(MainActivity.API, Objects.requireNonNull(err.getMessage()));
         }
     }
@@ -296,17 +302,17 @@ public class Orders extends Fragment {
         getData();
     }
 
-    private void getData(){
+    private void getData() {
         final ApiService.OrderService service = ApiClient.getClient().create(ApiService.OrderService.class);
         final Call<ArrayList<cl.alfa.alfalab.models.Orders>> responseCall = service.getOrders();
 
         responseCall.enqueue(new Callback<ArrayList<cl.alfa.alfalab.models.Orders>>(){
             @Override
-            public void onResponse(@NonNull Call<ArrayList<cl.alfa.alfalab.models.Orders>> call, @NonNull Response<ArrayList<cl.alfa.alfalab.models.Orders>> response){
+            public void onResponse(@NonNull Call<ArrayList<cl.alfa.alfalab.models.Orders>> call, @NonNull Response<ArrayList<cl.alfa.alfalab.models.Orders>> response) {
                 mSwipeRefreshLayout.setRefreshing(false);
                 mProgressBar.setVisibility(View.GONE);
                 mSwipeRefreshLayout.setVisibility(View.VISIBLE);
-                if(response.isSuccessful()){
+                if(response.isSuccessful()) {
                     final ArrayList<cl.alfa.alfalab.models.Orders> apiResponse = response.body();
                     assert apiResponse != null;
                     adapter.addItems(apiResponse);
@@ -324,15 +330,16 @@ public class Orders extends Fragment {
                         }
                     }
                     adapter.notifyDataSetChanged();
-                } else{
+                } else {
                     Toast.makeText(context, context.getResources().getString(R.string.check_internet_connection), Toast.LENGTH_SHORT).show();
                     Log.e(MainActivity.API, "onResponse (errorBody): " + response.errorBody());
+                    Log.e(MainActivity.API, "onResponse (response.raw): " + response.raw().toString());
                     Log.e(MainActivity.API, "onResponse (message):" + response.message());
                 }
             }
 
             @Override
-            public void onFailure(@NonNull Call<ArrayList<cl.alfa.alfalab.models.Orders>> call, @NonNull Throwable t){
+            public void onFailure(@NonNull Call<ArrayList<cl.alfa.alfalab.models.Orders>> call, @NonNull Throwable t) {
                 mSwipeRefreshLayout.setRefreshing(false);
                 mProgressBar.setVisibility(View.GONE);
                 mSwipeRefreshLayout.setVisibility(View.VISIBLE);
@@ -343,10 +350,18 @@ public class Orders extends Fragment {
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item){
-        if (item.getItemId() == R.id.swipe_layout)
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == R.id.swipe_layout) {
             mSwipeRefreshLayout.setRefreshing(true);
+        }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onFabClicked() {
+        startActivity(new Intent(context, CreateClientActivity.class));
+        requireActivity().overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+        requireActivity().finish();
     }
 
 }

@@ -21,7 +21,7 @@ public class FirstIntroFragment extends Fragment {
         return view;
     }
 
-    public static Fragment newInstance(){
+    public static Fragment newInstance() {
         return new FirstIntroFragment();
     }
 }

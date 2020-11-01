@@ -10,10 +10,21 @@ public class Orders implements Serializable {
             zone,
             created_at,
             delivered_date;
-    private int orders_number;
+    private Integer orders_number;
     private boolean status;
-    private ArrayList<Order> order;
+    private ArrayList<Order> orderList;
     private Client client;
+
+    public Orders(Orders orders){
+        this.zone = orders.zone;
+        this.created_at = orders.created_at;
+        this.orders_number = orders.orders_number;
+        this.status = orders.status;
+        this.orderList = orders.orderList;
+        this.client = orders.client;
+    }
+
+    public Orders(){}
 
     public boolean getStatus(){
         return status;
@@ -55,7 +66,7 @@ public class Orders implements Serializable {
         this.zone = zone;
     }
 
-    public int getOrders_number() {
+    public Integer getOrders_number() {
         return orders_number;
     }
 
@@ -63,12 +74,12 @@ public class Orders implements Serializable {
         this.orders_number = orders_number;
     }
 
-    public ArrayList<Order> getOrder() {
-        return order;
+    public ArrayList<Order> getOrderList() {
+        return orderList;
     }
 
-    public void setOrder(ArrayList<Order> order) {
-        this.order = order;
+    public void setOrderList(ArrayList<Order> order) {
+        this.orderList = order;
     }
 
     public Client getClient() {
