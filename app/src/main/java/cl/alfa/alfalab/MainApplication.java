@@ -50,11 +50,11 @@ public class MainApplication extends Application {
         }
     }
 
-    public static Application getApplication(){
+    public static Application getApplication() {
         return application;
     }
 
-    public static Context getContext(){
+    public static Context getContext() {
         return getApplication().getApplicationContext();
     }
 
@@ -69,8 +69,13 @@ public class MainApplication extends Application {
                 .setEnabled(true)
                 .setRestartAfterCrash(false);
         final SharedPreferences mSharedPreferences = new SharedPreferences(this);
-        if(mSharedPreferences.sendReport())
+        if(mSharedPreferences.sendReport()) {
             ACRA.init(this, builder);
+        }
+    }
+
+    // TODO: IMPLEMENT NEW VERSION CHECKER WITH SERVER
+    public void checkNewVersion(){
     }
 
 }
