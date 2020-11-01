@@ -18,134 +18,86 @@
     </shared>
   </component>
   <component name="AndroidLogFilters">
-    <option name="TOOL_WINDOW_CUSTOM_FILTER" value="API_RESPONSE" />
-    <option name="TOOL_WINDOW_CONFIGURED_FILTER" value="No Filters" />
+    <option name="TOOL_WINDOW_CONFIGURED_FILTER" value="Show only selected application" />
   </component>
   <component name="ChangeListManager">
     <list default="true" id="e8a9a5e7-8508-4e90-a8e3-e1f950f625e9" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/dictionaries/alvar.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/jarRepositories.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/ic_launcher_2-playstore.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/cl/alfa/alfalab/activities/CreateClientActivity.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/cl/alfa/alfalab/activities/CreateOrdersActivity.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/cl/alfa/alfalab/activities/HelpActivity.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/cl/alfa/alfalab/activities/ProfileDetailActivity.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/cl/alfa/alfalab/activities/ReportActivity.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/cl/alfa/alfalab/activities/SearchActivity.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/cl/alfa/alfalab/activities/ThirdPartyLibrariesActivity.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/cl/alfa/alfalab/fragments/CustomBottomSheetDialogFragment.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/cl/alfa/alfalab/models/Order.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/cl/alfa/alfalab/tools/MultipartRequest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/cl/alfa/alfalab/utils/Sender.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/cl/alfa/alfalab/utils/SenderService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/color/button_tint.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/border_report_image.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/bottom_sheet_background.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/bottom_sheet_indicator.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/edit_text_cursor.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/ic_arrow_down_24.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/ic_arrow_up_24.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/ic_baseline_account_circle_24.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/ic_baseline_brightness_24.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/ic_baseline_close_24.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/ic_baseline_error_outline_24.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/ic_move_to_inbox_24dp.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_search_layout.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/layout/bottom_sheet_layout.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/layout/create_client_activity_layout.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/layout/dropdown_menu_popup_item.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/layout/expandable_list_item.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/layout/help_activity_layout.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/layout/item_order_card.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/layout/profile_detail_activity_layout.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/layout/report_activity_layout.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/layout/settings_activity_layout.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/layout/settings_list_item.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/layout/third_party_libraries_item.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/layout/third_party_libraries_layout.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/menu/create_orders_menu.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/menu/menu_report.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/cl/alfa/alfalab/fragments/bottom_menu_fragments/HomeFragment.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/cl/alfa/alfalab/fragments/bottom_menu_fragments/OrdersFragment.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/cl/alfa/alfalab/fragments/bottom_menu_fragments/ProfileFragment.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore.swp" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore.swp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/assetWizardSettings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/assetWizardSettings.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/caches/build_file_checksums.ser" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/caches/build_file_checksums.ser" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dictionaries/alvar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dictionaries/alvar.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/app/build.gradle" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/ic_launcher-playstore.png" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/ic_launcher-playstore.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/cl/alfa/alfalab/MainActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/cl/alfa/alfalab/MainActivity.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/cl/alfa/alfalab/MainApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/cl/alfa/alfalab/MainApplication.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/cl/alfa/alfalab/activities/CreateOrderActivity.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/cl/alfa/alfalab/activities/DetailListActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/cl/alfa/alfalab/activities/DetailListActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/cl/alfa/alfalab/activities/CreateClientActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/cl/alfa/alfalab/activities/CreateClientActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/cl/alfa/alfalab/activities/CreateOrdersActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/cl/alfa/alfalab/activities/CreateOrdersActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/cl/alfa/alfalab/activities/DetailOrderActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/cl/alfa/alfalab/activities/DetailOrderActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/cl/alfa/alfalab/activities/HelpActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/cl/alfa/alfalab/activities/HelpActivity.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/cl/alfa/alfalab/activities/OnBoardingActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/cl/alfa/alfalab/activities/OnBoardingActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/cl/alfa/alfalab/activities/ProfileDetailActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/cl/alfa/alfalab/activities/ProfileDetailActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/cl/alfa/alfalab/activities/ReportActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/cl/alfa/alfalab/activities/ReportActivity.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/cl/alfa/alfalab/activities/SettingsActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/cl/alfa/alfalab/activities/SettingsActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/cl/alfa/alfalab/activities/UpdateOrderActivity.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/cl/alfa/alfalab/activities/ThirdPartyLibrariesActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/cl/alfa/alfalab/activities/ThirdPartyLibrariesActivity.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/cl/alfa/alfalab/adapters/GenericAdapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/cl/alfa/alfalab/adapters/GenericAdapter.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/cl/alfa/alfalab/adapters/IntroViewPagerAdapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/cl/alfa/alfalab/adapters/IntroViewPagerAdapter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/cl/alfa/alfalab/adapters/TabsAdapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/cl/alfa/alfalab/adapters/TabsAdapter.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/cl/alfa/alfalab/api/ApiClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/cl/alfa/alfalab/api/ApiClient.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/cl/alfa/alfalab/api/ApiService.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/cl/alfa/alfalab/api/ApiService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/cl/alfa/alfalab/fragments/CustomBottomSheetDialogFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/cl/alfa/alfalab/fragments/CustomBottomSheetDialogFragment.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/cl/alfa/alfalab/fragments/Delivered.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/cl/alfa/alfalab/fragments/Delivered.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/cl/alfa/alfalab/fragments/Orders.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/cl/alfa/alfalab/fragments/Orders.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/cl/alfa/alfalab/fragments/Pending.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/cl/alfa/alfalab/fragments/intro_fragments/FirstIntroFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/cl/alfa/alfalab/fragments/intro_fragments/FirstIntroFragment.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/cl/alfa/alfalab/fragments/intro_fragments/SecondIntroFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/cl/alfa/alfalab/fragments/intro_fragments/SecondIntroFragment.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/cl/alfa/alfalab/fragments/intro_fragments/ThirdIntroFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/cl/alfa/alfalab/fragments/intro_fragments/ThirdIntroFragment.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/cl/alfa/alfalab/models/Client.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/cl/alfa/alfalab/models/Client.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/cl/alfa/alfalab/models/IntroScreenItem.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/cl/alfa/alfalab/models/IntroScreenItem.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/cl/alfa/alfalab/models/ListItem.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/cl/alfa/alfalab/models/ListItem.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/cl/alfa/alfalab/interfaces/FabInterface.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/cl/alfa/alfalab/interfaces/FabInterface.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/cl/alfa/alfalab/interfaces/RecyclerViewOnClickListenerHack.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/cl/alfa/alfalab/interfaces/RecyclerViewOnClickListenerHack.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/cl/alfa/alfalab/models/Orders.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/cl/alfa/alfalab/models/Orders.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/cl/alfa/alfalab/utils/GenericViewHolder.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/cl/alfa/alfalab/utils/GenericViewHolder.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/cl/alfa/alfalab/utils/NonSwipeableViewPager.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/cl/alfa/alfalab/utils/NonSwipeableViewPager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/cl/alfa/alfalab/utils/SharedPreferences.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/cl/alfa/alfalab/utils/SharedPreferences.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/cl/alfa/alfalab/utils/databases/OrdersDatabaseHelper.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/cl/alfa/alfalab/utils/databases/OrdersDatabaseHelper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/btn_gradient_style.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/ic_add_white_24dp.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/ic_add_24dp.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/color/button_tint.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/color/button_tint.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/bottom_sheet_background.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/bottom_sheet_background.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/bottom_sheet_indicator.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/bottom_sheet_indicator.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/indicator.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/indicator.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_main.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_main.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_search_layout.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_search_layout.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/bottom_sheet_layout.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/bottom_sheet_layout.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/confirmation_dialog_layout.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/confirmation_dialog_layout.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/create_client_activity_layout.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/create_client_activity_layout.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/create_order_activity_layout.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/create_order_activity_layout.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/detail_order_activity_layout.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/detail_order_activity_layout.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/dropdown_menu_popup_item.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/dropdown_menu_popup_item.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/expandable_list_item.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/expandable_list_item.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/first_intro_fragment_layout.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/first_intro_fragment_layout.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/fragment_layout.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/fragment_layout.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/intro_activity_layout.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/intro_activity_layout.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/intro_screen_layout.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/help_activity_layout.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/help_activity_layout.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/item_card.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/item_card.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/item_order_card.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/item_order_card.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/no_items_layout.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/no_items_layout.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/profile_detail_activity_layout.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/profile_detail_activity_layout.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/report_activity_layout.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/report_activity_layout.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/second_intro_fragment_layout.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/second_intro_fragment_layout.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/settings_activity.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/settings_activity_layout.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/settings_activity_layout.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/settings_list_item.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/settings_list_item.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/tab_view.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/tab_view.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/third_intro_fragment_layout.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/third_intro_fragment_layout.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/update_order_activity_layout.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/menu/menu_main.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/menu/menu_main.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/menu/order_menu.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/menu/order_menu.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-hdpi/ic_launcher.png" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/mipmap-hdpi/ic_launcher.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-hdpi/ic_launcher_foreground.png" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/mipmap-hdpi/ic_launcher_foreground.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-hdpi/ic_launcher_round.png" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/mipmap-hdpi/ic_launcher_round.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-mdpi/ic_launcher.png" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/mipmap-mdpi/ic_launcher.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-mdpi/ic_launcher_foreground.png" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/mipmap-mdpi/ic_launcher_foreground.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-mdpi/ic_launcher_round.png" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/mipmap-mdpi/ic_launcher_round.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xhdpi/ic_launcher.png" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/mipmap-xhdpi/ic_launcher.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xhdpi/ic_launcher_foreground.png" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/mipmap-xhdpi/ic_launcher_foreground.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xhdpi/ic_launcher_round.png" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/mipmap-xhdpi/ic_launcher_round.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xxhdpi/ic_launcher.png" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/mipmap-xxhdpi/ic_launcher.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xxhdpi/ic_launcher_foreground.png" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/mipmap-xxhdpi/ic_launcher_foreground.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xxhdpi/ic_launcher_round.png" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/mipmap-xxhdpi/ic_launcher_round.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xxxhdpi/ic_launcher.png" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/mipmap-xxxhdpi/ic_launcher.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xxxhdpi/ic_launcher_foreground.png" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/mipmap-xxxhdpi/ic_launcher_foreground.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xxxhdpi/ic_launcher_round.png" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/mipmap-xxxhdpi/ic_launcher_round.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/third_party_libraries_item.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/third_party_libraries_item.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/third_party_libraries_layout.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/third_party_libraries_layout.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/menu/bottom_navigation_menu.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/menu/bottom_navigation_menu.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/values/attrs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/values/attrs.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/res/values/colors.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/values/colors.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/res/values/dimens.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/values/dimens.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/res/values/strings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/values/strings.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/res/values/styles.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/values/styles.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.properties" beforeDir="false" afterPath="$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.properties" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="ExecutionTargetManager" SELECTED_TARGET="KPS4C19112001048" />
+  <component name="ExecutionTargetManager" SELECTED_TARGET="Pixel_2_API_26" />
   <component name="ExternalProjectsData">
     <projectState path="$PROJECT_DIR$">
       <ProjectState />
@@ -162,9 +114,10 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="valueResourceFile" />
-        <option value="resourceFile" />
-        <option value="Class" />
         <option value="layoutResourceFile" />
+        <option value="resourceFile" />
+        <option value="Interface" />
+        <option value="Class" />
       </list>
     </option>
   </component>
@@ -188,7 +141,7 @@
     <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
     <property name="ApkExportedModule" value="app" />
     <property name="DeviceAndSnapshotComboBoxAction.selectedDevice" value="KPS4C19112001048" />
-    <property name="DeviceAndSnapshotComboBoxAction.selectionTime" value="2020-09-12T05:34:45.785Z" />
+    <property name="DeviceAndSnapshotComboBoxAction.selectionTime" value="2020-10-18T07:36:56.835Z" />
     <property name="ExportApk.ApkPath" value="D:\Programacion\Android\Alfalab\app" />
     <property name="ExportApk.BuildVariants" value="debug&#10;release" />
     <property name="ExportApk.SignV1" value="true" />
@@ -210,8 +163,11 @@
     <key name="MoveFile.RECENT_KEYS">
       <recent name="D:\Programacion\Android\Alfalab\app\src\main" />
     </key>
-    <key name="CreateClassDialog.RecentsKey">
-      <recent name="cl.alfa.alfalab.activities" />
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\Users\Terminus\Desktop\Programacion\Android\Alfalab\app\src\main\res\layout" />
+      <recent name="D:\Users\Terminus\Desktop\Programacion\Android\Alfalab\app\src\main\res\drawable" />
+      <recent name="D:\Users\Terminus\Desktop\Programacion\Android\Alfalab\app\src\main\res\values" />
+      <recent name="D:\Users\Terminus\Desktop\Programacion\Android\Alfalab\app\src\main\res\font" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
       <recent name="cl.alfa.alfalab.models" />
@@ -219,11 +175,8 @@
       <recent name="cl.alfa.alfalab.interfaces" />
       <recent name="cl.alfa.alfalab.adapters" />
     </key>
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="D:\Users\Terminus\Desktop\Programacion\Android\Alfalab\app\src\main\res\layout" />
-      <recent name="D:\Users\Terminus\Desktop\Programacion\Android\Alfalab\app\src\main\res\drawable" />
-      <recent name="D:\Users\Terminus\Desktop\Programacion\Android\Alfalab\app\src\main\res\values" />
-      <recent name="D:\Users\Terminus\Desktop\Programacion\Android\Alfalab\app\src\main\res\font" />
+    <key name="CreateClassDialog.RecentsKey">
+      <recent name="cl.alfa.alfalab.activities" />
     </key>
   </component>
   <component name="RunManager">
@@ -317,10 +270,14 @@
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
     <state x="484" y="259" key="#PSD/0.0.1920.1050@0.0.1920.1050" timestamp="1599334225680" />
-    <state x="763" y="209" key="#com.intellij.ide.util.MemberChooser" timestamp="1599883038072">
+    <state x="763" y="209" key="#com.intellij.ide.util.MemberChooser" timestamp="1602968744576">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
-    <state x="763" y="209" key="#com.intellij.ide.util.MemberChooser/0.0.1920.1050@0.0.1920.1050" timestamp="1599883038072" />
+    <state x="763" y="209" key="#com.intellij.ide.util.MemberChooser/0.0.1920.1050@0.0.1920.1050" timestamp="1602968744576" />
+    <state x="1236" y="388" width="464" height="288" key="#com.intellij.refactoring.move.moveClassesOrPackages.MoveClassesOrPackagesDialog.classes" timestamp="1603079914983">
+      <screen x="0" y="0" width="1920" height="1050" />
+    </state>
+    <state x="1236" y="388" width="464" height="288" key="#com.intellij.refactoring.move.moveClassesOrPackages.MoveClassesOrPackagesDialog.classes/0.0.1920.1050@0.0.1920.1050" timestamp="1603079914983" />
     <state x="697" y="274" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1599883831189">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
@@ -333,14 +290,14 @@
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
     <state x="547" y="282" key="AndroidCreateResourceDirectoryDialog/0.0.1920.1050@0.0.1920.1050" timestamp="1599602138465" />
-    <state x="538" y="280" key="AndroidCreateResourceFileDialog" timestamp="1599786442927">
+    <state x="538" y="280" key="AndroidCreateResourceFileDialog" timestamp="1602953547200">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
-    <state x="538" y="280" key="AndroidCreateResourceFileDialog/0.0.1920.1050@0.0.1920.1050" timestamp="1599786442927" />
-    <state x="825" y="340" key="AndroidCreateXmlResourceDialog" timestamp="1599887867265">
+    <state x="538" y="280" key="AndroidCreateResourceFileDialog/0.0.1920.1050@0.0.1920.1050" timestamp="1602953547200" />
+    <state x="825" y="340" key="AndroidCreateXmlResourceDialog" timestamp="1602955834851">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
-    <state x="825" y="340" key="AndroidCreateXmlResourceDialog/0.0.1920.1050@0.0.1920.1050" timestamp="1599887867265" />
+    <state x="825" y="340" key="AndroidCreateXmlResourceDialog/0.0.1920.1050@0.0.1920.1050" timestamp="1602955834851" />
     <state x="822" y="292" key="AndroidProcessChooserDialog" timestamp="1598714730360">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
@@ -349,50 +306,50 @@
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
     <state x="747" y="282" key="FileChooserDialogImpl/0.0.1920.1050@0.0.1920.1050" timestamp="1599610480544" />
-    <state width="1780" height="266" key="GridCell.Tab.0.bottom" timestamp="1599889105289">
+    <state width="1807" height="248" key="GridCell.Tab.0.bottom" timestamp="1603083083865">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
-    <state width="1780" height="266" key="GridCell.Tab.0.bottom/0.0.1920.1050@0.0.1920.1050" timestamp="1599889105289" />
-    <state width="1780" height="266" key="GridCell.Tab.0.center" timestamp="1599889105289">
+    <state width="1807" height="248" key="GridCell.Tab.0.bottom/0.0.1920.1050@0.0.1920.1050" timestamp="1603083083865" />
+    <state width="1807" height="248" key="GridCell.Tab.0.center" timestamp="1603083083864">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
-    <state width="1780" height="266" key="GridCell.Tab.0.center/0.0.1920.1050@0.0.1920.1050" timestamp="1599889105289" />
-    <state width="1780" height="266" key="GridCell.Tab.0.left" timestamp="1599889105289">
+    <state width="1807" height="248" key="GridCell.Tab.0.center/0.0.1920.1050@0.0.1920.1050" timestamp="1603083083864" />
+    <state width="1807" height="248" key="GridCell.Tab.0.left" timestamp="1603083083864">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
-    <state width="1780" height="266" key="GridCell.Tab.0.left/0.0.1920.1050@0.0.1920.1050" timestamp="1599889105289" />
-    <state width="1780" height="266" key="GridCell.Tab.0.right" timestamp="1599889105289">
+    <state width="1807" height="248" key="GridCell.Tab.0.left/0.0.1920.1050@0.0.1920.1050" timestamp="1603083083864" />
+    <state width="1807" height="248" key="GridCell.Tab.0.right" timestamp="1603083083864">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
-    <state width="1780" height="266" key="GridCell.Tab.0.right/0.0.1920.1050@0.0.1920.1050" timestamp="1599889105289" />
-    <state width="1780" height="328" key="GridCell.Tab.1.bottom" timestamp="1598904407541">
+    <state width="1807" height="248" key="GridCell.Tab.0.right/0.0.1920.1050@0.0.1920.1050" timestamp="1603083083864" />
+    <state width="1807" height="328" key="GridCell.Tab.1.bottom" timestamp="1602997448454">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
-    <state width="1780" height="328" key="GridCell.Tab.1.bottom/0.0.1920.1050@0.0.1920.1050" timestamp="1598904407541" />
-    <state width="1780" height="328" key="GridCell.Tab.1.center" timestamp="1598904407541">
+    <state width="1807" height="328" key="GridCell.Tab.1.bottom/0.0.1920.1050@0.0.1920.1050" timestamp="1602997448454" />
+    <state width="1807" height="328" key="GridCell.Tab.1.center" timestamp="1602997448453">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
-    <state width="1780" height="328" key="GridCell.Tab.1.center/0.0.1920.1050@0.0.1920.1050" timestamp="1598904407541" />
-    <state width="1780" height="328" key="GridCell.Tab.1.left" timestamp="1598904407541">
+    <state width="1807" height="328" key="GridCell.Tab.1.center/0.0.1920.1050@0.0.1920.1050" timestamp="1602997448453" />
+    <state width="1807" height="328" key="GridCell.Tab.1.left" timestamp="1602997448453">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
-    <state width="1780" height="328" key="GridCell.Tab.1.left/0.0.1920.1050@0.0.1920.1050" timestamp="1598904407541" />
-    <state width="1780" height="328" key="GridCell.Tab.1.right" timestamp="1598904407541">
+    <state width="1807" height="328" key="GridCell.Tab.1.left/0.0.1920.1050@0.0.1920.1050" timestamp="1602997448453" />
+    <state width="1807" height="328" key="GridCell.Tab.1.right" timestamp="1602997448453">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
-    <state width="1780" height="328" key="GridCell.Tab.1.right/0.0.1920.1050@0.0.1920.1050" timestamp="1598904407541" />
+    <state width="1807" height="328" key="GridCell.Tab.1.right/0.0.1920.1050@0.0.1920.1050" timestamp="1602997448453" />
     <state x="138" y="125" width="1640" height="800" key="com.android.tools.idea.avdmanager.AvdListDialog" timestamp="1598638975483">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
     <state x="138" y="125" width="1640" height="800" key="com.android.tools.idea.avdmanager.AvdListDialog/0.0.1920.1050@0.0.1920.1050" timestamp="1598638975483" />
-    <state x="147" y="127" width="1640" height="800" key="com.intellij.history.integration.ui.views.FileHistoryDialog" timestamp="1599081943130">
+    <state x="147" y="127" width="1640" height="800" key="com.intellij.history.integration.ui.views.FileHistoryDialog" timestamp="1602993778879">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
-    <state x="147" y="127" width="1640" height="800" key="com.intellij.history.integration.ui.views.FileHistoryDialog/0.0.1920.1050@0.0.1920.1050" timestamp="1599081943130" />
-    <state x="656" y="349" key="com.intellij.ide.util.TipDialog" timestamp="1599862214538">
+    <state x="147" y="127" width="1640" height="800" key="com.intellij.history.integration.ui.views.FileHistoryDialog/0.0.1920.1050@0.0.1920.1050" timestamp="1602993778879" />
+    <state x="656" y="349" key="com.intellij.ide.util.TipDialog" timestamp="1603981358268">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
-    <state x="656" y="349" key="com.intellij.ide.util.TipDialog/0.0.1920.1050@0.0.1920.1050" timestamp="1599862214538" />
+    <state x="656" y="349" key="com.intellij.ide.util.TipDialog/0.0.1920.1050@0.0.1920.1050" timestamp="1603981358268" />
     <state x="728" y="371" key="edit.logcat.filter.dialog.dimensions" timestamp="1599621140152">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
@@ -413,5 +370,13 @@
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
     <state x="621" y="244" width="672" height="678" key="search.everywhere.popup/0.0.1920.1050@0.0.1920.1050" timestamp="1599785290137" />
+  </component>
+  <component name="XDebuggerManager">
+    <watches-manager>
+      <configuration name="app">
+        <watch expression="order.shadow$_klass_" />
+        <watch expression="service" />
+      </configuration>
+    </watches-manager>
   </component>
 </project>
