@@ -19,12 +19,12 @@ public abstract class GenericAdapter<T> extends RecyclerView.Adapter<RecyclerVie
 
     public abstract RecyclerViewOnClickListenerHack onGetRecyclerViewOnClickListenerHack();
 
-    protected GenericAdapter(ArrayList<T> items){
+    protected GenericAdapter(ArrayList<T> items) {
         this.items = items;
         this.mRecyclerViewOnClickListenerHack = onGetRecyclerViewOnClickListenerHack();
     }
 
-    protected GenericAdapter(){
+    protected GenericAdapter() {
         this.mRecyclerViewOnClickListenerHack = onGetRecyclerViewOnClickListenerHack();
     }
 
@@ -44,30 +44,36 @@ public abstract class GenericAdapter<T> extends RecyclerView.Adapter<RecyclerVie
         return this.items.size();
     }
 
-    public void addItems(ArrayList<T> savedCardItems){
+    public void addItems(ArrayList<T> savedCardItems) {
         items = savedCardItems;
         this.notifyDataSetChanged();
     }
 
-    public void addItem(T savedCardItem){
+    public void addItem(T savedCardItem) {
         items.add(savedCardItem);
         this.notifyDataSetChanged();
     }
 
-    public void deleteItem(T item){
+    public void deleteItem(T item) {
         ArrayList<T> tmpItems = new ArrayList<>();
         for(int i= 0;i<items.size();i++)
-            if(item != items.get(i))
+            if(item != items.get(i)) {
                 tmpItems.add(items.get(i));
+            }
         this.items = tmpItems;
     }
 
-    public T getItem(int position){
+    public ArrayList<T> getItems() {
+        return items;
+    }
+
+    public T getItem(int position) {
         return items.get(position);
     }
 
-    public void clear(){
+    public void clear() {
         this.items.clear();
         this.notifyDataSetChanged();
     }
+
 }

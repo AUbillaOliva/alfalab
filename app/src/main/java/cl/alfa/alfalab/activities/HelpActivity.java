@@ -37,10 +37,11 @@ public class HelpActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         final SharedPreferences mSharedPreferences = new SharedPreferences(context);
-        if(mSharedPreferences.loadNightModeState())
+        if(mSharedPreferences.loadNightModeState()) {
             setTheme(R.style.AppThemeDark);
-        else
+        } else {
             setTheme(R.style.AppTheme);
+        }
         setContentView(R.layout.help_activity_layout);
 
         final Toolbar mToolbar = findViewById(R.id.toolbar);
@@ -50,10 +51,11 @@ public class HelpActivity extends AppCompatActivity {
         setSupportActionBar(mToolbar);
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
-        if(mSharedPreferences.loadNightModeState())
+        if(mSharedPreferences.loadNightModeState()) {
             mToolbar.setTitleTextAppearance(context, R.style.ToolbarTypefaceDark);
-        else
+        } else {
             mToolbar.setTitleTextAppearance(context, R.style.ToolbarTypefaceLight);
+        }
         toolbarTitle.setText(R.string.help);
 
         mRecyclerView.setHasFixedSize(true);
@@ -77,8 +79,9 @@ public class HelpActivity extends AppCompatActivity {
                 final LinearLayout layout = viewHolder.get(R.id.sub_item);
                 layout.setVisibility(expanded ? View.VISIBLE : View.GONE);
                 final View divider = viewHolder.get(R.id.vw_divider);
-                if (position == getItemCount() - 1)
+                if (position == getItemCount() - 1) {
                     divider.setVisibility(View.GONE);
+                }
                 holder.itemView.setOnClickListener(v -> {
                     val.setExpanded(!expanded);
                     layout.setVisibility(expanded ? View.GONE : View.VISIBLE);
@@ -97,7 +100,7 @@ public class HelpActivity extends AppCompatActivity {
 
     }
 
-    private ArrayList<ListItem> helpListItems(){
+    private ArrayList<ListItem> helpListItems() {
         final ArrayList<ListItem> list = new ArrayList<>();
         ListItem item = new ListItem();
 
@@ -124,28 +127,28 @@ public class HelpActivity extends AppCompatActivity {
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu){
+    public boolean onCreateOptionsMenu(Menu menu) {
         return super.onCreateOptionsMenu(menu);
     }
 
     @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item){
-        if (item.getItemId() == android.R.id.home){
-            finish();
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
             overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+            finish();
         }
         return super.onOptionsItemSelected(item);
     }
 
     @Override
-    public void onBackPressed(){
+    public void onBackPressed() {
         super.onBackPressed();
-        finish();
         overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+        finish();
     }
 
     @Override
-    protected void attachBaseContext(Context newBase){
+    protected void attachBaseContext(Context newBase) {
         super.attachBaseContext(newBase);
         final Configuration override = new Configuration(newBase.getResources().getConfiguration());
         override.fontScale = 1.0f;

@@ -40,10 +40,11 @@ public class SettingsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         mSharedPreferences = new SharedPreferences(context);
-        if(mSharedPreferences.loadNightModeState())
+        if(mSharedPreferences.loadNightModeState()) {
             setTheme(R.style.AppThemeDark);
-        else
+        } else {
             setTheme(R.style.AppTheme);
+        }
         setContentView(R.layout.settings_activity_layout);
 
         final Toolbar mToolbar = findViewById(R.id.toolbar);
@@ -56,43 +57,49 @@ public class SettingsActivity extends AppCompatActivity {
         setSupportActionBar(mToolbar);
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
-        if(mSharedPreferences.loadNightModeState())
+        if(mSharedPreferences.loadNightModeState()) {
             mToolbar.setTitleTextAppearance(context, R.style.ToolbarTypefaceDark);
-        else
+        } else {
             mToolbar.setTitleTextAppearance(context, R.style.ToolbarTypefaceLight);
+        }
         toolbarTitle.setText(R.string.action_settings);
 
         profileName.setText(mSharedPreferences.getResponsible());
 
-        if(mSharedPreferences.loadNightModeState())
+        if(mSharedPreferences.loadNightModeState()) {
             mDarkSwitch.setChecked(true);
-            mDarkSwitch.setOnCheckedChangeListener((buttonView, isChecked) -> {
-            if(!isChecked)
+        }
+        mDarkSwitch.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            if(!isChecked) {
                 mSharedPreferences.setNightMode(false);
-            else
+            } else {
                 mSharedPreferences.setNightMode(true);
+            }
             startActivity(new Intent(context, SettingsActivity.class));
-            finish();
             overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+            finish();
         });
 
-        if(mSharedPreferences.sendReport())
+        if(mSharedPreferences.sendReport()) {
             mReportSwitch.setChecked(true);
+        }
         mReportSwitch.setOnCheckedChangeListener((buttonView, isChecked) -> {
-            if(!isChecked)
+            if(!isChecked){
                 mSharedPreferences.sendReports(false);
-            else
+            }
+            else {
                 mSharedPreferences.sendReports(true);
+            }
             startActivity(new Intent(context, SettingsActivity.class));
-            finish();
             overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+            finish();
         });
 
         final LinearLayout profileLayout = findViewById(R.id.profile_layout);
         profileLayout.setOnClickListener(view -> {
             startActivity(new Intent(context, ProfileDetailActivity.class));
-            finish();
             overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+            finish();
         });
 
         helpRecyclerView.setHasFixedSize(false);
@@ -111,10 +118,11 @@ public class SettingsActivity extends AppCompatActivity {
                 final TextView title = myViewHolder.get(R.id.list_item_title);
                 title.setText(val.getTitle());
                 final TextView subtitle = myViewHolder.get(R.id.list_item_subtitle);
-                if(val.getSubtitle() != null)
+                if(val.getSubtitle() != null) {
                     subtitle.setText(val.getSubtitle());
-                else
+                } else {
                     subtitle.setVisibility(View.GONE);
+                }
             }
 
             @Override
@@ -122,7 +130,7 @@ public class SettingsActivity extends AppCompatActivity {
                 return new RecyclerViewOnClickListenerHack() {
                     @Override
                     public void onClickListener(View view, int position) {
-                        switch (position){
+                        switch (position) {
                             case 0:
                                 startActivity(new Intent(context, ReportActivity.class));
                                 overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
@@ -141,7 +149,7 @@ public class SettingsActivity extends AppCompatActivity {
                         }
                     }
                     @Override
-                    public void onLongPressClickListener(View view, int position){}
+                    public void onLongPressClickListener(View view, int position) {}
                 };
             }
         };
@@ -177,32 +185,33 @@ public class SettingsActivity extends AppCompatActivity {
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu){
+    public boolean onCreateOptionsMenu(Menu menu) {
         return super.onCreateOptionsMenu(menu);
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item){
-        if (item.getItemId() == android.R.id.home){
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
             startActivity(new Intent(context, MainActivity.class));
-            finish();
             overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+            finish();
         }
         return super.onOptionsItemSelected(item);
     }
 
     @Override
-    public void onBackPressed(){
+    public void onBackPressed() {
         startActivity(new Intent(context, MainActivity.class));
-        finish();
         overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+        finish();
     }
 
     @Override
-    protected void attachBaseContext(Context newBase){
+    protected void attachBaseContext(Context newBase) {
         super.attachBaseContext(newBase);
         final Configuration override = new Configuration(newBase.getResources().getConfiguration());
         override.fontScale = 1.0f;
         applyOverrideConfiguration(override);
     }
+    
 }

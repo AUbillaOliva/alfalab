@@ -30,28 +30,28 @@ public class TabsAdapter extends FragmentStateAdapter {
 
     @NonNull
     @Override
-    public Fragment createFragment(int position){
+    public Fragment createFragment(int position) {
         return mFragmentList.get(position);
     }
 
     @Nullable
-    public CharSequence getPageTitle(int position){
+    public CharSequence getPageTitle(int position) {
         return mFragmentTitleList.get(position);
     }
 
     @Override
-    public int getItemCount(){
+    public int getItemCount() {
         return mFragmentList.size();
     }
 
-    public View getTabView(int position){
+    public View getTabView(int position) {
         @SuppressLint("InflateParams") View v = LayoutInflater.from(context).inflate(R.layout.tab_view, null);
         final TextView tv = v.findViewById(R.id.tv_tab);
         tv.setText(mFragmentTitleList.get(position));
         return v;
     }
 
-    public void addFragment(Fragment fragment, String title){
+    public void addFragment(Fragment fragment, String title) {
         mFragmentList.add(fragment);
         mFragmentTitleList.add(title);
     }

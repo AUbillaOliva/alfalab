@@ -34,6 +34,8 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Objects;
 
 import androidx.appcompat.app.AlertDialog;
@@ -59,10 +61,8 @@ public class ReportActivity extends AppCompatActivity {
 
     private final Context context = this;
     public static final int PICK_IMAGE = 0;
-    public static final String USER_KEY = "user",
-            PASS_KEY = "pass";
-    private String USER_VAL,
-            PASS_VAL;
+    public static final String USER_KEY = "user", PASS_KEY = "pass";
+    private String USER_VAL, PASS_VAL;
     private ImageView imageView, delete;
     private TextInputEditText editText;
     private Intent pickIntent, getIntent, chooserIntent;
@@ -70,11 +70,12 @@ public class ReportActivity extends AppCompatActivity {
     private final MediaType MEDIA_TYPE = MediaType.parse("image/*");
 
     @Override
-    public void onCreate(Bundle savedInstanceState){
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        if(ContextCompat.checkSelfPermission(context, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED)
+        if(ContextCompat.checkSelfPermission(context, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, REQUEST_CODE);
+        }
 
         try {
             final JSONObject obj = new JSONObject(Objects.requireNonNull(loadJSONFromAsset()));
@@ -86,10 +87,11 @@ public class ReportActivity extends AppCompatActivity {
         }
 
         final SharedPreferences mSharedPreferences = new SharedPreferences(context);
-        if(mSharedPreferences.loadNightModeState())
+        if(mSharedPreferences.loadNightModeState()) {
             setTheme(R.style.AppThemeDark);
-        else
+        } else {
             setTheme(R.style.AppTheme);
+        }
         setContentView(R.layout.report_activity_layout);
 
         final Toolbar mToolbar = findViewById(R.id.toolbar);
@@ -101,48 +103,49 @@ public class ReportActivity extends AppCompatActivity {
         setSupportActionBar(mToolbar);
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
-        if(mSharedPreferences.loadNightModeState())
+        if(mSharedPreferences.loadNightModeState()) {
             mToolbar.setTitleTextAppearance(context, R.style.ToolbarTypefaceDark);
-        else
+        } else {
             mToolbar.setTitleTextAppearance(context, R.style.ToolbarTypefaceLight);
+        }
         toolbarTitle.setText(R.string.report_error);
 
         imageView.setOnClickListener(v -> {
-            if(ContextCompat.checkSelfPermission(context, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED)
+            if(ContextCompat.checkSelfPermission(context, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
                 ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},REQUEST_CODE);
-            else
-            if(hasNullOrEmptyDrawable(imageView)){
-
-                getIntent = new Intent(Intent.ACTION_GET_CONTENT);
-                getIntent.setType("image/*");
-
-                pickIntent = new Intent(Intent.ACTION_PICK);
-                pickIntent.setDataAndType(android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI,"image/*");
-
-                chooserIntent = Intent.createChooser(getIntent, context.getResources().getString(R.string.image_select));
-                chooserIntent.putExtra(Intent.EXTRA_INITIAL_INTENTS, new Intent[] {pickIntent});
-
-                //noinspection deprecation
-                startActivityForResult(pickIntent, PICK_IMAGE);
-
             } else {
-                imageView.setImageBitmap(null);
-                imageView.setPadding(90,90,90,90);
-                imageView.setImageDrawable(getDrawable(R.drawable.ic_add_24dp));
-                delete.setVisibility(View.GONE);
+                if(hasNullOrEmptyDrawable(imageView)) {
+                    getIntent = new Intent(Intent.ACTION_GET_CONTENT);
+                    getIntent.setType("image/*");
+
+                    pickIntent = new Intent(Intent.ACTION_PICK);
+                    pickIntent.setDataAndType(android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI,"image/*");
+
+                    chooserIntent = Intent.createChooser(getIntent, context.getResources().getString(R.string.image_select));
+                    chooserIntent.putExtra(Intent.EXTRA_INITIAL_INTENTS, new Intent[] {pickIntent});
+
+                    //noinspection deprecation
+                    startActivityForResult(pickIntent, PICK_IMAGE);
+                } else {
+                    imageView.setImageBitmap(null);
+                    imageView.setPadding(90,90,90,90);
+                    imageView.setImageDrawable(getDrawable(R.drawable.ic_add_24dp));
+                    delete.setVisibility(View.GONE);
+                }
             }
         });
+
     }
 
-    public static boolean hasNullOrEmptyDrawable(ImageView iv){
+    public static boolean hasNullOrEmptyDrawable(ImageView iv) {
         final BitmapDrawable bitmapDrawable = iv.getDrawable() instanceof BitmapDrawable ? (BitmapDrawable) iv.getDrawable() : null;
         return bitmapDrawable == null || bitmapDrawable.getBitmap() == null;
     }
 
     @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data){
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == PICK_IMAGE && resultCode == Activity.RESULT_OK){
+        if (requestCode == PICK_IMAGE && resultCode == Activity.RESULT_OK) {
             InputStream inputStream = null;
 
             try {
@@ -156,7 +159,7 @@ public class ReportActivity extends AppCompatActivity {
 
             try {
                 final InputStream is = this.getContentResolver().openInputStream(uri);
-                if (is != null){
+                if (is != null) {
                     final Bitmap pictureBitmap = BitmapFactory.decodeStream(is);
                     file = new File(context.getCacheDir(), "image.png");
 
@@ -169,7 +172,7 @@ public class ReportActivity extends AppCompatActivity {
                     fos.flush();
                     fos.close();
                 }
-            } catch (IOException e){
+            } catch (IOException e) {
                 e.printStackTrace();
             }
             imageView.setPadding(0,0,0,0);
@@ -179,7 +182,7 @@ public class ReportActivity extends AppCompatActivity {
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu){
+    public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_report, menu);
 
         final MenuItem send = menu.findItem(R.id.send);
@@ -192,11 +195,11 @@ public class ReportActivity extends AppCompatActivity {
 
     @SuppressLint("StaticFieldLeak")
     @Override
-    public boolean onOptionsItemSelected(MenuItem item){
+    public boolean onOptionsItemSelected(MenuItem item) {
         final ProgressDialog progressDialog;
-        switch (item.getItemId()){
+        switch (item.getItemId()) {
             case android.R.id.home:
-                if(Objects.requireNonNull(editText.getText()).length() != 0 || !hasNullOrEmptyDrawable(imageView)){
+                if(Objects.requireNonNull(editText.getText()).length() != 0 || !hasNullOrEmptyDrawable(imageView)) {
                     final AlertDialog dialog = new AlertDialog.Builder(context)
                             .setView(R.layout.confirmation_dialog_layout)
                             .show();
@@ -206,8 +209,8 @@ public class ReportActivity extends AppCompatActivity {
                     positiveButton.setText(R.string.positive_discard_dialog_button);
                     positiveButton.setOnClickListener(v -> {
                         dialog.dismiss();
-                        finish();
                         overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+                        finish();
                     });
                     final TextView dialogTitle = dialog.findViewById(R.id.dialog_title);
                     assert dialogTitle != null;
@@ -220,13 +223,13 @@ public class ReportActivity extends AppCompatActivity {
                     negative.setText(R.string.cancel_dialog_buttton);
                     negative.setOnClickListener(v -> dialog.dismiss());
                 } else {
-                    finish();
                     overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+                    finish();
                 }
                 break;
             case R.id.send:
-                if(USER_VAL != null && PASS_VAL != null){
-                    if(!hasNullOrEmptyDrawable(imageView) && Objects.requireNonNull(editText.getText()).length() != 0){
+                if(USER_VAL != null && PASS_VAL != null) {
+                    if(!hasNullOrEmptyDrawable(imageView) && Objects.requireNonNull(editText.getText()).length() != 0) {
                         progressDialog = ProgressDialog.show(context, context.getResources().getString(R.string.sending), context.getResources().getString(R.string.sending_report), true);
                         final MultipartRequest request = new MultipartRequest(context, progressDialog);
                         request.addString(USER_KEY, USER_VAL);
@@ -235,7 +238,7 @@ public class ReportActivity extends AppCompatActivity {
                         request.addString("message", Objects.requireNonNull(editText.getText()).toString());
                         request.execute(ApiClient.REPORT_URL);
                         request.onCode(getResources().getString(R.string.report_max_size), 504);
-                    } else if(!hasNullOrEmptyDrawable(imageView) && Objects.requireNonNull(editText.getText()).length() == 0){
+                    } else if(!hasNullOrEmptyDrawable(imageView) && Objects.requireNonNull(editText.getText()).length() == 0) {
                         progressDialog = ProgressDialog.show(context, context.getResources().getString(R.string.sending), context.getResources().getString(R.string.sending_report), true);
                         final MultipartRequest request = new MultipartRequest(context, progressDialog);
                         request.addString(USER_KEY, USER_VAL);
@@ -243,7 +246,7 @@ public class ReportActivity extends AppCompatActivity {
                         request.addFile("file", RequestBody.create(MEDIA_TYPE, file), file.getName());
                         request.execute(ApiClient.REPORT_URL);
                         request.onCode(getResources().getString(R.string.report_max_size), 504);
-                    } else if(hasNullOrEmptyDrawable(imageView) && Objects.requireNonNull(editText.getText()).length() != 0){
+                    } else if(hasNullOrEmptyDrawable(imageView) && Objects.requireNonNull(editText.getText()).length() != 0) {
                         progressDialog = ProgressDialog.show(context, context.getResources().getString(R.string.sending), context.getResources().getString(R.string.sending_report), true);
                         final MultipartRequest request = new MultipartRequest(context, progressDialog);
                         request.addString(USER_KEY, USER_VAL);
@@ -251,8 +254,9 @@ public class ReportActivity extends AppCompatActivity {
                         request.addString("message", Objects.requireNonNull(editText.getText()).toString());
                         request.execute(ApiClient.REPORT_URL);
                         request.onCode(getResources().getString(R.string.report_max_size), 504);
-                    } else
+                    } else {
                         Toast.makeText(context, context.getResources().getString(R.string.report_input_error), Toast.LENGTH_SHORT).show();
+                    }
                 }
                 break;
         }
@@ -260,25 +264,24 @@ public class ReportActivity extends AppCompatActivity {
     }
 
     private String loadJSONFromAsset() {
-        String json;
         try {
             final InputStream is = getApplicationContext().getAssets().open("ACRA-SETTINGS.json");
-            int size = is.available();
-            byte[] buffer = new byte[size];
+            final int size = is.available();
+            final byte[] buffer = new byte[size];
             //noinspection ResultOfMethodCallIgnored
             is.read(buffer);
-            json = new String(buffer, StandardCharsets.UTF_8);
+            final String json = new String(buffer, StandardCharsets.UTF_8);
             is.close();
+            return json;
         } catch (IOException ex) {
             ex.printStackTrace();
             return null;
         }
-        return json;
     }
 
     @Override
-    public void onBackPressed(){
-        if(Objects.requireNonNull(editText.getText()).length() != 0 || !hasNullOrEmptyDrawable(imageView)){
+    public void onBackPressed() {
+        if(Objects.requireNonNull(editText.getText()).length() != 0 || !hasNullOrEmptyDrawable(imageView)) {
             final AlertDialog dialog = new AlertDialog.Builder(context)
                     .setView(R.layout.confirmation_dialog_layout)
                     .show();
@@ -288,8 +291,8 @@ public class ReportActivity extends AppCompatActivity {
             positiveButton.setText(R.string.positive_discard_dialog_button);
             positiveButton.setOnClickListener(v -> {
                 dialog.dismiss();
-                finish();
                 overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+                finish();
             });
             final TextView dialogTitle = dialog.findViewById(R.id.dialog_title);
             assert dialogTitle != null;
@@ -302,13 +305,13 @@ public class ReportActivity extends AppCompatActivity {
             negative.setText(R.string.cancel_dialog_buttton);
             negative.setOnClickListener(v -> dialog.dismiss());
         } else {
-            finish();
             overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+            finish();
         }
     }
 
     @Override
-    protected void attachBaseContext(Context newBase){
+    protected void attachBaseContext(Context newBase) {
         super.attachBaseContext(newBase);
         final Configuration override = new Configuration(newBase.getResources().getConfiguration());
         override.fontScale = 1.0f;

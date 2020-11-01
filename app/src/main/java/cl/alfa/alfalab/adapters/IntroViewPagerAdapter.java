@@ -19,7 +19,7 @@ public class IntroViewPagerAdapter extends FragmentPagerAdapter {
         super(fm);
     }
 
-    public void addPage(Fragment fragment){
+    public void addPage(Fragment fragment) {
         fragmentsList.add(fragment);
     }
 

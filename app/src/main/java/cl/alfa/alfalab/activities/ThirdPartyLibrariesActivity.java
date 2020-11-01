@@ -34,10 +34,11 @@ public class ThirdPartyLibrariesActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         final SharedPreferences mSharedPreferences = new SharedPreferences(context);
-        if(mSharedPreferences.loadNightModeState())
+        if(mSharedPreferences.loadNightModeState()) {
             setTheme(R.style.AppThemeDark);
-        else
+        } else {
             setTheme(R.style.AppTheme);
+        }
         setContentView(R.layout.third_party_libraries_layout);
 
         final Toolbar mToolbar = findViewById(R.id.toolbar);
@@ -47,10 +48,11 @@ public class ThirdPartyLibrariesActivity extends AppCompatActivity {
         setSupportActionBar(mToolbar);
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
-        if(mSharedPreferences.loadNightModeState())
+        if(mSharedPreferences.loadNightModeState()) {
             mToolbar.setTitleTextAppearance(context, R.style.ToolbarTypefaceDark);
-        else
+        } else {
             mToolbar.setTitleTextAppearance(context, R.style.ToolbarTypefaceLight);
+        }
         toolbarTitle.setText(R.string.third_party_libraries_title);
 
         mRecyclerView.setHasFixedSize(true);
@@ -78,9 +80,10 @@ public class ThirdPartyLibrariesActivity extends AppCompatActivity {
         mRecyclerView.setAdapter(adapter);
         final LinearLayoutManager layoutManager = new LinearLayoutManager(context);
         mRecyclerView.setLayoutManager(layoutManager);
+
     }
 
-    private ArrayList<ListItem> libraries(){
+    private ArrayList<ListItem> libraries() {
 
         final ArrayList<ListItem> items = new ArrayList<>();
 
@@ -1145,28 +1148,28 @@ public class ThirdPartyLibrariesActivity extends AppCompatActivity {
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu){
+    public boolean onCreateOptionsMenu(Menu menu) {
         return super.onCreateOptionsMenu(menu);
     }
 
     @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item){
-        if (item.getItemId() == android.R.id.home){
-            finish();
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
             overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+            finish();
         }
         return super.onOptionsItemSelected(item);
     }
 
     @Override
-    public void onBackPressed(){
+    public void onBackPressed() {
         super.onBackPressed();
-        finish();
         overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+        finish();
     }
 
     @Override
-    protected void attachBaseContext(Context newBase){
+    protected void attachBaseContext(Context newBase) {
         super.attachBaseContext(newBase);
         final Configuration override = new Configuration(newBase.getResources().getConfiguration());
         override.fontScale = 1.0f;

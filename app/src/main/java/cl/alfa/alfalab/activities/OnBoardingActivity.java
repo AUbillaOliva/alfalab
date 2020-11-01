@@ -28,14 +28,14 @@ public class OnBoardingActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         final SharedPreferences mSharedPreferences = new SharedPreferences(context);
-        if(mSharedPreferences.loadNightModeState())
+        if(mSharedPreferences.loadNightModeState()) {
             setTheme(R.style.AppThemeDark);
-        else
+        } else {
             setTheme(R.style.AppTheme);
+        }
         setContentView(R.layout.intro_activity_layout);
 
         final TabLayout tabIndicator = findViewById(R.id.tab_indicator);
-
         screenPager = findViewById(R.id.screen_viewpager);
         IntroViewPagerAdapter adapter = new IntroViewPagerAdapter(getSupportFragmentManager());
         adapter.addPage(new FirstIntroFragment());
@@ -45,7 +45,7 @@ public class OnBoardingActivity extends AppCompatActivity {
 
         tabIndicator.setupWithViewPager(screenPager);
 
-        if(position == 3){
+        if(position == 3) {
             startActivity(new Intent(context, MainActivity.class));
             mSharedPreferences.setFirstTime(false);
             finish();
@@ -54,7 +54,7 @@ public class OnBoardingActivity extends AppCompatActivity {
 
     }
 
-    public static void setPosition(int pos){
+    public static void setPosition(int pos) {
         position = pos;
         screenPager.setCurrentItem(position);
     }
