@@ -42,6 +42,14 @@ public class SharedPreferences {
         editor.apply();
     }
 
+    public void signOut() {
+        final android.content.SharedPreferences.Editor editor = mSharedPreferences.edit();
+        editor.remove("token");
+        editor.remove("firstname");
+        editor.remove("lastname");
+        editor.apply();
+    }
+
     public boolean loadNightModeState() { return mSharedPreferences.getBoolean("NightMode",false); }
     public boolean isFirstTime() { return mSharedPreferences.getBoolean("isFirstTime", true); }
     public User getResponsible() { return new User(mSharedPreferences.getString("firstname", null), mSharedPreferences.getString("lastname", null)); }
