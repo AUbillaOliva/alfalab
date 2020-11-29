@@ -66,6 +66,12 @@ public class MainActivity extends AppCompatActivity {
             finish();
         }
 
+        if(mSharedPreferences.getToken() == null) {
+            startActivity(new Intent(context, OnBoardingActivity.class));
+            overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+            finish();
+        }
+
         if (mSharedPreferences.loadNightModeState()) {
             setTheme(R.style.AppThemeDark);
         } else {
