@@ -5,7 +5,6 @@ import java.io.Serializable;
 public class Order implements Serializable {
     private String _id,
             commentaries,
-            responsible,
             checkin,
             checkout,
             order_type;
@@ -13,9 +12,10 @@ public class Order implements Serializable {
             forcedLevel;
     private boolean status,
             digitized;
+    private User responsible;
 
     public Order(){}
-    public Order(String order_type, String checkin, String responsible, String commentaries, int price, int forcedLevel, boolean digitized, boolean status){
+    public Order(String order_type, String checkin, User responsible, String commentaries, int price, int forcedLevel, boolean digitized, boolean status){
         this.order_type = order_type;
         this.checkin = checkin;
         this.responsible = responsible;
@@ -50,11 +50,11 @@ public class Order implements Serializable {
         this.commentaries = commentaries;
     }
 
-    public String getResponsible() {
+    public User getResponsible() {
         return responsible;
     }
 
-    public void setResponsible(String responsible) {
+    public void setResponsible(User responsible) {
         this.responsible = responsible;
     }
 
