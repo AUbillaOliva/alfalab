@@ -105,6 +105,31 @@
 
                     </LinearLayout>
 
+                    <LinearLayout
+                        android:id="@+id/sesion_layout"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:layout_marginTop="10dp">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textColor="?attr/textColor"
+                            android:textSize="@dimen/body_2_size"
+                            android:text="@string/sign_out"
+                            android:fontFamily="@font/product_sans_bold"
+                        />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textSize="@dimen/subtitle_2_size"
+                            android:text="@string/sign_out_subtitle"
+                        />
+
+                    </LinearLayout>
+
                 </LinearLayout>
 
             </com.google.android.material.card.MaterialCardView>
