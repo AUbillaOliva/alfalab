@@ -3,8 +3,12 @@ package cl.alfa.alfalab.activities;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
+import android.text.Html;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -17,10 +21,13 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.Objects;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
 
 import cl.alfa.alfalab.MainActivity;
 import cl.alfa.alfalab.R;
@@ -64,16 +71,16 @@ public class SettingsActivity extends AppCompatActivity {
         }
         toolbarTitle.setText(R.string.action_settings);
 
-        profileName.setText(mSharedPreferences.getResponsible());
+        profileName.setText(Html.fromHtml(String.format(getResources().getString(R.string.user_name), capitalizeFirstLetter(mSharedPreferences.getResponsible().getFirstname()), capitalizeFirstLetter(mSharedPreferences.getResponsible().getLastname()))));
 
         if(mSharedPreferences.loadNightModeState()) {
             mDarkSwitch.setChecked(true);
         }
         mDarkSwitch.setOnCheckedChangeListener((buttonView, isChecked) -> {
             if(!isChecked) {
-                mSharedPreferences.setNightMode(false);
+                mSharedPreferences.setNightModeState(false);
             } else {
-                mSharedPreferences.setNightMode(true);
+                mSharedPreferences.setNightModeState(true);
             }
             startActivity(new Intent(context, SettingsActivity.class));
             overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
@@ -101,6 +108,8 @@ public class SettingsActivity extends AppCompatActivity {
             overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
             finish();
         });
+        final LinearLayout sesionLayout = findViewById(R.id.sesion_layout);
+        sesionLayout.setOnClickListener(v -> showDialog());
 
         helpRecyclerView.setHasFixedSize(false);
         final LinearLayoutManager linearLayoutManager = new LinearLayoutManager(context);
@@ -157,6 +166,47 @@ public class SettingsActivity extends AppCompatActivity {
 
     }
 
+    public void showDialog() {
+        final AlertDialog dialog = new AlertDialog.Builder(context)
+                .setView(R.layout.confirmation_dialog_layout)
+                .show();
+        Objects.requireNonNull(dialog.getWindow()).setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        final ExtendedFloatingActionButton positiveButton = dialog.findViewById(R.id.confirm_button);
+        assert positiveButton != null;
+        positiveButton.setText(R.string.positive_sign_out_dialog_button);
+        positiveButton.setOnClickListener(v -> {
+            dialog.dismiss();
+            mSharedPreferences.signOut();
+            startActivity(new Intent(context, OnBoardingActivity.class));
+            overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+            finish();
+        });
+        final TextView dialogTitle = dialog.findViewById(R.id.dialog_title);
+        assert dialogTitle != null;
+        dialogTitle.setText(R.string.sign_out_dialog_title);
+        final TextView dialogSubtitle = dialog.findViewById(R.id.dialog_subtitle);
+        assert dialogSubtitle != null;
+        dialogSubtitle.setText(R.string.sign_out_dialog_subtitle);
+        final TextView negative = dialog.findViewById(R.id.negative_button);
+        assert negative != null;
+        negative.setText(R.string.cancel_dialog_buttton);
+        negative.setOnClickListener(v -> dialog.dismiss());
+    }
+
+    //TODO: CAPITALIZE EACH WORD
+    private String capitalizeFirstLetter(String s) {
+
+        final String[] in = s.split("^/([ ]?\\.?[a-zA-Z])+/$");
+        final StringBuilder out = new StringBuilder();
+        for (String ss : in) {
+            Log.d(MainActivity.API, ss);
+            final String upperString = ss.substring(0, 1).toUpperCase() + ss.substring(1).toLowerCase();
+            out.append(upperString);
+            out.append(" ");
+        }
+        return out.toString();
+    }
+
     private ArrayList<ListItem> getHelpItems() {
         final ArrayList<ListItem> mList = new ArrayList<>();
 
@@ -179,6 +229,11 @@ public class SettingsActivity extends AppCompatActivity {
         item.setTitle("Más información");
         item.setSubtitle("Visita el repositorio del proyecto.");
         item.setExpanded(true);
+        mList.add(item);
+
+        item = new ListItem();
+        item.setTitle("Cerrar sesión");
+        item.setSubtitle("Cierra tu sesión de Alfalab App.");
         mList.add(item);
 
         return mList;
