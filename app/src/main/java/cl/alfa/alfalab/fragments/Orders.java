@@ -57,6 +57,7 @@ import cl.alfa.alfalab.api.ApiService;
 import cl.alfa.alfalab.interfaces.FabInterface;
 import cl.alfa.alfalab.interfaces.RecyclerViewOnClickListenerHack;
 import cl.alfa.alfalab.utils.GenericViewHolder;
+import cl.alfa.alfalab.utils.SharedPreferences;
 import cl.alfa.alfalab.utils.databases.OrdersDatabaseHelper;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
@@ -75,6 +76,8 @@ public class Orders extends Fragment implements FabInterface {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_layout, container, false);
+
+        final SharedPreferences mSharedPreferences = new SharedPreferences(context);
 
         final RecyclerView mRecyclerView = view.findViewById(R.id.recycler_view);
         final NestedScrollView nestedScrollView = view.findViewById(R.id.nested);
@@ -146,6 +149,7 @@ public class Orders extends Fragment implements FabInterface {
                         .setTextColor(textColor)
                         .setCancelable(true)
                         .setCornerRadius(getResources().getDimension(R.dimen.corner_radius))
+                        .setBackgroundColor(mSharedPreferences.loadNightModeState() ? getResources().getColor(R.color.tooltipBackgroundColorDark) : getResources().getColor(R.color.tooltipBackgroundColorLight))
                         .setArrowHeight(getResources().getDimension(R.dimen.arrow_dimension));
 
                 alertIcon.setOnClickListener(view -> tooltip.show());
@@ -279,16 +283,16 @@ public class Orders extends Fragment implements FabInterface {
                         getData();
                         adapter.notifyDataSetChanged();
                     } else {
-                        Log.e(MainActivity.API, "onResponse (errorBody): " + response.errorBody());
-                        Log.e(MainActivity.API, "onResponse (response.raw): " + response.raw().toString());
-                        Log.e(MainActivity.API, "onResponse (message):" + response.message());
+                        Log.e(MainActivity.API, "deleteOrder - onResponse (errorBody): " + response.errorBody());
+                        Log.e(MainActivity.API, "deleteOrder - onResponse (response.raw): " + response.raw().toString());
+                        Log.e(MainActivity.API, "deleteOrder - onResponse (message):" + response.message());
                     }
                 }
 
                 @Override
                 public void onFailure(@NonNull Call<ResponseBody> call, @NonNull Throwable t) {
-                    Toast.makeText(context, "Error al eliminar el pedido", Toast.LENGTH_SHORT).show();
-                    Log.e(MainActivity.API, "onFailure: " + t.getMessage());
+                    Toast.makeText(context, "deleteOrder - Error al eliminar el pedido", Toast.LENGTH_SHORT).show();
+                    Log.e(MainActivity.API, "deleteOrder - onFailure: " + t.getMessage());
                 }
             });
         } catch (Throwable err) {
@@ -332,9 +336,9 @@ public class Orders extends Fragment implements FabInterface {
                     adapter.notifyDataSetChanged();
                 } else {
                     Toast.makeText(context, context.getResources().getString(R.string.check_internet_connection), Toast.LENGTH_SHORT).show();
-                    Log.e(MainActivity.API, "onResponse (errorBody): " + response.errorBody());
-                    Log.e(MainActivity.API, "onResponse (response.raw): " + response.raw().toString());
-                    Log.e(MainActivity.API, "onResponse (message):" + response.message());
+                    Log.e(MainActivity.API, "getData - onResponse (errorBody): " + response.errorBody());
+                    Log.e(MainActivity.API, "getData - onResponse (response.raw): " + response.raw().toString());
+                    Log.e(MainActivity.API, "getData - onResponse (message):" + response.message());
                 }
             }
 
@@ -343,7 +347,8 @@ public class Orders extends Fragment implements FabInterface {
                 mSwipeRefreshLayout.setRefreshing(false);
                 mProgressBar.setVisibility(View.GONE);
                 mSwipeRefreshLayout.setVisibility(View.VISIBLE);
-                Log.d(MainActivity.API, "onFailure: " + t.getMessage());
+                Log.d(MainActivity.API, "getData - onFailure: " + t.getMessage());
+                Log.e(MainActivity.API, "getData - onFailure: " + t.getLocalizedMessage());
                 Toast.makeText(context, context.getResources().getString(R.string.feed_update_error), Toast.LENGTH_SHORT).show();
             }
         });
