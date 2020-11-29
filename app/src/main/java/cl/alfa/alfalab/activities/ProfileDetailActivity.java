@@ -22,6 +22,7 @@ import com.google.android.material.textfield.TextInputLayout;
 import java.util.Objects;
 
 import cl.alfa.alfalab.R;
+import cl.alfa.alfalab.models.User;
 import cl.alfa.alfalab.utils.SharedPreferences;
 
 public class ProfileDetailActivity extends AppCompatActivity {
@@ -40,12 +41,13 @@ public class ProfileDetailActivity extends AppCompatActivity {
         }
         setContentView(R.layout.profile_detail_activity_layout);
 
+        //TODO: DELETE ACCOUNT ACTION
         final Toolbar mToolbar = findViewById(R.id.toolbar);
         final TextView toolbarTitle = mToolbar.findViewById(R.id.toolbar_title);
-        final TextInputLayout nameInputLayout = findViewById(R.id.name_intro_input_layout),
-                lastInputLayout = findViewById(R.id.lastname_intro_input_layout);
-        final TextInputEditText nameInputEditText = nameInputLayout.findViewById(R.id.name_intro_edit_text),
-                lastInputEditText = lastInputLayout.findViewById(R.id.lastname_intro_edit_text);
+        final TextInputLayout nameInputLayout = findViewById(R.id.email_input_layout),
+                lastInputLayout = findViewById(R.id.password_input_layout);
+        final TextInputEditText nameInputEditText = nameInputLayout.findViewById(R.id.email_edit_text),
+                lastInputEditText = lastInputLayout.findViewById(R.id.password_edit_text);
 
         setSupportActionBar(mToolbar);
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
@@ -118,7 +120,7 @@ public class ProfileDetailActivity extends AppCompatActivity {
                 Toast.makeText(context, "Ingresa tu nombre", Toast.LENGTH_SHORT).show();
                 nameInputLayout.setError(getResources().getString(R.string.required));
             } else {
-                mSharedPreferences.setResponsible(nameInputEditText.getEditableText().toString() + " " + lastInputEditText.getEditableText().toString());
+                mSharedPreferences.setResponsible(new User(nameInputEditText.getEditableText().toString(), lastInputEditText.getEditableText().toString()));
                 startActivity(new Intent(context, SettingsActivity.class));
                 overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
                 finish();
