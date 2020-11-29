@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <!--APP STRINGS-->
     <string name="app_name">Alfalab</string>
 
@@ -9,6 +9,8 @@
     <!--SETTINGS STRINGS-->
     <string name="settings_general_label">General</string>
     <string name="setting_dark_theme_label">Tema oscuro</string>
+    <string name="sign_out">Cerrar sesión</string>
+    <string name="sign_out_subtitle">Cierra tu sesión de Alfalab App.</string>
 
     <!--CONTEXT MENU-->
     <string name="edit_order">Editar</string>
@@ -35,6 +37,9 @@
     <string name="positive_delete_dialog_button">ELIMINAR</string>
     <string name="cancel_dialog_buttton">CANCELAR</string>
     <string name="positive_discard_dialog_button">DESCARTAR</string>
+    <string name="positive_sign_out_dialog_button">CERRAR SESIÓN</string>
+    <string name="sign_out_dialog_title">Cerrar sesión?</string>
+    <string name="sign_out_dialog_subtitle">Cerrar la sesión de Alfalab App</string>
     <string name="delete_order_dialog_title">Descartar pedido?</string>
     <string name="delete_order_dialog_subtitle">Estás seguro que deseas descartar el pedido?</string>
     <string name="delete_order_question">Eliminar pedido?</string>
@@ -132,7 +137,7 @@
     <string name="help_list_item_3_title">¿La aplicación envía reportes de error?</string>
     <string name="help_list_item_3_subtitle">Los reportes ayudan al desarrollador identificar problemas en el funcionamiento de la aplicación. Estos son enviados de forma automática y anónima, por lo que no tienes por qué preocuparte. De igual manera puedes generar un reporte de error en Ajustes. Puedes ajustar esto en Ajustes.</string>
     <string name="help_list_item_4_title">¿La App funciona sin internet?</string>
-    <string name="help_list_item_4_subtitle">Por el momento no 😔, pero pronto se incorporará la función en la App. Mientras tanto puedes vizualizar los pedidos que se hayan cargado cuando inicias la App.</string>
+    <string name="help_list_item_4_subtitle" tools:ignore="Typos">Por el momento no 😔, pero pronto se incorporará la función en la App. Mientras tanto puedes vizualizar los pedidos que se hayan cargado cuando inicias la App.</string>
 
     <!--THIRD PARTY LIBRARIES STRINGS-->
     <string name="libraries_we_use">Librerías que utilizamos</string>
