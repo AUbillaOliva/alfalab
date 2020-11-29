@@ -5,12 +5,14 @@
     <color name="backgroundLight">#fff</color>
     <color name="backgroundCardLight">#fff</color>
     <color name="buttonTextColorLight">#fff</color>
+    <color name="tooltipBackgroundColorLight">#f3f3f3</color>
 
     <color name="colorPrimaryDark">#1F1F1F</color>
     <color name="colorPrimaryDarkDark">#000</color>
     <color name="backgroundDark">#121212</color>
     <color name="backgroundCardDark">#1D1D1D</color>
     <color name="buttonTextColorDark">#fff</color>
+    <color name="tooltipBackgroundColorDark">#1f1f1f</color>
 
     <!--color name="colorAccent">#F6BE00</color-->
     <color name="colorAccent">#008577</color>
