@@ -53,6 +53,7 @@ import retrofit2.Response;
 public class CreateOrdersActivity extends AppCompatActivity implements CustomBottomSheetDialogFragment.OnCreateOrderListener, CustomBottomSheetDialogFragment.OnEditOrderListener {
 
     private final Context context = this;
+    private SharedPreferences mSharedPreferences;
     private final ArrayList<Order> orders = new ArrayList<>();
     private Client client;
     private Orders data;
@@ -76,7 +77,7 @@ public class CreateOrdersActivity extends AppCompatActivity implements CustomBot
         final Bundle bundle = new Bundle();
         fragObj = new CustomBottomSheetDialogFragment();
 
-        final SharedPreferences mSharedPreferences = new SharedPreferences(context);
+        mSharedPreferences = new SharedPreferences(context);
         if(mSharedPreferences.loadNightModeState()) {
             setTheme(R.style.AppThemeDark);
         } else {
@@ -265,7 +266,8 @@ public class CreateOrdersActivity extends AppCompatActivity implements CustomBot
         order.setZone(orderZone);
         order.setStatus(false);
         final ApiService.PostOrderService service = ApiClient.getClient().create(ApiService.PostOrderService.class);
-        final Call<Orders> responseCall = service.postOrder(order);
+        final Call<Orders> responseCall = service.postOrder(order, mSharedPreferences.getToken());
+
 
         responseCall.enqueue(new Callback<Orders>() {
             @Override
@@ -362,5 +364,12 @@ public class CreateOrdersActivity extends AppCompatActivity implements CustomBot
             adapter.addItems(tmpList);
             adapter.notifyDataSetChanged();
         }
+    }
+
+    @Override
+    protected void onDestroy() {
+        fragObj.onDetach();
+        fragObj = null;
+        super.onDestroy();
     }
 }
