@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 import cl.alfa.alfalab.fragments.intro_fragments.FirstIntroFragment;
+import cl.alfa.alfalab.fragments.intro_fragments.FourthIntroFragment;
 import cl.alfa.alfalab.fragments.intro_fragments.SecondIntroFragment;
 import cl.alfa.alfalab.fragments.intro_fragments.ThirdIntroFragment;
 
@@ -31,8 +32,10 @@ public class IntroViewPagerAdapter extends FragmentPagerAdapter {
                 return FirstIntroFragment.newInstance();
             case 1:
                 return SecondIntroFragment.newInstance();
-            case 3:
+            case 2:
                 return ThirdIntroFragment.newInstance();
+            case 3:
+                return FourthIntroFragment.newInstance();
         }
         return ThirdIntroFragment.newInstance();
     }
