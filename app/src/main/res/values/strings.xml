@@ -27,6 +27,8 @@
 
     <!--TOAST STRINGS-->
     <string name="check_internet_connection">Revisa tu conexión a internet</string>
+    <string name="wrong_credentials">Credenciales invalidas</string>
+    <string name="signup_error">Ups! hubo un error al crear tu cuenta</string>
     <string name="feed_update_error">El feed no se pudo actualizar</string>
 
     <!--DIALOG STRINGS-->
@@ -41,6 +43,8 @@
     <!--BUTTONS STRINGS-->
     <string name="finalize">FINALIZAR</string>
     <string name="next">SIGUIENTE</string>
+    <string name="signin_button">INICIAR SESIÓN</string>
+    <string name="signup_button">CREAR CUENTA</string>
     <string name="save">GUARDAR</string>
     <string name="delete">ELIMINAR</string>
 
@@ -63,6 +67,9 @@
     <string name="order_level_hint">Forzado</string>
     <string name="order_price_hint"><![CDATA[Precio<font color=\'#cc0029\'>*</font>]]></string>
     <string name="order_comments_hint">Comentarios</string>
+    <string name="login_email_hint"><![CDATA[Correo<font color=\'#cc0029\'>*</font>]]></string>
+    <string name="login_password_hint"><![CDATA[Contraseña<font color=\'#cc0029\'>*</font>]]></string>
+    <string name="confirm_password_hint"><![CDATA[Confirmar contraseña<font color=\'#cc0029\'>*</font>]]></string>
 
     <string name="client_email_label">Correo</string>
     <string name="client_zone_label">Zona</string>
@@ -79,13 +86,18 @@
     <string name="order_type_label">Tipo</string>
     <string name="required">Requerido</string>
 
+    <string name="user_name"><![CDATA[%1$s %2$s]]></string>
+
     <!--INTRO STRINGS-->
     <string name="first_intro_title">Bienvenido a Alfa-lab app!</string>
     <string name="first_intro_subtitle">Antes de empezar, es necesario ajustar tu nombre para que la app funcione, asi se sabe quien creó un pedido, Listo? Vamos!</string>
-    <string name="second_intro_subtitle">Esto es para señalar quien esta a cargo de un pedido. Puedes editar el nombre en ajustes.</string>
-    <string name="second_intro_title">Dime cual es tu nombre</string>
-    <string name="third_intro_title">Todo listo! 🙌</string>
-    <string name="third_intro_subtitle">Genial! ahora puedes usar la aplicación 🎉</string>
+    <string name="second_intro_subtitle">Inicia sesión para poder utilizar la aplicación</string>
+    <string name="second_intro_title">Iniciar sesión</string>
+    <string name="second_intro_forgot_password">Olvidaste tu contraseña?</string>
+    <string name="third_intro_title">Crear cuenta 🙌</string>
+    <string name="third_intro_subtitle">Ingresa tus datos para crear una cuenta.</string>
+    <string name="fourth_intro_title">Todo listo! 🙌</string>
+    <string name="fourth_intro_subtitle">Genial! ahora puedes usar la aplicación 🎉</string>
     <string name="order_name_label">Nombre:</string>
     <string name="order_lastname_label">Apellido:</string>
     <string name="order_instagram_label">Instagram:</string>
@@ -138,5 +150,9 @@
 
     <!--OTHER STRINGS-->
     <string name="responsible_data_disclaimer">Tu nombre se utiliza cuando creas un pedido, asi se muestra quien lo realizó</string>
+    <string name="create_account">Crear cuenta</string>
+    <string name="do_not_have_an_account">No tienes una cuenta?</string>
+    <string name="already_have_an_account">Ya tienes una cuenta?</string>
+    <string name="signin">Iniciar sesión</string>
 
 </resources>
