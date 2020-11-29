@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_height="match_parent"
@@ -11,11 +12,11 @@
         android:layout_height="310dp"
         android:layout_gravity="center"
         android:src="@mipmap/ic_launcher_foreground"
+        android:contentDescription="@string/app_name"
         app:layout_constraintBottom_toTopOf="@+id/first_intro_fragment_title"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:contentDescription="@string/app_name"
     />
 
     <TextView
@@ -23,14 +24,14 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginBottom="260dp"
+        android:layout_marginBottom="300dp"
         android:fontFamily="@font/product_sans"
         android:text="@string/first_intro_title"
         android:textAlignment="center"
         android:textColor="?attr/textColor"
         android:textSize="@dimen/h5_size"
         app:layout_constraintBottom_toBottomOf="parent"
-        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteX="16dp"
     />
 
     <TextView
@@ -39,14 +40,15 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginHorizontal="15dp"
+        android:layout_marginTop="40dp"
         android:text="@string/first_intro_subtitle"
         android:textAlignment="center"
         android:textColor="?attr/subtitleTextColor"
         android:textSize="@dimen/h6_size"
-        app:layout_constraintBottom_toTopOf="@+id/button"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/first_intro_fragment_title"
-        app:layout_constraintVertical_bias="0.611"
-        tools:layout_editor_absoluteX="29dp" />
+    />
 
     <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
         android:id="@+id/button"
@@ -54,7 +56,6 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:layout_margin="10dp"
-        android:layout_marginBottom="48dp"
         android:text="@string/next"
         android:textAlignment="center"
         android:textColor="@android:color/white"
@@ -66,6 +67,9 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/first_intro_fragment_subtitle"
+        app:layout_constraintVertical_bias="0.484"
+    />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
