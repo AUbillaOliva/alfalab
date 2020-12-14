@@ -19,7 +19,6 @@ app.use('/api/orders', require('./routes/api/orders'));
 app.use('/support/report', require('./routes/support/report'));
 app.use('/api/auth', require('./routes/api/auth'));
 app.use('/api/users', require('./routes/api/users'));
-app.use('/api/posts', require('./routes/api/posts'));
 
 app.listen(PORT, () => {
   process.stdout.write('\033c');
