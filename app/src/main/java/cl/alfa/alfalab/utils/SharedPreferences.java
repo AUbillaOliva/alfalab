@@ -2,6 +2,7 @@ package cl.alfa.alfalab.utils;
 
 import android.content.Context;
 
+import cl.alfa.alfalab.models.AuthUser;
 import cl.alfa.alfalab.models.User;
 
 public class SharedPreferences {
@@ -23,10 +24,11 @@ public class SharedPreferences {
         editor.apply();
     }
 
-    public void setResponsible(User user) {
+    public void setResponsible(AuthUser user) {
         final android.content.SharedPreferences.Editor editor = mSharedPreferences.edit();
         editor.putString("firstname", user.getFirstname());
         editor.putString("lastname", user.getLastname());
+        editor.putString("email", user.getEmail());
         editor.apply();
     }
 
@@ -52,7 +54,7 @@ public class SharedPreferences {
 
     public boolean loadNightModeState() { return mSharedPreferences.getBoolean("NightMode",false); }
     public boolean isFirstTime() { return mSharedPreferences.getBoolean("isFirstTime", true); }
-    public User getResponsible() { return new User(mSharedPreferences.getString("firstname", null), mSharedPreferences.getString("lastname", null)); }
+    public User getResponsible() { return new User(mSharedPreferences.getString("firstname", null), mSharedPreferences.getString("lastname", null), mSharedPreferences.getString("email", null)); }
     public boolean sendReport() { return mSharedPreferences.getBoolean("sendReports", false); }
     public String getToken() { return mSharedPreferences.getString("token", null); }
 
