@@ -1,35 +1,33 @@
 package cl.alfa.alfalab;
 
 import android.Manifest;
-import android.animation.ObjectAnimator;
-import android.animation.StateListAnimator;
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
 import android.os.Bundle;
 
-import com.google.android.material.appbar.AppBarLayout;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.tabs.TabLayout;
-import com.google.android.material.tabs.TabLayoutMediator;
+import com.google.android.material.badge.BadgeDrawable;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
-import androidx.viewpager2.widget.ViewPager2;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 import cl.alfa.alfalab.activities.OnBoardingActivity;
+import cl.alfa.alfalab.activities.SearchActivity;
 import cl.alfa.alfalab.activities.SettingsActivity;
-import cl.alfa.alfalab.adapters.TabsAdapter;
-import cl.alfa.alfalab.fragments.Delivered;
-import cl.alfa.alfalab.fragments.Orders;
-import cl.alfa.alfalab.interfaces.FabInterface;
+import cl.alfa.alfalab.fragments.bottom_menu_fragments.HomeFragment;
+import cl.alfa.alfalab.fragments.bottom_menu_fragments.NotificationsFragment;
+import cl.alfa.alfalab.fragments.bottom_menu_fragments.OrdersFragment;
 import cl.alfa.alfalab.utils.SharedPreferences;
 
 import android.view.Gravity;
-import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
@@ -49,10 +47,9 @@ public class MainActivity extends AppCompatActivity {
 
     private final Context context = this;
 
-    public AppBarLayout appBarLayout;
-    public View appBarLayoutShadow;
-    private FabInterface fabInterface;
-    private FloatingActionButton fab;
+    private static BottomNavigationView mBottomNavigationView;
+    @SuppressLint("StaticFieldLeak")
+    private static Toolbar mToolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,23 +76,9 @@ public class MainActivity extends AppCompatActivity {
         }
         setContentView(R.layout.activity_main);
 
-        final ViewPager2 mViewPager = findViewById(R.id.vp_tabs);
-        final StateListAnimator stateListAnimator = new StateListAnimator();
-        final TabLayout mSlidingTabLayout = findViewById(R.id.stl_tabs);
-        final Toolbar mToolbar = findViewById(R.id.toolbar);
+        mToolbar = findViewById(R.id.toolbar);
         final TextView toolbarTitle = mToolbar.findViewById(R.id.toolbar_title);
-        fab = findViewById(R.id.fab);
-        appBarLayout = findViewById(R.id.main_appbar_layout);
-        appBarLayoutShadow = findViewById(R.id.divider);
-
-        fab.setOnClickListener(v -> {
-            if (mViewPager.getCurrentItem() == 0) {
-                fabInterface.onFabClicked();
-            }
-        });
-
-        stateListAnimator.addState(new int[0], ObjectAnimator.ofFloat(appBarLayout, "elevation", 2));
-        appBarLayout.setStateListAnimator(stateListAnimator);
+        mBottomNavigationView = findViewById(R.id.bottom_navigation_view);
 
         if(mSharedPreferences.loadNightModeState()) {
             mToolbar.setTitleTextAppearance(context, R.style.ToolbarTypefaceDark);
@@ -106,45 +89,41 @@ public class MainActivity extends AppCompatActivity {
         Objects.requireNonNull(getSupportActionBar()).setDisplayShowTitleEnabled(false);
 
         toolbarTitle.setText(R.string.app_name);
-        Toolbar.LayoutParams llp = new Toolbar.LayoutParams(Toolbar.LayoutParams.WRAP_CONTENT, Toolbar.LayoutParams.WRAP_CONTENT);
+        final Toolbar.LayoutParams llp = new Toolbar.LayoutParams(Toolbar.LayoutParams.WRAP_CONTENT, Toolbar.LayoutParams.WRAP_CONTENT);
         llp.gravity = Gravity.CENTER;
         toolbarTitle.setLayoutParams(llp);
 
-        final TabsAdapter adapter = new TabsAdapter(this, context);
-        adapter.addFragment(new Orders(), context.getResources().getString(R.string.orders));
-        adapter.addFragment(new Delivered(), context.getResources().getString(R.string.delivered));
-
-        mViewPager.setAdapter(adapter);
-        mSlidingTabLayout.setElevation(0);
-        final TabLayoutMediator tabLayoutMediator = new TabLayoutMediator(mSlidingTabLayout, mViewPager, true, (tab, position) -> {
-            tab.setText(adapter.getPageTitle(position));
-            tab.setCustomView(adapter.getTabView(position));
-        });
-        tabLayoutMediator.attach();
-        if (mSharedPreferences.loadNightModeState()) {
-            mSlidingTabLayout.setBackgroundColor(getResources().getColor(R.color.colorPrimaryDark)); //NIGHT MODE
-        } else {
-            mSlidingTabLayout.setBackgroundColor(getResources().getColor(R.color.colorPrimaryLight)); //DAY MODE
-        }
-        mSlidingTabLayout.setUnboundedRipple(false);
-        mSlidingTabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
-            @Override
-            public void onTabSelected(TabLayout.Tab tab) {
-                if (tab.getPosition() == 1) {
-                    fab.hide();
-                } else {
-                    fab.show();
+        //TODO: ADD BADGES
+        mBottomNavigationView.setOnNavigationItemSelectedListener(item -> {
+            Fragment fragment = null;
+            if(mBottomNavigationView.getSelectedItemId() != item.getItemId()) {
+                switch (item.getItemId()) {
+                    case R.id.orders:
+                        if (mBottomNavigationView.getBadge(item.getItemId()) != null) {
+                            mBottomNavigationView.removeBadge(item.getItemId());
+                        }
+                        fragment = new OrdersFragment();
+                        break;
+                    case R.id.home:
+                        if (mBottomNavigationView.getBadge(item.getItemId()) != null) {
+                            mBottomNavigationView.removeBadge(item.getItemId());
+                        }
+                        fragment = new HomeFragment();
+                        break;
+                    case R.id.notifications:
+                        if (mBottomNavigationView.getBadge(item.getItemId()) != null) {
+                            mBottomNavigationView.removeBadge(item.getItemId());
+                        }
+                        fragment = new NotificationsFragment();
+                        break;
                 }
+                replaceFragment(fragment);
             }
-
-            @Override
-            public void onTabUnselected(TabLayout.Tab tab) {}
-
-            @Override
-            public void onTabReselected(TabLayout.Tab tab) {}
+            return true;
         });
-    }
 
+        setInitialFragment();
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -158,14 +137,12 @@ public class MainActivity extends AppCompatActivity {
             case R.id.action_settings:
                 startActivity(new Intent(context, SettingsActivity.class));
                 overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
-                finish();
                 return true;
-            /*TODO: WORK IN PROGRESS*/
-            /*case R.id.action_search:
+            case R.id.action_search:
                 startActivity(new Intent(context, SearchActivity.class));
                 overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
                 finish();
-                return true;*/
+                return true;
         }
         return super.onOptionsItemSelected(item);
     }
@@ -180,15 +157,35 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    public AppBarLayout getAppBarLayout(){
-        return appBarLayout;
+    public static void setBadge(int count, int itemId) {
+        final Menu menu = mBottomNavigationView.getMenu();
+        final MenuItem bottomItem = menu.findItem(itemId);
+        final BadgeDrawable badge = mBottomNavigationView.getOrCreateBadge(bottomItem.getItemId());
+        Objects.requireNonNull(mBottomNavigationView.getBadge(bottomItem.getItemId())).setNumber(count);
+        badge.setBackgroundColor(Color.parseColor("#B00020"));
     }
 
-    public View getAppBarLayoutShadow(){
-        return appBarLayoutShadow;
+    private void setInitialFragment() {
+        final FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+        fragmentTransaction.add(R.id.parent_fragment_container, new OrdersFragment());
+        fragmentTransaction.commit();
     }
 
-    public void setListener(FabInterface fabInterface) {
-        this.fabInterface = fabInterface;
+    private void replaceFragment(Fragment fragment) {
+        final FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+        fragmentTransaction.replace(R.id.parent_fragment_container, fragment);
+        fragmentTransaction.commit();
     }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+    }
+
+    public static Toolbar getToolbar() { return mToolbar; }
+
+    public static BottomNavigationView getmBottomNavigationView() {
+        return mBottomNavigationView;
+    }
+
 }
