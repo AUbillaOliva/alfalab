@@ -3,6 +3,7 @@ package cl.alfa.alfalab.api;
 import java.util.ArrayList;
 import java.util.Map;
 
+import cl.alfa.alfalab.models.AuthUser;
 import cl.alfa.alfalab.models.LoginData;
 import cl.alfa.alfalab.models.Orders;
 import cl.alfa.alfalab.models.User;
@@ -30,7 +31,7 @@ public class ApiService {
 
     public interface DeleteOrderService {
         @DELETE("orders/{number}")
-        Call<ResponseBody> deleteOrder(@Path("number") int id);
+        Call<ResponseBody> deleteOrder(@Path("number") int id, @Header("x-auth-token") String token);
     }
 
     public interface PostOrderService {
@@ -40,12 +41,12 @@ public class ApiService {
 
     public interface GetUserService {
         @GET("auth")
-        Call<User> getUser(@Header("x-auth-token") String token);
+        Call<AuthUser> getUser(@Header("x-auth-token") String token);
     }
 
     public interface UpdateOrderService {
         @POST("orders/{number}")
-        Call<Orders> updateOrder(@Path("number") int id, @Body Orders order);
+        Call<Orders> updateOrder(@Path("number") int id, @Body Orders order, @Header("x-auth-token") String token);
     }
 
     public interface DeliveredService {
@@ -55,12 +56,12 @@ public class ApiService {
 
     public interface DeleteDelivery {
         @DELETE("delivered/{number}")
-        Call<ResponseBody> deleteDelivery(@Path("number") int id);
+        Call<ResponseBody> deleteDelivery(@Path("number") int id, @Header("x-auth-token") String token);
     }
 
     public interface SetDeliveredService {
         @POST("delivered")
-        Call<Orders> setDelivered(@Body Orders order);
+        Call<Orders> setDelivered(@Body Orders order, @Header("x-auth-token") String token);
     }
 
     public interface GetAuthService {
