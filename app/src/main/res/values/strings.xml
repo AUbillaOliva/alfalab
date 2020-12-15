@@ -30,6 +30,7 @@
     <!--TOAST STRINGS-->
     <string name="check_internet_connection">Revisa tu conexión a internet</string>
     <string name="wrong_credentials">Credenciales invalidas</string>
+    <string name="user_exits">Ya existe un usuario con ese correo!</string>
     <string name="signup_error">Ups! hubo un error al crear tu cuenta</string>
     <string name="feed_update_error">El feed no se pudo actualizar</string>
 
@@ -65,6 +66,7 @@
     <string name="order_price"><![CDATA[<font color=\'%1$d\'>Precio</font>: %2$d]]></string>
     <string name="order_quantity"><![CDATA[<font color=\'%1$d\'>Digitalizado</font>: %2$s]]></string>
     <string name="order_type"><![CDATA[<font color=\'%1$d\'>Tipo</font>: %2$s]]></string>
+    <string name="hello"><![CDATA[Hola %1$s!]]></string>
 
     <!--TEXT INPUT STRINGS-->
     <string name="order_client_firstname_hint"><![CDATA[Nombre<font color=\'#cc0029\'>*</font>]]></string>
@@ -90,6 +92,7 @@
 
     <string name="order_type_label">Tipo</string>
     <string name="required">Requerido</string>
+    <string name="email_in_use">Correo en uso</string>
 
     <string name="user_name"><![CDATA[%1$s %2$s]]></string>
 
@@ -159,5 +162,6 @@
     <string name="do_not_have_an_account">No tienes una cuenta?</string>
     <string name="already_have_an_account">Ya tienes una cuenta?</string>
     <string name="signin">Iniciar sesión</string>
+    <string name="do_not_sign_out">No cerrar sesión</string>
 
 </resources>
