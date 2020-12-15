@@ -1,6 +1,8 @@
 package cl.alfa.alfalab.models;
 
-public class User {
+import java.io.Serializable;
+
+public class User implements Serializable {
 
     private String firstname, lastname, email, password;
 
@@ -14,6 +16,12 @@ public class User {
     public User(String firstname, String lastname) {
         this.firstname = firstname;
         this.lastname = lastname;
+    }
+
+    public User(String firstname, String lastname, String email) {
+        this.firstname = firstname;
+        this.lastname = lastname;
+        this.email = email;
     }
 
     public String getFirstname() {
