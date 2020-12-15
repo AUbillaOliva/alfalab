@@ -12,8 +12,10 @@ import java.util.List;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentActivity;
+import androidx.fragment.app.FragmentManager;
+import androidx.lifecycle.Lifecycle;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
+
 import cl.alfa.alfalab.R;
 
 public class TabsAdapter extends FragmentStateAdapter {
@@ -23,25 +25,17 @@ public class TabsAdapter extends FragmentStateAdapter {
     private final List<Fragment> mFragmentList = new ArrayList<>();
     private final List<String> mFragmentTitleList = new ArrayList<>();
 
-    public TabsAdapter(FragmentActivity fragment, Context context){
-        super(fragment);
-        this.context = context;
+    public TabsAdapter(@NonNull FragmentManager fragmentManager, @NonNull Lifecycle lifecycle) {
+        super(fragmentManager, lifecycle);
     }
 
-    @NonNull
-    @Override
-    public Fragment createFragment(int position) {
-        return mFragmentList.get(position);
+    public void setContext(Context context) {
+        this.context = context;
     }
 
     @Nullable
     public CharSequence getPageTitle(int position) {
         return mFragmentTitleList.get(position);
-    }
-
-    @Override
-    public int getItemCount() {
-        return mFragmentList.size();
     }
 
     public View getTabView(int position) {
@@ -54,6 +48,17 @@ public class TabsAdapter extends FragmentStateAdapter {
     public void addFragment(Fragment fragment, String title) {
         mFragmentList.add(fragment);
         mFragmentTitleList.add(title);
+    }
+
+    @NonNull
+    @Override
+    public Fragment createFragment(int position) {
+        return mFragmentList.get(position);
+    }
+
+    @Override
+    public int getItemCount() {
+        return mFragmentList.size();
     }
 
 }
