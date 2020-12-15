@@ -231,11 +231,6 @@ public class SettingsActivity extends AppCompatActivity {
         item.setExpanded(true);
         mList.add(item);
 
-        item = new ListItem();
-        item.setTitle("Cerrar sesión");
-        item.setSubtitle("Cierra tu sesión de Alfalab App.");
-        mList.add(item);
-
         return mList;
     }
 
