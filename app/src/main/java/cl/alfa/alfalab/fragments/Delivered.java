@@ -49,9 +49,11 @@ import cl.alfa.alfalab.activities.DetailOrderActivity;
 import cl.alfa.alfalab.adapters.GenericAdapter;
 import cl.alfa.alfalab.api.ApiClient;
 import cl.alfa.alfalab.api.ApiService;
+import cl.alfa.alfalab.fragments.bottom_menu_fragments.OrdersFragment;
 import cl.alfa.alfalab.interfaces.RecyclerViewOnClickListenerHack;
 import cl.alfa.alfalab.models.Orders;
 import cl.alfa.alfalab.utils.GenericViewHolder;
+import cl.alfa.alfalab.utils.SharedPreferences;
 import cl.alfa.alfalab.utils.databases.OrdersDatabaseHelper;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
@@ -61,6 +63,7 @@ import retrofit2.Response;
 public class Delivered extends Fragment {
 
     private final Context context = MainApplication.getContext();
+    private SharedPreferences mSharedPreferences;
     private View view;
     private OrdersDatabaseHelper ordersDatabaseHelper = new OrdersDatabaseHelper(context);
     private GenericAdapter<Orders> adapter;
@@ -70,6 +73,8 @@ public class Delivered extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_layout, container, false);
+
+        mSharedPreferences = new SharedPreferences(context);
 
         final RecyclerView mRecyclerView = view.findViewById(R.id.recycler_view);
         final NestedScrollView nestedScrollView = view.findViewById(R.id.nested);
@@ -82,11 +87,9 @@ public class Delivered extends Fragment {
             nestedScrollView.setOnScrollChangeListener((View.OnScrollChangeListener) (v, scrollX, scrollY, oldScrollX, oldScrollY) -> {
                 int initialscrollY = 0;
                 if (scrollY > initialscrollY) {
-                    ((MainActivity) requireActivity()).getAppBarLayout().setElevation(8);
-                    ((MainActivity) requireActivity()).getAppBarLayoutShadow().setVisibility(View.GONE);
+                    OrdersFragment.appBarLayout.setElevation(8);
                 } else if(scrollY < oldScrollY - scrollY) {
-                    ((MainActivity) requireActivity()).getAppBarLayout().setElevation(2);
-                    ((MainActivity) requireActivity()).getAppBarLayoutShadow().setVisibility(View.VISIBLE);
+                    OrdersFragment.appBarLayout.setElevation(2);
                 }
             });
         }
@@ -232,7 +235,7 @@ public class Delivered extends Fragment {
     private void deleteDelivery(int number) {
         try {
             final ApiService.DeleteDelivery service = ApiClient.getClient().create(ApiService.DeleteDelivery.class);
-            Call<ResponseBody> deleteRequest = service.deleteDelivery(number);
+            Call<ResponseBody> deleteRequest = service.deleteDelivery(number, mSharedPreferences.getToken());
             deleteRequest.enqueue(new Callback<ResponseBody>() {
                 @Override
                 public void onResponse(@NonNull Call<ResponseBody> call, @NonNull Response<ResponseBody> response) {
