@@ -23,7 +23,6 @@ import java.util.Objects;
 
 import cl.alfa.alfalab.R;
 import cl.alfa.alfalab.models.AuthUser;
-import cl.alfa.alfalab.models.User;
 import cl.alfa.alfalab.utils.SharedPreferences;
 
 public class ProfileDetailActivity extends AppCompatActivity {
