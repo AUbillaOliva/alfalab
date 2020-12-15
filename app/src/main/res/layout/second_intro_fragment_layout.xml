@@ -68,8 +68,9 @@
         android:id="@+id/email_input_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="68dp"
+        android:layout_marginTop="36dp"
         android:paddingHorizontal="15dp"
+        app:endIconMode="clear_text"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -81,8 +82,7 @@
             android:layout_height="wrap_content"
             android:inputType="textEmailAddress"
             tools:layout_editor_absoluteX="0dp"
-            tools:layout_editor_absoluteY="287dp"
-        />
+            tools:layout_editor_absoluteY="287dp" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -90,8 +90,9 @@
         android:id="@+id/password_input_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="20dp"
         android:paddingHorizontal="15dp"
+        app:endIconMode="clear_text"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -103,10 +104,23 @@
             android:layout_height="wrap_content"
             android:inputType="textPassword"
             tools:layout_editor_absoluteX="0dp"
-            tools:layout_editor_absoluteY="287dp"
-        />
+            tools:layout_editor_absoluteY="287dp" />
 
     </com.google.android.material.textfield.TextInputLayout>
+
+    <CheckBox
+        android:id="@+id/checkbox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="start"
+        android:padding="5dp"
+        android:text="@string/do_not_sign_out"
+        app:layout_constraintBottom_toTopOf="@+id/button"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.06"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/password_input_layout"
+        app:layout_constraintVertical_bias="0.379" />
 
     <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
         android:id="@+id/button"
@@ -114,7 +128,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:layout_marginStart="139dp"
-        android:layout_marginTop="52dp"
+        android:layout_marginTop="76dp"
         android:layout_marginEnd="139dp"
         android:text="@string/signin_button"
         android:textAlignment="center"
@@ -124,8 +138,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/password_input_layout"
-        />
+        app:layout_constraintTop_toBottomOf="@+id/password_input_layout" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
