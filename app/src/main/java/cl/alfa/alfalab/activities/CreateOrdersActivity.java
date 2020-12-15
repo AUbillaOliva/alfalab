@@ -86,11 +86,11 @@ public class CreateOrdersActivity extends AppCompatActivity implements CustomBot
         setContentView(R.layout.create_order_activity_layout);
 
         final Toolbar mToolbar = findViewById(R.id.toolbar);
-        final TextView toolbarTitle = mToolbar.findViewById(R.id.toolbar_title);
         final TextView firstname = findViewById(R.id.client_firstname_text),
                 lastname = findViewById(R.id.client_lastname_text),
                 email = findViewById(R.id.client_email_text),
-                instagram = findViewById(R.id.client_instagram_text);
+                instagram = findViewById(R.id.client_instagram_text),
+                toolbarTitle = mToolbar.findViewById(R.id.toolbar_title);
                 totalPriceText = findViewById(R.id.total_price_text);
         final ExtendedFloatingActionButton createExtendedFloatinButton = findViewById(R.id.button);
         final RecyclerView mRecyclerView = findViewById(R.id.recycler_view);
@@ -132,6 +132,9 @@ public class CreateOrdersActivity extends AppCompatActivity implements CustomBot
                 orderType.setText(Html.fromHtml(String.format(getResources().getString(R.string.order_type), textColor, val.getOrder_type())));
                 orderDigitalized.setText(Html.fromHtml(String.format(getResources().getString(R.string.order_quantity), textColor, val.isdigitized() ? "Si" : "No")));
                 orderPrice.setText(Html.fromHtml(String.format(getResources().getString(R.string.order_price), textColor, val.getPrice())));
+
+                menu.setVisibility(View.VISIBLE);
+
                 try {
                     menu.setOnClickListener(v -> {
                         final PopupMenu popup = new PopupMenu(context,v);
@@ -158,6 +161,7 @@ public class CreateOrdersActivity extends AppCompatActivity implements CustomBot
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
+
             }
 
             @Override
@@ -168,7 +172,7 @@ public class CreateOrdersActivity extends AppCompatActivity implements CustomBot
 
                     @Override
                     public void onLongPressClickListener(View view, int position) {
-                        try {
+                        /*try {
                             final PopupMenu popup = new PopupMenu(context, view);
                             popup.getMenuInflater().inflate(R.menu.order_menu, popup.getMenu());
                             popup.show();
@@ -191,7 +195,7 @@ public class CreateOrdersActivity extends AppCompatActivity implements CustomBot
                             });
                         } catch (Exception e) {
                             e.printStackTrace();
-                        }
+                        }*/
                     }
                 };
             }
@@ -224,7 +228,7 @@ public class CreateOrdersActivity extends AppCompatActivity implements CustomBot
         order.setOrderList(orderList);
         order.setOrders_number(order.getOrders_number());
         final ApiService.UpdateOrderService service = ApiClient.getClient().create(ApiService.UpdateOrderService.class);
-        final Call<Orders> responseCall = service.updateOrder(order.getOrders_number(), order);
+        final Call<Orders> responseCall = service.updateOrder(order.getOrders_number(), order, mSharedPreferences.getToken());
 
         responseCall.enqueue(new Callback<Orders>() {
             @Override
@@ -275,6 +279,8 @@ public class CreateOrdersActivity extends AppCompatActivity implements CustomBot
                 progressDialog.dismiss();
                 if(response.isSuccessful()) {
                     Toast.makeText(context, "Pedido creado", Toast.LENGTH_SHORT).show();
+                    final Menu menu = MainActivity.getmBottomNavigationView().getMenu();
+                    MainActivity.setBadge(1, menu.getItem(1).getItemId());
                     startActivity(new Intent(context, MainActivity.class));
                     overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
                     finish();
@@ -305,8 +311,13 @@ public class CreateOrdersActivity extends AppCompatActivity implements CustomBot
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
-                finish();
+                final Intent intent = new Intent(context, CreateClientActivity.class);
+                intent.putExtra("data", data);
+                intent.putExtra("client", client);
+                intent.putExtra("zone", orderZone);
+                startActivity(intent);
                 overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+                finish();
                 return true;
             case R.id.finalize:
                 if(data != null) {
@@ -325,6 +336,11 @@ public class CreateOrdersActivity extends AppCompatActivity implements CustomBot
 
     @Override
     public void onBackPressed() {
+        final Intent intent = new Intent(context, CreateClientActivity.class);
+        intent.putExtra("data", data);
+        intent.putExtra("client", client);
+        intent.putExtra("zone", orderZone);
+        startActivity(intent);
         overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
         finish();
     }
