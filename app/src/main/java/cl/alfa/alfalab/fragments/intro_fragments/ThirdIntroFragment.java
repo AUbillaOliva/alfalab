@@ -10,16 +10,23 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
+import com.google.gson.Gson;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
+
+import java.io.IOException;
+import java.util.Objects;
 
 import cl.alfa.alfalab.MainActivity;
 import cl.alfa.alfalab.MainApplication;
@@ -27,6 +34,7 @@ import cl.alfa.alfalab.R;
 import cl.alfa.alfalab.activities.OnBoardingActivity;
 import cl.alfa.alfalab.api.ApiClient;
 import cl.alfa.alfalab.api.ApiService;
+import cl.alfa.alfalab.models.AuthUser;
 import cl.alfa.alfalab.models.User;
 import cl.alfa.alfalab.utils.SharedPreferences;
 import okhttp3.ResponseBody;
@@ -39,6 +47,7 @@ public class ThirdIntroFragment extends Fragment {
     private Context context = MainApplication.getContext();
     private static TextInputEditText firstnameInputEditText, lastInputEditText, emailInputEditText, passwordInputEditText, confirmPasswordInputEditText;
     private TextInputLayout firstnameInputLayout, lastnameInputLayout, emailInputLayout, passwordInputLayout, confirmPasswordInputLayout;
+    private CheckBox checkBox;
     private ProgressDialog progressDialog;
     private SharedPreferences mSharedPreferences;
 
@@ -51,6 +60,7 @@ public class ThirdIntroFragment extends Fragment {
         final Toolbar mToolbar = view.findViewById(R.id.toolbar);
         final ExtendedFloatingActionButton button = view.findViewById(R.id.button);
         final TextView signInText = view.findViewById(R.id.sign_up_text_link);
+        checkBox = view.findViewById(R.id.checkbox);
         firstnameInputLayout = view.findViewById(R.id.firstname_intro_input_layout);
         lastnameInputLayout = view.findViewById(R.id.password_input_layout);
         firstnameInputEditText = view.findViewById(R.id.firstname_intro_edit_text);
@@ -231,22 +241,71 @@ public class ThirdIntroFragment extends Fragment {
         final ApiService.SignUpService service = ApiClient.getClient().create(ApiService.SignUpService.class);
         final Call<ResponseBody> responseCall = service.signUp(new User(firstname, lastname, email, password));
 
-        Log.e(MainActivity.API, responseCall.toString());
-
         responseCall.enqueue(new Callback<ResponseBody>() {
+            JsonElement token = null;
+            String refreshToken = null;
+
             @Override
             public void onResponse(@NonNull Call<ResponseBody> call, @NonNull Response<ResponseBody> response) {
                 progressDialog.dismiss();
+
                 if(response.isSuccessful()) {
                     Toast.makeText(context, "Cuenta creada", Toast.LENGTH_SHORT).show();
-                    mSharedPreferences.setResponsible(new User(firstnameInputEditText.getEditableText().toString(), lastInputEditText.getEditableText().toString()));
-                    OnBoardingActivity.setLastItemPosition();
+                    if(response.body() != null) {
+                        try {
+                            final Gson gson = new Gson();
+                            final JsonObject jsonObject = gson.fromJson( response.body().string(), JsonObject.class);
+                            token = jsonObject.get("token");
+                            refreshToken = Objects.requireNonNull(response.headers().get("Refresh-Token"));
+
+                            if(checkBox.isChecked()) {
+                                mSharedPreferences.setToken(refreshToken.replace("\"", ""));
+                            } else {
+                                mSharedPreferences.setToken(token.toString().replace("\"", ""));
+                            }
+
+                            if(response.isSuccessful() && token != null) {
+                                final ApiService.GetUserService userService = ApiClient.getClient().create(ApiService.GetUserService.class);
+                                final Call<AuthUser> userResponseCall = userService.getUser(mSharedPreferences.getToken());
+
+                                userResponseCall.enqueue(new Callback<AuthUser>() {
+                                    @Override
+                                    public void onResponse(@NonNull Call<AuthUser> call, @NonNull Response<AuthUser> response) {
+                                        if(response.isSuccessful()) {
+                                            assert response.body() != null;
+                                            mSharedPreferences.setResponsible(response.body());
+                                            OnBoardingActivity.setLastItemPosition();
+                                        } else {
+                                            Toast.makeText(context, getResources().getString(R.string.wrong_credentials), Toast.LENGTH_SHORT).show();
+                                        }
+                                    }
+
+                                    @Override
+                                    public void onFailure(@NonNull Call<AuthUser> call, @NonNull Throwable t) {
+                                        Toast.makeText(context, getResources().getString(R.string.wrong_credentials), Toast.LENGTH_SHORT).show();
+                                    }
+                                });
+
+                            } else {
+                                Log.e(MainActivity.API, "login - onResponse (response.errorBody): " + response.errorBody());
+                                Log.e(MainActivity.API, "login - onResponse (response.raw): " + response.raw().toString());
+                                Log.e(MainActivity.API, "login - onResponse (response.message): " + response.message());
+                                Log.e(MainActivity.API, "login - onResponse (call.request.body): " + call.request().body());
+                                Toast.makeText(context, context.getResources().getString(R.string.wrong_credentials), Toast.LENGTH_SHORT).show();
+                            }
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    }
                 } else {
                     Log.e(MainActivity.API, "onResponse (errorBody): " + response.errorBody());
                     Log.e(MainActivity.API, "onResponse (response.raw): " + response.raw().toString());
                     Log.e(MainActivity.API, "onResponse (message): " + response.message());
                     Log.e(MainActivity.API, "onResponse (call): " + call.request().body());
-                    Toast.makeText(context, context.getResources().getString(R.string.wrong_credentials), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context, context.getResources().getString(R.string.user_exits), Toast.LENGTH_SHORT).show();
+                    if(response.code() == 406) {
+                        emailInputLayout.setError(getResources().getString(R.string.email_in_use));
+                    }
                 }
             }
 
