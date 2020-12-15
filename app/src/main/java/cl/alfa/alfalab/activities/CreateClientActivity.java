@@ -42,7 +42,9 @@ public class CreateClientActivity extends AppCompatActivity {
             lastnameInputEditText,
             emailInputEditText,
             instagramInputEditText;
+    private AutoCompleteTextView zoneAutoCompleteTextView;
     private Client client;
+    private Orders order;
 
 
     @Override
@@ -51,7 +53,7 @@ public class CreateClientActivity extends AppCompatActivity {
 
         final Intent dataIntent = getIntent();
         final Bundle data = dataIntent.getExtras();
-        final Orders order = data != null ? (Orders) data.getSerializable("data") : null;
+        order = data != null ? (Orders) data.getSerializable("data") : null;
 
         if(order != null)
             client = order.getClient();
@@ -78,7 +80,7 @@ public class CreateClientActivity extends AppCompatActivity {
             toolbarTitle.setText(R.string.create_order);
 
         final ExtendedFloatingActionButton btnNext = findViewById(R.id.button);
-        final AutoCompleteTextView zoneAutoCompleteTextView = findViewById(R.id.type_input_autocomplete);
+        zoneAutoCompleteTextView = findViewById(R.id.type_input_autocomplete);
         zoneAutoCompleteTextView.setOnItemClickListener((adapterView, view, i, l) -> {
             InputMethodManager in = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
             in.hideSoftInputFromWindow(view.getApplicationWindowToken(), 0);
@@ -160,29 +162,31 @@ public class CreateClientActivity extends AppCompatActivity {
             emailInputEditText.setText(client.getEmail());
         }
 
-        btnNext.setOnClickListener(view1 -> {
-            if (Objects.requireNonNull(firstnameInputEditText.getText()).length() < 1 && Objects.requireNonNull(lastnameInputEditText.getText()).length() < 1) {
-                firstnameInputLayout.setError(getResources().getString(R.string.required));
-                lastnameInputLayout.setError(getResources().getString(R.string.required));
-            } else if (firstnameInputEditText.getText().length() < 1) {
-                firstnameInputLayout.setError(getResources().getString(R.string.required));
-            } else if (Objects.requireNonNull(lastnameInputEditText.getText()).length() < 1) {
-                lastnameInputLayout.setError(getResources().getString(R.string.required));
-            } else if(zoneAutoCompleteTextView.getText().length() < 1) {
-                zoneInputLayout.setError(getResources().getString(R.string.required));
-            } else {
-                final Intent intent = new Intent(context, CreateOrdersActivity.class);
-                intent.putExtra("client", new Client(firstnameInputEditText.getText().toString(), lastnameInputEditText.getText().toString(), Objects.requireNonNull(emailInputEditText.getText()).toString(), Objects.requireNonNull(instagramInputEditText.getText()).toString()));
-                intent.putExtra("zone", zoneAutoCompleteTextView.getText().toString());
-                if(order != null) {
-                    intent.putExtra("data", new Orders(order));
-                }
-                startActivity(intent);
-                overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
-                finish();
-            }
-        });
+        btnNext.setOnClickListener(view1 -> validateForm());
 
+    }
+
+    private void validateForm() {
+        boolean isValid = true;
+        if(firstnameInputEditText.getEditableText().toString().isEmpty()) {
+            firstnameInputLayout.setError(getResources().getString(R.string.required));
+            isValid = false;
+        }
+        if(lastnameInputEditText.getEditableText().toString().isEmpty()) {
+            lastnameInputLayout.setError(getResources().getString(R.string.required));
+            isValid = false;
+        }
+        if(isValid) {
+            final Intent intent = new Intent(context, CreateOrdersActivity.class);
+            intent.putExtra("client", new Client(firstnameInputEditText.getEditableText().toString(), lastnameInputEditText.getEditableText().toString(), Objects.requireNonNull(emailInputEditText.getText()).toString(), Objects.requireNonNull(instagramInputEditText.getText()).toString()));
+            intent.putExtra("zone", zoneAutoCompleteTextView.getText().toString());
+            if(order != null) {
+                intent.putExtra("data", new Orders(order));
+            }
+            startActivity(intent);
+            overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+            finish();
+        }
     }
 
     public void showDialog() {
