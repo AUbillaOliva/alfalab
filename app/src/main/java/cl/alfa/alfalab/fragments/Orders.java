@@ -54,6 +54,7 @@ import cl.alfa.alfalab.activities.DetailOrderActivity;
 import cl.alfa.alfalab.adapters.GenericAdapter;
 import cl.alfa.alfalab.api.ApiClient;
 import cl.alfa.alfalab.api.ApiService;
+import cl.alfa.alfalab.fragments.bottom_menu_fragments.OrdersFragment;
 import cl.alfa.alfalab.interfaces.FabInterface;
 import cl.alfa.alfalab.interfaces.RecyclerViewOnClickListenerHack;
 import cl.alfa.alfalab.utils.GenericViewHolder;
@@ -67,6 +68,7 @@ import retrofit2.Response;
 public class Orders extends Fragment implements FabInterface {
 
     private final Context context = MainApplication.getContext();
+    private SharedPreferences mSharedPreferences;
     private View view;
     private GenericAdapter<cl.alfa.alfalab.models.Orders> adapter;
     private final OrdersDatabaseHelper ordersDatabaseHelper = new OrdersDatabaseHelper(context);
@@ -77,29 +79,25 @@ public class Orders extends Fragment implements FabInterface {
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_layout, container, false);
 
-        final SharedPreferences mSharedPreferences = new SharedPreferences(context);
+        mSharedPreferences = new SharedPreferences(context);
 
         final RecyclerView mRecyclerView = view.findViewById(R.id.recycler_view);
         final NestedScrollView nestedScrollView = view.findViewById(R.id.nested);
         mSwipeRefreshLayout = view.findViewById(R.id.swipe_layout);
         mProgressBar = view.findViewById(R.id.progress_circular);
 
-        ((MainActivity) requireActivity()).setListener(this);
-
         mSwipeRefreshLayout.setOnRefreshListener(this::getData);
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M)
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             nestedScrollView.setOnScrollChangeListener((View.OnScrollChangeListener) (v, scrollX, scrollY, oldScrollX, oldScrollY) -> {
                 int initialscrollY = 0;
                 if (scrollY > initialscrollY) {
-                    ((MainActivity) requireActivity()).getAppBarLayout().setElevation(8);
-                    ((MainActivity) requireActivity()).getAppBarLayoutShadow().setVisibility(View.GONE);
+                    OrdersFragment.appBarLayout.setElevation(8);
                 } else if(scrollY < oldScrollY - scrollY) {
-                    ((MainActivity) requireActivity()).getAppBarLayout().setElevation(2);
-                    ((MainActivity) requireActivity()).getAppBarLayoutShadow().setVisibility(View.VISIBLE);
+                    OrdersFragment.appBarLayout.setElevation(2);
                 }
             });
-
+        }
 
         mRecyclerView.setHasFixedSize(true);
         adapter = new GenericAdapter<cl.alfa.alfalab.models.Orders>() {
@@ -142,7 +140,9 @@ public class Orders extends Fragment implements FabInterface {
                 }
                 itemDate.setText(getResources().getString(R.string.entered));
                 orderCheckIn.setText(outputFormat);
-                orderZone.setText(capitalizeFirstLetter(val.getZone()));
+                if(val.getZone() != null) {
+                    orderZone.setText(capitalizeFirstLetter(val.getZone()));
+                }
 
                 final Tooltip.Builder tooltip = new Tooltip.Builder(alertIcon)
                         .setText("⌚ El pedido lleva más de 10 días sin entregar")
@@ -199,6 +199,8 @@ public class Orders extends Fragment implements FabInterface {
         mRecyclerView.setNestedScrollingEnabled(false);
         final LinearLayoutManager layoutManager = new LinearLayoutManager(requireContext());
         mRecyclerView.setLayoutManager(layoutManager);
+
+        OrdersFragment.setListener(this);
 
         return view;
     }
@@ -275,7 +277,7 @@ public class Orders extends Fragment implements FabInterface {
     private void deleteOrder(int number) {
         try {
             final ApiService.DeleteOrderService service = ApiClient.getClient().create(ApiService.DeleteOrderService.class);
-            Call<ResponseBody> deleteRequest = service.deleteOrder(number);
+            Call<ResponseBody> deleteRequest = service.deleteOrder(number, mSharedPreferences.getToken());
             deleteRequest.enqueue(new Callback<ResponseBody>() {
                 @Override
                 public void onResponse(@NonNull Call<ResponseBody> call, @NonNull Response<ResponseBody> response) {
@@ -323,11 +325,11 @@ public class Orders extends Fragment implements FabInterface {
                     ordersDatabaseHelper.addOrders(apiResponse);
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                         if(adapter.getItemCount() < 1) {
-                            final View notItemsView = view.findViewById(R.id.no_items_layout);
-                            final ImageView notItemsIcon = notItemsView.findViewById(R.id.no_items_icon);
-                            final TextView noItemsText = notItemsView.findViewById(R.id.no_items_text);
+                            View notItemsView = view.findViewById(R.id.no_items_layout);
+                            ImageView notItemsIcon = notItemsView.findViewById(R.id.no_items_icon);
+                            TextView noItemsText = notItemsView.findViewById(R.id.no_items_text);
                             notItemsIcon.setBackgroundResource(R.drawable.ic_check_24dp);
-                            noItemsText.setText(String.format(getResources().getString(R.string.no_items), "pendientes"));
+                            noItemsText.setText(String.format(context.getResources().getString(R.string.no_items), "pendientes"));
                             view.findViewById(R.id.no_items_layout).setVisibility(View.VISIBLE);
                         } else {
                             view.findViewById(R.id.no_items_layout).setVisibility(View.GONE);
