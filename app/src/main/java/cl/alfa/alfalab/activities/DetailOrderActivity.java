@@ -53,6 +53,7 @@ import retrofit2.Response;
 public class DetailOrderActivity extends AppCompatActivity {
 
     private final Context context = this;
+    private SharedPreferences mSharedPreferences;
     private GenericAdapter<Order> adapter;
     private Client client;
     private Orders order;
@@ -72,7 +73,7 @@ public class DetailOrderActivity extends AppCompatActivity {
         }
         client = order.getClient();
 
-        final SharedPreferences mSharedPreferences = new SharedPreferences(context);
+        mSharedPreferences = new SharedPreferences(context);
         if(mSharedPreferences.loadNightModeState()) {
             setTheme(R.style.AppThemeDark);
         } else {
@@ -127,7 +128,17 @@ public class DetailOrderActivity extends AppCompatActivity {
             // TODO: SHOW ITEM INFO
             @Override
             public RecyclerViewOnClickListenerHack onGetRecyclerViewOnClickListenerHack() {
-                return null;
+                return new RecyclerViewOnClickListenerHack() {
+                    @Override
+                    public void onClickListener(View view, int position) {
+
+                    }
+
+                    @Override
+                    public void onLongPressClickListener(View view, int position) {
+
+                    }
+                };
             }
 
         };
@@ -159,7 +170,7 @@ public class DetailOrderActivity extends AppCompatActivity {
         order.setDelivered_date(formattedDate);
         order.setStatus(true);
         final ApiService.SetDeliveredService service = ApiClient.getClient().create(ApiService.SetDeliveredService.class);
-        final Call<Orders> responseCall = service.setDelivered(order);
+        final Call<Orders> responseCall = service.setDelivered(order, mSharedPreferences.getToken());
 
         responseCall.enqueue(new Callback<Orders>() {
             @Override
@@ -188,13 +199,12 @@ public class DetailOrderActivity extends AppCompatActivity {
     private void deleteOrder(int number) {
         try {
             final ApiService.DeleteOrderService service = ApiClient.getClient().create(ApiService.DeleteOrderService.class);
-            Call<ResponseBody> deleteRequest = service.deleteOrder(number);
+            Call<ResponseBody> deleteRequest = service.deleteOrder(number, mSharedPreferences.getToken());
             deleteRequest.enqueue(new Callback<ResponseBody>() {
                 @Override
                 public void onResponse(@NonNull Call<ResponseBody> call, @NonNull Response<ResponseBody> response) {
                     if(response.isSuccessful()) {
                         Toast.makeText(context, "Pedido eliminado", Toast.LENGTH_SHORT).show();
-                        startActivity(new Intent(context, MainActivity.class));
                         overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
                         finish();
                     } else {
@@ -258,8 +268,10 @@ public class DetailOrderActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.edit_order_menu, menu);
+        if (order.getStatus()) {
+            menu.getItem(0).setVisible(false);
+        }
         return true;
     }
 
