@@ -22,6 +22,7 @@ import com.google.android.material.textfield.TextInputLayout;
 import java.util.Objects;
 
 import cl.alfa.alfalab.R;
+import cl.alfa.alfalab.models.AuthUser;
 import cl.alfa.alfalab.models.User;
 import cl.alfa.alfalab.utils.SharedPreferences;
 
@@ -120,7 +121,7 @@ public class ProfileDetailActivity extends AppCompatActivity {
                 Toast.makeText(context, "Ingresa tu nombre", Toast.LENGTH_SHORT).show();
                 nameInputLayout.setError(getResources().getString(R.string.required));
             } else {
-                mSharedPreferences.setResponsible(new User(nameInputEditText.getEditableText().toString(), lastInputEditText.getEditableText().toString()));
+                mSharedPreferences.setResponsible(new AuthUser(nameInputEditText.getEditableText().toString(), lastInputEditText.getEditableText().toString()));
                 startActivity(new Intent(context, SettingsActivity.class));
                 overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
                 finish();
