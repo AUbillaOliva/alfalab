@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -31,8 +32,8 @@ import cl.alfa.alfalab.R;
 import cl.alfa.alfalab.activities.OnBoardingActivity;
 import cl.alfa.alfalab.api.ApiClient;
 import cl.alfa.alfalab.api.ApiService;
+import cl.alfa.alfalab.models.AuthUser;
 import cl.alfa.alfalab.models.LoginData;
-import cl.alfa.alfalab.models.User;
 import cl.alfa.alfalab.utils.SharedPreferences;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
@@ -44,6 +45,7 @@ public class SecondIntroFragment extends Fragment {
     private Context context = MainApplication.getContext();
     private static TextInputEditText emailInputEditText, passwordInputEditText;
     private TextInputLayout emailInputLayout, passwordInputLayout;
+    private CheckBox checkBox;
     private ProgressDialog progressDialog;
     private SharedPreferences mSharedPreferences;
 
@@ -56,6 +58,7 @@ public class SecondIntroFragment extends Fragment {
         final Toolbar mToolbar = view.findViewById(R.id.toolbar);
         final ExtendedFloatingActionButton button = view.findViewById(R.id.button);
         final TextView signUpText = view.findViewById(R.id.sign_up_text_link);
+        checkBox = view.findViewById(R.id.checkbox);
         emailInputLayout = view.findViewById(R.id.email_input_layout);
         passwordInputLayout = view.findViewById(R.id.password_input_layout);
         emailInputEditText = view.findViewById(R.id.email_edit_text);
@@ -98,57 +101,66 @@ public class SecondIntroFragment extends Fragment {
         final ApiService.GetAuthService service = ApiClient.getClient().create(ApiService.GetAuthService.class);
         final Call<ResponseBody> responseCall = service.getAuth(new LoginData(email, password));
 
-
         responseCall.enqueue(new Callback<ResponseBody>() {
 
             JsonElement token = null;
+            String refreshToken = null;
 
             @Override
             public void onResponse(@NonNull Call<ResponseBody> call, @NonNull Response<ResponseBody> response) {
-                try {
-                    assert response.body() != null;
-                    Gson gson = new Gson();
-                    JsonObject jsonObject = gson.fromJson( response.body().string(), JsonObject.class);
-                    token = jsonObject.get("token");
-                    mSharedPreferences.setToken(token.toString().replace("\"", ""));
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-
                 progressDialog.dismiss();
-                if(response.isSuccessful()) {
-                    final ApiService.GetUserService userService = ApiClient.getClient().create(ApiService.GetUserService.class);
-                    final Call<User> userResponseCall = userService.getUser(token.toString().replace("\"", ""));
 
-                    userResponseCall.enqueue(new Callback<User>() {
-                        @Override
-                        public void onResponse(@NonNull Call<User> call, @NonNull Response<User> response) {
-                            if(response.isSuccessful()) {
-                                emailInputLayout.clearOnEditTextAttachedListeners();
-                                passwordInputLayout.clearOnEditTextAttachedListeners();
-                                assert response.body() != null;
-                                mSharedPreferences.setResponsible(response.body());
-                                OnBoardingActivity.setLastItemPosition();
-                            } else {
-                                Toast.makeText(context, getResources().getString(R.string.wrong_credentials), Toast.LENGTH_SHORT).show();
-                            }
+                if(response.body() != null) {
+                    try {
+                        final Gson gson = new Gson();
+                        final JsonObject jsonObject = gson.fromJson( response.body().string(), JsonObject.class);
+                        token = jsonObject.get("token");
+                        refreshToken = Objects.requireNonNull(response.headers().get("Refresh-Token"));
+
+                        if(checkBox.isChecked()) {
+                            mSharedPreferences.setToken(refreshToken.replace("\"", ""));
+                        } else {
+                            mSharedPreferences.setToken(token.toString().replace("\"", ""));
                         }
 
-                        @Override
-                        public void onFailure(@NonNull Call<User> call, @NonNull Throwable t) {
-                            Toast.makeText(context, getResources().getString(R.string.wrong_credentials), Toast.LENGTH_SHORT).show();
+                        if(response.isSuccessful() && token != null) {
+                            final ApiService.GetUserService userService = ApiClient.getClient().create(ApiService.GetUserService.class);
+                            final Call<AuthUser> userResponseCall = userService.getUser(token.toString().replace("\"", ""));
+
+                            userResponseCall.enqueue(new Callback<AuthUser>() {
+                                @Override
+                                public void onResponse(@NonNull Call<AuthUser> call, @NonNull Response<AuthUser> response) {
+                                    if(response.isSuccessful()) {
+                                        emailInputLayout.clearOnEditTextAttachedListeners();
+                                        passwordInputLayout.clearOnEditTextAttachedListeners();
+                                        assert response.body() != null;
+                                        mSharedPreferences.setResponsible(response.body());
+                                        OnBoardingActivity.setLastItemPosition();
+                                    } else {
+                                        Toast.makeText(context, getResources().getString(R.string.wrong_credentials), Toast.LENGTH_SHORT).show();
+                                    }
+                                }
+
+                                @Override
+                                public void onFailure(@NonNull Call<AuthUser> call, @NonNull Throwable t) {
+                                    Toast.makeText(context, getResources().getString(R.string.wrong_credentials), Toast.LENGTH_SHORT).show();
+                                }
+
+                            });
+
+                        } else {
+                            Log.e(MainActivity.API, "login - onResponse (response.errorBody): " + response.errorBody());
+                            Log.e(MainActivity.API, "login - onResponse (response.raw): " + response.raw().toString());
+                            Log.e(MainActivity.API, "login - onResponse (response.message): " + response.message());
+                            Log.e(MainActivity.API, "login - onResponse (call.request.body): " + call.request().body());
+                            Toast.makeText(context, context.getResources().getString(R.string.wrong_credentials), Toast.LENGTH_SHORT).show();
                         }
-
-                    });
-
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
                 } else {
-                    Log.e(MainActivity.API, "login - onResponse (response.errorBody): " + response.errorBody());
-                    Log.e(MainActivity.API, "login - onResponse (response.raw): " + response.raw().toString());
-                    Log.e(MainActivity.API, "login - onResponse (response.message): " + response.message());
-                    Log.e(MainActivity.API, "login - onResponse (call.request.body): " + call.request().body());
-                    Toast.makeText(context, context.getResources().getString(R.string.wrong_credentials), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context, getResources().getString(R.string.wrong_credentials), Toast.LENGTH_SHORT).show();
                 }
-
             }
 
             @Override
