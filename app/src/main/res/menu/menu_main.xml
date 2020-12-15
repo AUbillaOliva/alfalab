@@ -10,13 +10,11 @@
         app:showAsAction="never"
     />
 
-    <!--TODO: WORK IN PROGRESS-->
-    <!--item
+    <item
         android:id="@+id/action_search"
         android:orderInCategory="0"
         android:title="@string/search"
-        app:showAsAction="ifRoom"
-        android:icon="@drawable/ic_search_24dp"
-    /-->
+        android:icon="@drawable/ic_search_24"
+    />
 
 </menu>
