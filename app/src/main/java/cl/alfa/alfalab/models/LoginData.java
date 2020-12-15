@@ -1,6 +1,7 @@
 package cl.alfa.alfalab.models;
 
 public class LoginData {
+
     private String email;
     private String password;
 
@@ -24,4 +25,5 @@ public class LoginData {
     public void setPassword(String password) {
         this.password = password;
     }
+
 }
