@@ -55,7 +55,8 @@
                 android:id="@+id/firstname_intro_input_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="15dp">
+                android:layout_marginTop="15dp"
+                app:endIconMode="clear_text">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/firstname_intro_edit_text"
@@ -70,7 +71,8 @@
                 android:id="@+id/password_input_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="15dp">
+                android:layout_marginTop="15dp"
+                app:endIconMode="clear_text">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/password_edit_text"
@@ -87,7 +89,8 @@
                 android:id="@+id/email_intro_input_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="15dp">
+                android:layout_marginTop="15dp"
+                app:endIconMode="clear_text">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/email_intro_edit_text"
@@ -102,7 +105,8 @@
                 android:id="@+id/password_intro_input_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="15dp">
+                android:layout_marginTop="15dp"
+                app:endIconMode="clear_text">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/password_intro_edit_text"
@@ -117,16 +121,27 @@
                 android:id="@+id/confirm_password_intro_input_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="15dp">
+                android:layout_marginTop="15dp"
+                app:endIconMode="clear_text">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/confirm_password_intro_edit_text"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="textPassword"
-                    />
+                />
 
             </com.google.android.material.textfield.TextInputLayout>
+
+            <CheckBox
+                android:id="@+id/checkbox"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="end"
+                android:layout_marginTop="15dp"
+                android:padding="6dp"
+                android:text="@string/do_not_sign_out"
+            />
 
             <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
                 android:id="@+id/button"
@@ -156,7 +171,7 @@
                     android:textAlignment="center"
                     android:textColor="?attr/subtitleTextColor"
                     android:textSize="@dimen/subtitle_1_size"
-                    />
+                />
 
                 <TextView
                     android:id="@+id/sign_up_text_link"
@@ -168,7 +183,7 @@
                     android:textAlignment="center"
                     android:textColor="?attr/colorAccent"
                     android:textSize="@dimen/subtitle_1_size"
-                    />
+                />
 
             </LinearLayout>
 
