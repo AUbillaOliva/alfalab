@@ -63,7 +63,7 @@ public class MainApplication extends Application {
                 .setEnabled(true)
                 .setRestartAfterCrash(false);
         final SharedPreferences mSharedPreferences = new SharedPreferences(this);
-        if(mSharedPreferences.sendReport()) {
+        if (mSharedPreferences.sendReport()) {
             ACRA.init(this, builder);
         }
     }
