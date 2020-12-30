@@ -42,7 +42,7 @@ import retrofit2.Response;
 
 public class SecondIntroFragment extends Fragment {
 
-    private Context context = MainApplication.getContext();
+    private final Context context = MainApplication.getContext();
     private static TextInputEditText emailInputEditText, passwordInputEditText;
     private TextInputLayout emailInputLayout, passwordInputLayout;
     private CheckBox checkBox;
@@ -78,25 +78,25 @@ public class SecondIntroFragment extends Fragment {
 
     private void validateForm() {
         boolean isValid = true;
-        if(emailInputEditText.getEditableText().toString().isEmpty()) {
+        if (emailInputEditText.getEditableText().toString().isEmpty()) {
             emailInputLayout.setError(getResources().getString(R.string.required));
             isValid = false;
         } else {
             emailInputLayout.setError(null);
         }
-        if(passwordInputEditText.getEditableText().toString().isEmpty()) {
+        if (passwordInputEditText.getEditableText().toString().isEmpty()) {
             passwordInputLayout.setError(getResources().getString(R.string.required));
             isValid = false;
         } else {
             passwordInputLayout.setError(null);
         }
-        if(isValid) {
+        if (isValid) {
             login(Objects.requireNonNull(emailInputEditText.getText()).toString(), Objects.requireNonNull(passwordInputEditText.getText()).toString());
         }
     }
 
     private void login(@NonNull String email, @NonNull String password) {
-        progressDialog = ProgressDialog.show(getActivity(), "🙌 Iniciando sesión...",  "Esto puede tardar un poco.", true);
+        progressDialog = ProgressDialog.show(getActivity(), "🙌 Iniciando sesión...", "Esto puede tardar un poco.", true);
 
         final ApiService.GetAuthService service = ApiClient.getClient().create(ApiService.GetAuthService.class);
         final Call<ResponseBody> responseCall = service.getAuth(new LoginData(email, password));
@@ -110,27 +110,27 @@ public class SecondIntroFragment extends Fragment {
             public void onResponse(@NonNull Call<ResponseBody> call, @NonNull Response<ResponseBody> response) {
                 progressDialog.dismiss();
 
-                if(response.body() != null) {
+                if (response.body() != null) {
                     try {
                         final Gson gson = new Gson();
-                        final JsonObject jsonObject = gson.fromJson( response.body().string(), JsonObject.class);
+                        final JsonObject jsonObject = gson.fromJson(response.body().string(), JsonObject.class);
                         token = jsonObject.get("token");
                         refreshToken = Objects.requireNonNull(response.headers().get("Refresh-Token"));
 
-                        if(checkBox.isChecked()) {
+                        if (checkBox.isChecked()) {
                             mSharedPreferences.setToken(refreshToken.replace("\"", ""));
                         } else {
                             mSharedPreferences.setToken(token.toString().replace("\"", ""));
                         }
 
-                        if(response.isSuccessful() && token != null) {
+                        if (response.isSuccessful() && token != null) {
                             final ApiService.GetUserService userService = ApiClient.getClient().create(ApiService.GetUserService.class);
-                            final Call<AuthUser> userResponseCall = userService.getUser(token.toString().replace("\"", ""));
+                            final Call<AuthUser> userResponseCall = userService.getUser(mSharedPreferences.getToken().replace("\"", ""));
 
                             userResponseCall.enqueue(new Callback<AuthUser>() {
                                 @Override
                                 public void onResponse(@NonNull Call<AuthUser> call, @NonNull Response<AuthUser> response) {
-                                    if(response.isSuccessful()) {
+                                    if (response.isSuccessful()) {
                                         emailInputLayout.clearOnEditTextAttachedListeners();
                                         passwordInputLayout.clearOnEditTextAttachedListeners();
                                         assert response.body() != null;
@@ -138,21 +138,28 @@ public class SecondIntroFragment extends Fragment {
                                         OnBoardingActivity.setLastItemPosition();
                                     } else {
                                         Toast.makeText(context, getResources().getString(R.string.wrong_credentials), Toast.LENGTH_SHORT).show();
+                                        Log.e(MainActivity.API, "GetUserService - onResponse (response.errorBody): " + response.errorBody());
+                                        Log.e(MainActivity.API, "GetUserService - onResponse (response.raw): " + response.raw().toString());
+                                        Log.e(MainActivity.API, "GetUserService - onResponse (response.message): " + response.message());
+                                        Log.e(MainActivity.API, "GetUserService - onResponse (call.request.body): " + call.request().body());
                                     }
                                 }
 
                                 @Override
                                 public void onFailure(@NonNull Call<AuthUser> call, @NonNull Throwable t) {
                                     Toast.makeText(context, getResources().getString(R.string.wrong_credentials), Toast.LENGTH_SHORT).show();
+                                    Log.d(MainActivity.API, "GetUserService - onFailure (t.getMessage): " + t.getMessage());
+                                    Log.d(MainActivity.API, "GetUserService - onFailure (call): " + call.request().toString());
+
                                 }
 
                             });
 
                         } else {
-                            Log.e(MainActivity.API, "login - onResponse (response.errorBody): " + response.errorBody());
-                            Log.e(MainActivity.API, "login - onResponse (response.raw): " + response.raw().toString());
-                            Log.e(MainActivity.API, "login - onResponse (response.message): " + response.message());
-                            Log.e(MainActivity.API, "login - onResponse (call.request.body): " + call.request().body());
+                            Log.e(MainActivity.API, "GetUserService - onResponse (response.errorBody): " + response.errorBody());
+                            Log.e(MainActivity.API, "GetUserService - onResponse (response.raw): " + response.raw().toString());
+                            Log.e(MainActivity.API, "GetUserService - onResponse (response.message): " + response.message());
+                            Log.e(MainActivity.API, "GetUserService - onResponse (call.request.body): " + call.request().body());
                             Toast.makeText(context, context.getResources().getString(R.string.wrong_credentials), Toast.LENGTH_SHORT).show();
                         }
                     } catch (IOException e) {
@@ -160,6 +167,10 @@ public class SecondIntroFragment extends Fragment {
                     }
                 } else {
                     Toast.makeText(context, getResources().getString(R.string.wrong_credentials), Toast.LENGTH_SHORT).show();
+                    Log.e(MainActivity.API, "GetAuthService - onResponse (response.errorBody): " + response.errorBody());
+                    Log.e(MainActivity.API, "GetAuthService - onResponse (response.raw): " + response.raw().toString());
+                    Log.e(MainActivity.API, "GetAuthService - onResponse (response.message): " + response.message());
+                    Log.e(MainActivity.API, "GetAuthService - onResponse (call.request.body): " + call.request().body());
                 }
             }
 
