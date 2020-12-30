@@ -2,14 +2,18 @@ package cl.alfa.alfalab;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
+import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 
+import com.auth0.android.jwt.JWT;
 import com.google.android.material.badge.BadgeDrawable;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -30,6 +34,7 @@ import cl.alfa.alfalab.utils.SharedPreferences;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.TextView;
 
 import java.util.Objects;
@@ -67,6 +72,11 @@ public class MainActivity extends AppCompatActivity {
             startActivity(new Intent(context, OnBoardingActivity.class));
             overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
             finish();
+        } else {
+            JWT jwt = new JWT(mSharedPreferences.getToken());
+            if(jwt.isExpired(1)) {
+                showDialog();
+            }
         }
 
         if (mSharedPreferences.loadNightModeState()) {
@@ -97,25 +107,21 @@ public class MainActivity extends AppCompatActivity {
         mBottomNavigationView.setOnNavigationItemSelectedListener(item -> {
             Fragment fragment = null;
             if(mBottomNavigationView.getSelectedItemId() != item.getItemId()) {
-                switch (item.getItemId()) {
-                    case R.id.orders:
-                        if (mBottomNavigationView.getBadge(item.getItemId()) != null) {
-                            mBottomNavigationView.removeBadge(item.getItemId());
-                        }
-                        fragment = new OrdersFragment();
-                        break;
-                    case R.id.home:
-                        if (mBottomNavigationView.getBadge(item.getItemId()) != null) {
-                            mBottomNavigationView.removeBadge(item.getItemId());
-                        }
-                        fragment = new HomeFragment();
-                        break;
-                    case R.id.notifications:
-                        if (mBottomNavigationView.getBadge(item.getItemId()) != null) {
-                            mBottomNavigationView.removeBadge(item.getItemId());
-                        }
-                        fragment = new NotificationsFragment();
-                        break;
+                if(item.getItemId() == R.id.orders) {
+                    if (mBottomNavigationView.getBadge(item.getItemId()) != null) {
+                        mBottomNavigationView.removeBadge(item.getItemId());
+                    }
+                    fragment = new OrdersFragment();
+                } else if(item.getItemId() == R.id.home) {
+                    if (mBottomNavigationView.getBadge(item.getItemId()) != null) {
+                        mBottomNavigationView.removeBadge(item.getItemId());
+                    }
+                    fragment = new HomeFragment();
+                } else if(item.getItemId() == R.id.notifications) {
+                    if (mBottomNavigationView.getBadge(item.getItemId()) != null) {
+                        mBottomNavigationView.removeBadge(item.getItemId());
+                    }
+                    fragment = new NotificationsFragment();
                 }
                 replaceFragment(fragment);
             }
@@ -133,16 +139,15 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.action_settings:
-                startActivity(new Intent(context, SettingsActivity.class));
-                overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
-                return true;
-            case R.id.action_search:
-                startActivity(new Intent(context, SearchActivity.class));
-                overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
-                finish();
-                return true;
+        if(item.getItemId() == R.id.action_settings) {
+            startActivity(new Intent(context, SettingsActivity.class));
+            overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+            return true;
+        } else if(item.getItemId() == R.id.action_search) {
+            startActivity(new Intent(context, SearchActivity.class));
+            overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+            finish();
+            return true;
         }
         return super.onOptionsItemSelected(item);
     }
@@ -175,6 +180,37 @@ public class MainActivity extends AppCompatActivity {
         final FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         fragmentTransaction.replace(R.id.parent_fragment_container, fragment);
         fragmentTransaction.commit();
+    }
+
+    private void showDialog() {
+        final Dialog dialog = new Dialog(context);
+        dialog.setCancelable(true);
+        Objects.requireNonNull(dialog.getWindow()).setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        @SuppressLint("InflateParams") final View view  = this.getLayoutInflater().inflate(R.layout.confirmation_dialog_layout, null);
+        dialog.setContentView(view);
+
+        final ExtendedFloatingActionButton acceptButton;
+        final TextView rejectButton, dialogTitle, dialogSubtitle;
+
+        dialogTitle = view.findViewById(R.id.dialog_title);
+        dialogTitle.setText(getResources().getString(R.string.token_expired_dialog_title));
+        dialogSubtitle = view.findViewById(R.id.dialog_subtitle);
+        dialogSubtitle.setText(getResources().getString(R.string.token_expired_dialog_subtitle));
+
+        acceptButton = view.findViewById(R.id.confirm_button);
+        acceptButton.setText(getResources().getString(R.string.signin_button));
+        acceptButton.setBackgroundColor(context.getResources().getColor(R.color.colorAccent));
+        acceptButton.setOnClickListener(view1 -> {
+            dialog.dismiss();
+            startActivity(new Intent(context, OnBoardingActivity.class));
+            overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+            finish();
+        });
+
+        rejectButton = view.findViewById(R.id.negative_button);
+        rejectButton.setVisibility(View.GONE);
+
+        dialog.show();
     }
 
     @Override
