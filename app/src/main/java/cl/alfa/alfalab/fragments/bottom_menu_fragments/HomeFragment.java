@@ -24,6 +24,7 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 
 import cl.alfa.alfalab.MainActivity;
@@ -41,7 +42,6 @@ public class HomeFragment extends Fragment {
 
     private final Context context = MainApplication.getContext();
     private SharedPreferences mSharedPreferences;
-    private ArrayList<Orders> mData = new ArrayList<>();
     private BarChart chart;
 
     @Nullable
@@ -55,10 +55,8 @@ public class HomeFragment extends Fragment {
 
         MainActivity.getToolbar().setElevation(4);
 
-        //final TextView hello = view.findViewById(R.id.hello);
         chart = view.findViewById(R.id.chart);
 
-        //hello.setText(String.format(getResources().getString(R.string.hello), capitalizeFirstLetter(mSharedPreferences.getResponsible().getFirstname())));
         return view;
     }
 
@@ -69,16 +67,9 @@ public class HomeFragment extends Fragment {
         responseCall.enqueue(new Callback<ArrayList<Orders>>() {
             @Override
             public void onResponse(@NonNull Call<ArrayList<cl.alfa.alfalab.models.Orders>> call, @NonNull Response<ArrayList<Orders>> response) {
-                //mSwipeRefreshLayout.setRefreshing(false);
-                //mProgressBar.setVisibility(View.GONE);
-                //mSwipeRefreshLayout.setVisibility(View.VISIBLE);
                 if (response.isSuccessful()) {
                     assert response.body() != null;
-                    try {
-                        setDataSet(response.body());
-                    } catch (ParseException e) {
-                        e.printStackTrace();
-                    }
+                    setDataSet(response.body());
                 } else {
                     Toast.makeText(context, context.getResources().getString(R.string.check_internet_connection), Toast.LENGTH_SHORT).show();
                     Log.e(MainActivity.API, "getData - onResponse (errorBody): " + response.errorBody());
@@ -89,9 +80,6 @@ public class HomeFragment extends Fragment {
 
             @Override
             public void onFailure(@NonNull Call<ArrayList<cl.alfa.alfalab.models.Orders>> call, @NonNull Throwable t) {
-                //mSwipeRefreshLayout.setRefreshing(false);
-                //mProgressBar.setVisibility(View.GONE);
-                //mSwipeRefreshLayout.setVisibility(View.VISIBLE);
                 Log.d(MainActivity.API, "getData - onFailure: " + t.getMessage());
                 Log.e(MainActivity.API, "getData - onFailure: " + t.getLocalizedMessage());
                 Toast.makeText(context, context.getResources().getString(R.string.feed_update_error), Toast.LENGTH_SHORT).show();
@@ -99,13 +87,13 @@ public class HomeFragment extends Fragment {
         });
     }
 
-    private ArrayList<BarEntry> setValues(ArrayList<Orders> mList) throws ParseException {
+    private ArrayList<BarEntry> setValues(ArrayList<Orders> mList) {
         final ArrayList<BarEntry> entriesYAxis = new ArrayList<>();
         final ArrayList<Integer> dayList = new ArrayList<>();
-        int count = 0;
+        int count;
         for (Orders orders : mList) {
             @SuppressLint("SimpleDateFormat") DateFormat sourceFormat = new SimpleDateFormat("dd/MM/yyyy hh:mm:ss");
-            String dateAsString = orders.getCreated_at();
+            final String dateAsString = orders.getCreated_at();
             Date date = null;
             try {
                 date = sourceFormat.parse(dateAsString);
@@ -114,57 +102,37 @@ public class HomeFragment extends Fragment {
             }
             assert date != null;
             @SuppressLint("SimpleDateFormat") String outputFormat = new SimpleDateFormat("dd").format(date);
-
-            for(int i = 0; i < mList.size(); i++) {
-                String dateString = mList.get(i).getCreated_at();
-                Date dateC = null;
-                try {
-                    dateC = sourceFormat.parse(dateString);
-                    assert dateC != null;
-                    @SuppressLint("SimpleDateFormat") String outputFormatC = new SimpleDateFormat("dd").format(dateC);
-                    if(outputFormat.equals(outputFormatC)){
-                        count++;
-                        Log.d(MainActivity.API, "Count: " + count + " outputFormatC: " + outputFormatC);
-                        dayList.add(Integer.parseInt(outputFormat));
-                        BarEntry entry = new BarEntry(Float.parseFloat(outputFormat), count);
-                        entriesYAxis.add(entry);
-                    }
-                } catch (ParseException e) {
-                    e.printStackTrace();
-                }
+            if (dayList.size() < 32) {
+                dayList.add(Integer.parseInt(outputFormat));
             }
+            count = Collections.frequency(dayList, Integer.parseInt(outputFormat));
+            final BarEntry entry = new BarEntry(Float.parseFloat(outputFormat), count);
+            entriesYAxis.add(entry);
         }
-        Log.d(MainActivity.API, mList.get(1).getCreated_at());
         return entriesYAxis;
     }
 
-    private int howManyDays(ArrayList<Integer> dayList) {
-
-        return 0;
-    }
-
-    private void setDataSet(ArrayList<Orders> mList) throws ParseException {
+    private void setDataSet(ArrayList<Orders> mList) {
         ArrayList<BarEntry> values = setValues(mList);
         BarData barData = new BarData();
-        BarDataSet dataSetY = new BarDataSet(values, "Pedidos"); // add entries to dataset
-        //BarDataSet dataSetX = new BarDataSet(valuesXAxis, "Numero");
+        BarDataSet dataSetY = new BarDataSet(values, "Pedidos");
 
-        //barData.addDataSet(dataSetX);
         barData.addDataSet(dataSetY);
         dataSetY.setColor(getResources().getColor(R.color.colorAccent));
         dataSetY.setValueTextSize(16);
         dataSetY.setValueTextColor(mSharedPreferences.loadNightModeState() ? getResources().getColor(android.R.color.white) : getResources().getColor(android.R.color.black));
 
-        //chart.getXAxis().setEnabled(false);
+
         chart.getXAxis().setPosition(XAxis.XAxisPosition.BOTTOM);
-
-        chart.getXAxis().setLabelCount(4); // CUANTOS DIAS HAY
+        chart.setBorderColor(mSharedPreferences.loadNightModeState() ? getResources().getColor(android.R.color.white) : getResources().getColor(android.R.color.black));
+        chart.getAxisLeft().setTextColor(mSharedPreferences.loadNightModeState() ? getResources().getColor(android.R.color.white) : getResources().getColor(android.R.color.black));
+        chart.getXAxis().setTextColor(mSharedPreferences.loadNightModeState() ? getResources().getColor(android.R.color.white) : getResources().getColor(android.R.color.black));
+        chart.getXAxis().setLabelCount(4);
+        chart.getDescription().setTextColor(mSharedPreferences.loadNightModeState() ? getResources().getColor(android.R.color.white) : getResources().getColor(android.R.color.black));
         chart.setData(barData);
+        chart.setDrawValueAboveBar(true);
+        chart.setClipValuesToContent(false);
         chart.invalidate();
-    }
-
-    private int findMaxYValue(BarData data) {
-        return 0;
     }
 
     @NonNull
