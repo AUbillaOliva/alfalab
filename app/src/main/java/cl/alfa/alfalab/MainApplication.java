@@ -4,8 +4,6 @@ import android.app.Application;
 import android.content.Context;
 
 import org.acra.ACRA;
-import org.acra.annotation.AcraCore;
-import org.acra.annotation.AcraToast;
 import org.acra.config.CoreConfigurationBuilder;
 import org.acra.config.SchedulerConfigurationBuilder;
 
@@ -14,7 +12,6 @@ import java.security.NoSuchAlgorithmException;
 
 import javax.net.ssl.SSLContext;
 
-import cl.alfa.alfalab.utils.Sender;
 import cl.alfa.alfalab.utils.SharedPreferences;
 
 /*
@@ -27,11 +24,6 @@ import cl.alfa.alfalab.utils.SharedPreferences;
     (https://github.com/AUbillaOliva/LSCH/blob/v1.0.1/README.md)
 */
 
-
-@AcraCore(reportSenderFactoryClasses = Sender.class,
-        resReportSendSuccessToast = R.string.report_sended,
-        resReportSendFailureToast = R.string.acra_toast_text)
-@AcraToast(resText = R.string.report_sended)
 public class MainApplication extends Application {
     private static Application application;
 
@@ -64,6 +56,8 @@ public class MainApplication extends Application {
 
         final CoreConfigurationBuilder builder = new CoreConfigurationBuilder(this)
                 .setBuildConfigClass(BuildConfig.class)
+                .setResReportSendSuccessToast(R.string.report_sended)
+                .setResReportSendFailureToast(R.string.report_dont_sended)
                 .setEnabled(true);
         builder.getPluginConfigurationBuilder(SchedulerConfigurationBuilder.class)
                 .setEnabled(true)
@@ -72,10 +66,6 @@ public class MainApplication extends Application {
         if(mSharedPreferences.sendReport()) {
             ACRA.init(this, builder);
         }
-    }
-
-    // TODO: IMPLEMENT NEW VERSION CHECKER WITH SERVER
-    public void checkNewVersion(){
     }
 
 }
