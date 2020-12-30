@@ -62,19 +62,19 @@ public class MainActivity extends AppCompatActivity {
 
         final SharedPreferences mSharedPreferences = new SharedPreferences(context);
 
-        if(mSharedPreferences.isFirstTime()) {
+        if (mSharedPreferences.isFirstTime()) {
             startActivity(new Intent(context, OnBoardingActivity.class));
             overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
             finish();
         }
 
-        if(mSharedPreferences.getToken() == null) {
+        if (mSharedPreferences.getToken() == null) {
             startActivity(new Intent(context, OnBoardingActivity.class));
             overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
             finish();
         } else {
             JWT jwt = new JWT(mSharedPreferences.getToken());
-            if(jwt.isExpired(1)) {
+            if (jwt.isExpired(1)) {
                 showDialog();
             }
         }
@@ -90,7 +90,7 @@ public class MainActivity extends AppCompatActivity {
         final TextView toolbarTitle = mToolbar.findViewById(R.id.toolbar_title);
         mBottomNavigationView = findViewById(R.id.bottom_navigation_view);
 
-        if(mSharedPreferences.loadNightModeState()) {
+        if (mSharedPreferences.loadNightModeState()) {
             mToolbar.setTitleTextAppearance(context, R.style.ToolbarTypefaceDark);
         } else {
             mToolbar.setTitleTextAppearance(context, R.style.ToolbarTypefaceLight);
@@ -106,18 +106,18 @@ public class MainActivity extends AppCompatActivity {
         //TODO: ADD BADGES
         mBottomNavigationView.setOnNavigationItemSelectedListener(item -> {
             Fragment fragment = null;
-            if(mBottomNavigationView.getSelectedItemId() != item.getItemId()) {
-                if(item.getItemId() == R.id.orders) {
+            if (mBottomNavigationView.getSelectedItemId() != item.getItemId()) {
+                if (item.getItemId() == R.id.orders) {
                     if (mBottomNavigationView.getBadge(item.getItemId()) != null) {
                         mBottomNavigationView.removeBadge(item.getItemId());
                     }
                     fragment = new OrdersFragment();
-                } else if(item.getItemId() == R.id.home) {
+                } else if (item.getItemId() == R.id.home) {
                     if (mBottomNavigationView.getBadge(item.getItemId()) != null) {
                         mBottomNavigationView.removeBadge(item.getItemId());
                     }
                     fragment = new HomeFragment();
-                } else if(item.getItemId() == R.id.notifications) {
+                } else if (item.getItemId() == R.id.notifications) {
                     if (mBottomNavigationView.getBadge(item.getItemId()) != null) {
                         mBottomNavigationView.removeBadge(item.getItemId());
                     }
@@ -139,11 +139,11 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if(item.getItemId() == R.id.action_settings) {
+        if (item.getItemId() == R.id.action_settings) {
             startActivity(new Intent(context, SettingsActivity.class));
             overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
             return true;
-        } else if(item.getItemId() == R.id.action_search) {
+        } else if (item.getItemId() == R.id.action_search) {
             startActivity(new Intent(context, SearchActivity.class));
             overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
             finish();
@@ -156,8 +156,8 @@ public class MainActivity extends AppCompatActivity {
     public void onRequestPermissionsResult(final int requestCode, @NonNull final String[] permissions, @NonNull final int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         if (requestCode == REQUEST_CODE) {
-            if(ContextCompat.checkSelfPermission(context, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
-                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},REQUEST_CODE);
+            if (ContextCompat.checkSelfPermission(context, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, REQUEST_CODE);
             }
         }
     }
@@ -186,7 +186,7 @@ public class MainActivity extends AppCompatActivity {
         final Dialog dialog = new Dialog(context);
         dialog.setCancelable(true);
         Objects.requireNonNull(dialog.getWindow()).setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-        @SuppressLint("InflateParams") final View view  = this.getLayoutInflater().inflate(R.layout.confirmation_dialog_layout, null);
+        @SuppressLint("InflateParams") final View view = this.getLayoutInflater().inflate(R.layout.confirmation_dialog_layout, null);
         dialog.setContentView(view);
 
         final ExtendedFloatingActionButton acceptButton;
@@ -218,7 +218,9 @@ public class MainActivity extends AppCompatActivity {
         super.onDestroy();
     }
 
-    public static Toolbar getToolbar() { return mToolbar; }
+    public static Toolbar getToolbar() {
+        return mToolbar;
+    }
 
     public static BottomNavigationView getmBottomNavigationView() {
         return mBottomNavigationView;
