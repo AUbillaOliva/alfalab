@@ -4,7 +4,15 @@ import java.io.Serializable;
 
 public class User implements Serializable {
 
-    private String firstname, lastname, email, password;
+    private String firstname, lastname, email, password, profileImage;
+
+    public User(String firstname, String lastname, String email, String password, String profileImage) {
+        this.firstname = firstname;
+        this.lastname = lastname;
+        this.email = email;
+        this.password = password;
+        this.profileImage = profileImage;
+    }
 
     public User(String firstname, String lastname, String email, String password) {
         this.firstname = firstname;
@@ -54,5 +62,13 @@ public class User implements Serializable {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getProfileImage() {
+        return profileImage;
+    }
+
+    public void setProfileImage(String profileImage) {
+        this.profileImage = profileImage;
     }
 }
