@@ -14,8 +14,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.Switch;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -24,16 +24,20 @@ import java.util.Objects;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
+import com.google.android.material.switchmaterial.SwitchMaterial;
 
 import cl.alfa.alfalab.MainActivity;
 import cl.alfa.alfalab.R;
 import cl.alfa.alfalab.adapters.GenericAdapter;
 import cl.alfa.alfalab.interfaces.RecyclerViewOnClickListenerHack;
 import cl.alfa.alfalab.models.ListItem;
+import cl.alfa.alfalab.models.User;
 import cl.alfa.alfalab.utils.GenericViewHolder;
 import cl.alfa.alfalab.utils.SharedPreferences;
 
@@ -43,11 +47,11 @@ public class SettingsActivity extends AppCompatActivity {
     private SharedPreferences mSharedPreferences;
 
     @Override
-    public void onCreate(Bundle savedInstanceState){
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         mSharedPreferences = new SharedPreferences(context);
-        if(mSharedPreferences.loadNightModeState()) {
+        if (mSharedPreferences.loadNightModeState()) {
             setTheme(R.style.AppThemeDark);
         } else {
             setTheme(R.style.AppTheme);
@@ -57,14 +61,15 @@ public class SettingsActivity extends AppCompatActivity {
         final Toolbar mToolbar = findViewById(R.id.toolbar);
         final TextView toolbarTitle = mToolbar.findViewById(R.id.toolbar_title),
                 profileName = findViewById(R.id.profile_text);
-        final Switch mDarkSwitch = findViewById(R.id.settings_dark_theme_switch),
+        final SwitchMaterial mDarkSwitch = findViewById(R.id.settings_dark_theme_switch),
                 mReportSwitch = findViewById(R.id.send_report_switch);
         final RecyclerView helpRecyclerView = findViewById(R.id.help_recycler_view);
+        final ImageView profileImage = findViewById(R.id.profile_image);
 
         setSupportActionBar(mToolbar);
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
-        if(mSharedPreferences.loadNightModeState()) {
+        if (mSharedPreferences.loadNightModeState()) {
             mToolbar.setTitleTextAppearance(context, R.style.ToolbarTypefaceDark);
         } else {
             mToolbar.setTitleTextAppearance(context, R.style.ToolbarTypefaceLight);
@@ -73,34 +78,32 @@ public class SettingsActivity extends AppCompatActivity {
 
         profileName.setText(Html.fromHtml(String.format(getResources().getString(R.string.user_name), capitalizeFirstLetter(mSharedPreferences.getResponsible().getFirstname()), capitalizeFirstLetter(mSharedPreferences.getResponsible().getLastname()))));
 
-        if(mSharedPreferences.loadNightModeState()) {
+        if (mSharedPreferences.loadNightModeState()) {
             mDarkSwitch.setChecked(true);
         }
         mDarkSwitch.setOnCheckedChangeListener((buttonView, isChecked) -> {
-            if(!isChecked) {
-                mSharedPreferences.setNightModeState(false);
-            } else {
-                mSharedPreferences.setNightModeState(true);
-            }
+            mSharedPreferences.setNightModeState(isChecked);
             startActivity(new Intent(context, SettingsActivity.class));
             overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
             finish();
         });
 
-        if(mSharedPreferences.sendReport()) {
+        if (mSharedPreferences.sendReport()) {
             mReportSwitch.setChecked(true);
         }
         mReportSwitch.setOnCheckedChangeListener((buttonView, isChecked) -> {
-            if(!isChecked){
-                mSharedPreferences.sendReports(false);
-            }
-            else {
-                mSharedPreferences.sendReports(true);
-            }
+            mSharedPreferences.sendReports(isChecked);
             startActivity(new Intent(context, SettingsActivity.class));
             overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
             finish();
         });
+
+        final User user = mSharedPreferences.getResponsible();
+        if (user.getProfileImage() != null) {
+            Glide.with(this).load(user.getProfileImage()).into(profileImage);
+        } else {
+            Glide.with(this).load(ContextCompat.getDrawable(context, R.drawable.ic_baseline_account_circle_24)).into(profileImage);
+        }
 
         final LinearLayout profileLayout = findViewById(R.id.profile_layout);
         profileLayout.setOnClickListener(view -> {
@@ -127,7 +130,7 @@ public class SettingsActivity extends AppCompatActivity {
                 final TextView title = myViewHolder.get(R.id.list_item_title);
                 title.setText(val.getTitle());
                 final TextView subtitle = myViewHolder.get(R.id.list_item_subtitle);
-                if(val.getSubtitle() != null) {
+                if (val.getSubtitle() != null) {
                     subtitle.setText(val.getSubtitle());
                 } else {
                     subtitle.setVisibility(View.GONE);
@@ -157,8 +160,10 @@ public class SettingsActivity extends AppCompatActivity {
                                 break;
                         }
                     }
+
                     @Override
-                    public void onLongPressClickListener(View view, int position) {}
+                    public void onLongPressClickListener(View view, int position) {
+                    }
                 };
             }
         };
@@ -263,5 +268,5 @@ public class SettingsActivity extends AppCompatActivity {
         override.fontScale = 1.0f;
         applyOverrideConfiguration(override);
     }
-    
+
 }
