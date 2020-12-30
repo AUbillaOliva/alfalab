@@ -3,3 +3,4 @@ config/default.json
 newrelic_agent.log
 reports/
 .env
+tmpFiles/
