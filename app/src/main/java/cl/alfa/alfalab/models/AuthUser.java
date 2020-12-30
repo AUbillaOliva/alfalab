@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 public class AuthUser implements Serializable {
 
-    private String firstname, lastname, email;
+    private String firstname, lastname, email, profileImage;
 
     public AuthUser(String firstname, String lastname, String email) {
         this.firstname = firstname;
@@ -41,4 +41,11 @@ public class AuthUser implements Serializable {
         this.email = email;
     }
 
+    public String getProfileImage() {
+        return profileImage;
+    }
+
+    public void setProfileImage(String profileImage) {
+        this.profileImage = profileImage;
+    }
 }
