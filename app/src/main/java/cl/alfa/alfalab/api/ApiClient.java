@@ -8,6 +8,7 @@ public class ApiClient {
     /**
      * MORE INFO ABOUT THE API ON https://github.com/AUbillaOliva/Alfalab/blob/master/README.md
      * CREATED BY {@author}: ÁLVARO UBILLA OLIVA
+     *
      * @version: v1.0.0
      * @license GPL-3.0
      **/
