@@ -1,6 +1,72 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <View
+        android:layout_width="152dp"
+        android:layout_height="5dp"
+        android:layout_gravity="center"
+        android:layout_marginVertical="30dp"
+        android:background="@drawable/bottom_sheet_indicator"
+    />
+
+    <LinearLayout
+        android:id="@+id/edit_profile_picture"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_gravity="center_horizontal"
+        android:padding="15dp"
+        tools:ignore="UseCompoundDrawables">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:contentDescription="@string/edit_profile_picture_icon_content_description"
+            android:src="@drawable/ic_baseline_edit_24"
+        />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="10dp"
+            android:text="@string/edit_profile_picture"
+            android:textColor="?attr/textColor"
+            android:textSize="@dimen/body_2_size"
+        />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/delete_profile_picture"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_gravity="center_horizontal"
+        android:padding="15dp"
+        tools:ignore="UseCompoundDrawables">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:contentDescription="@string/delete_profile_picture_icon_content_description"
+            android:src="@drawable/ic_baseline_delete_24"
+        />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="10dp"
+            android:text="@string/delete_profile_picture"
+            android:textColor="?attr/textColor"
+            android:textSize="@dimen/body_2_size"
+        />
+
+    </LinearLayout>
+
+
+</LinearLayout>
