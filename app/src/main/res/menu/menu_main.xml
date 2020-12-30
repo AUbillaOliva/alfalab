@@ -15,7 +15,7 @@
         android:orderInCategory="0"
         android:title="@string/search"
         android:icon="@drawable/ic_search_24"
-        app:showAsAction="ifRoom|always"
+        app:showAsAction="ifRoom"
     />
 
 </menu>
