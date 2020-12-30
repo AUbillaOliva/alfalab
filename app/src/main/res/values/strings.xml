@@ -15,6 +15,8 @@
     <!--CONTEXT MENU-->
     <string name="edit_order">Editar</string>
     <string name="delete_order">Borrar</string>
+    <string name="edit_profile_picture">Cambiar foto de perfil</string>
+    <string name="delete_profile_picture">Eliminar foto de perfil</string>
 
     <!--ITEM STRING-->
     <string name="entered">Ingresado</string>
@@ -26,6 +28,7 @@
     <string name="orders">Pedidos</string>
     <string name="delivered">Entregados</string>
     <string name="no_items">No hay pedidos %1$s</string>
+    <string name="no_messages">No hay nuevos mensajes</string>
 
     <!--TOAST STRINGS-->
     <string name="check_internet_connection">Revisa tu conexión a internet</string>
@@ -45,6 +48,8 @@
     <string name="delete_order_dialog_subtitle">Estás seguro que deseas descartar el pedido?</string>
     <string name="delete_order_question">Eliminar pedido?</string>
     <string name="delete_order_warning">Esta accion no tiene vuelta atrás!</string>
+    <string name="token_expired_dialog_title">Token de sesión expirado</string>
+    <string name="token_expired_dialog_subtitle">Tu token de inicio de sesión ha expirado, por favor, vuelve a iniciar sesión</string>
 
     <!--BUTTONS STRINGS-->
     <string name="finalize">FINALIZAR</string>
@@ -155,6 +160,9 @@
     <string name="checkmark_icon_content_description">Checkmark icon</string>
     <string name="add_report_image_content_description">Add report image</string>
     <string name="delete_report_image_icon_content_description">Eliminar imagen de reporte</string>
+    <string name="profile_picture">Profile picture</string>
+    <string name="edit_profile_picture_icon_content_description">Editar foto de perfil</string>
+    <string name="delete_profile_picture_icon_content_description">Eliminar foto de perfil</string>
 
     <!--OTHER STRINGS-->
     <string name="responsible_data_disclaimer">Tu nombre se utiliza cuando creas un pedido, asi se muestra quien lo realizó</string>
