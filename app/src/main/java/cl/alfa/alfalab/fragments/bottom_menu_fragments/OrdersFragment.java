@@ -30,10 +30,10 @@ import cl.alfa.alfalab.fragments.Orders;
 import cl.alfa.alfalab.interfaces.FabInterface;
 import cl.alfa.alfalab.utils.SharedPreferences;
 
-public class OrdersFragment extends Fragment  {
+public class OrdersFragment extends Fragment {
 
     private ViewPager2 mViewPager;
-    private Context context = MainApplication.getContext();
+    private final Context context = MainApplication.getContext();
 
     public static AppBarLayout appBarLayout;
     public View appBarLayoutShadow;
@@ -97,10 +97,12 @@ public class OrdersFragment extends Fragment  {
             }
 
             @Override
-            public void onTabUnselected(TabLayout.Tab tab) {}
+            public void onTabUnselected(TabLayout.Tab tab) {
+            }
 
             @Override
-            public void onTabReselected(TabLayout.Tab tab) {}
+            public void onTabReselected(TabLayout.Tab tab) {
+            }
         });
 
         return view;
