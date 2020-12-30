@@ -44,7 +44,7 @@ import retrofit2.Response;
 
 public class ThirdIntroFragment extends Fragment {
 
-    private Context context = MainApplication.getContext();
+    private final Context context = MainApplication.getContext();
     private static TextInputEditText firstnameInputEditText, lastInputEditText, emailInputEditText, passwordInputEditText, confirmPasswordInputEditText;
     private TextInputLayout firstnameInputLayout, lastnameInputLayout, emailInputLayout, passwordInputLayout, confirmPasswordInputLayout;
     private CheckBox checkBox;
@@ -85,7 +85,7 @@ public class ThirdIntroFragment extends Fragment {
         firstnameInputEditText.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                if(charSequence.length() > 1) {
+                if (charSequence.length() > 1) {
                     firstnameInputLayout.setErrorEnabled(false);
                 }
             }
@@ -99,7 +99,7 @@ public class ThirdIntroFragment extends Fragment {
 
             @Override
             public void afterTextChanged(Editable editable) {
-                if(editable.length() < 1) {
+                if (editable.length() < 1) {
                     firstnameInputLayout.setError(getResources().getString(R.string.required));
                 }
             }
@@ -107,7 +107,7 @@ public class ThirdIntroFragment extends Fragment {
         lastInputEditText.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                if(charSequence.length() > 1) {
+                if (charSequence.length() > 1) {
                     lastnameInputLayout.setErrorEnabled(false);
                 }
             }
@@ -121,7 +121,7 @@ public class ThirdIntroFragment extends Fragment {
 
             @Override
             public void afterTextChanged(Editable editable) {
-                if(editable.length() < 1) {
+                if (editable.length() < 1) {
                     lastnameInputLayout.setError(getResources().getString(R.string.required));
                 }
             }
@@ -129,7 +129,7 @@ public class ThirdIntroFragment extends Fragment {
         emailInputEditText.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                if(charSequence.length() > 1) {
+                if (charSequence.length() > 1) {
                     emailInputLayout.setErrorEnabled(false);
                 }
             }
@@ -143,7 +143,7 @@ public class ThirdIntroFragment extends Fragment {
 
             @Override
             public void afterTextChanged(Editable editable) {
-                if(editable.length() < 1) {
+                if (editable.length() < 1) {
                     emailInputLayout.setError(getResources().getString(R.string.required));
                 }
             }
@@ -151,7 +151,7 @@ public class ThirdIntroFragment extends Fragment {
         passwordInputEditText.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                if(charSequence.length() > 1) {
+                if (charSequence.length() > 1) {
                     passwordInputLayout.setErrorEnabled(false);
                 }
             }
@@ -165,7 +165,7 @@ public class ThirdIntroFragment extends Fragment {
 
             @Override
             public void afterTextChanged(Editable editable) {
-                if(editable.length() < 1) {
+                if (editable.length() < 1) {
                     passwordInputLayout.setError(getResources().getString(R.string.required));
                 }
             }
@@ -173,7 +173,7 @@ public class ThirdIntroFragment extends Fragment {
         confirmPasswordInputEditText.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                if(charSequence.length() > 1) {
+                if (charSequence.length() > 1) {
                     confirmPasswordInputLayout.setErrorEnabled(false);
                 }
             }
@@ -187,7 +187,7 @@ public class ThirdIntroFragment extends Fragment {
 
             @Override
             public void afterTextChanged(Editable editable) {
-                if(editable.length() < 1) {
+                if (editable.length() < 1) {
                     confirmPasswordInputLayout.setError(getResources().getString(R.string.required));
                 }
             }
@@ -200,43 +200,43 @@ public class ThirdIntroFragment extends Fragment {
 
     private void validateForm() {
         boolean isCorrect = true;
-        if(firstnameInputEditText.getEditableText().toString().isEmpty()) {
+        if (firstnameInputEditText.getEditableText().toString().isEmpty()) {
             firstnameInputLayout.setError(getResources().getString(R.string.required));
             isCorrect = false;
         } else {
             firstnameInputLayout.setError(null);
         }
-        if(lastInputEditText.getEditableText().toString().isEmpty()) {
+        if (lastInputEditText.getEditableText().toString().isEmpty()) {
             lastnameInputLayout.setError(getResources().getString(R.string.required));
             isCorrect = false;
         } else {
             lastnameInputLayout.setError(null);
         }
-        if(emailInputEditText.getEditableText().toString().isEmpty()) {
+        if (emailInputEditText.getEditableText().toString().isEmpty()) {
             emailInputLayout.setError(getResources().getString(R.string.required));
             isCorrect = false;
         } else {
             emailInputLayout.setError(null);
         }
-        if(passwordInputEditText.getEditableText().toString().isEmpty()) {
+        if (passwordInputEditText.getEditableText().toString().isEmpty()) {
             passwordInputLayout.setError(getResources().getString(R.string.required));
             isCorrect = false;
         } else {
             passwordInputLayout.setError(null);
         }
-        if(confirmPasswordInputEditText.getEditableText().toString().isEmpty()) {
+        if (confirmPasswordInputEditText.getEditableText().toString().isEmpty()) {
             confirmPasswordInputLayout.setError(getResources().getString(R.string.required));
             isCorrect = false;
         } else {
             confirmPasswordInputLayout.setError(null);
         }
-        if(isCorrect) {
+        if (isCorrect) {
             signup(String.valueOf(firstnameInputEditText.getText()), String.valueOf(lastInputEditText.getText()), String.valueOf(emailInputEditText.getText()), String.valueOf(passwordInputEditText.getText()));
         }
     }
 
     private void signup(@NonNull String firstname, @NonNull String lastname, @NonNull String email, @NonNull String password) {
-        progressDialog = ProgressDialog.show(getActivity(), "🙌 Creando cuenta...",  "Esto puede tardar un poco.", true);
+        progressDialog = ProgressDialog.show(getActivity(), "🙌 Creando cuenta...", "Esto puede tardar un poco.", true);
 
         final ApiService.SignUpService service = ApiClient.getClient().create(ApiService.SignUpService.class);
         final Call<ResponseBody> responseCall = service.signUp(new User(firstname, lastname, email, password));
@@ -249,40 +249,45 @@ public class ThirdIntroFragment extends Fragment {
             public void onResponse(@NonNull Call<ResponseBody> call, @NonNull Response<ResponseBody> response) {
                 progressDialog.dismiss();
 
-                if(response.isSuccessful()) {
+                if (response.isSuccessful()) {
                     Toast.makeText(context, "Cuenta creada", Toast.LENGTH_SHORT).show();
-                    if(response.body() != null) {
+                    if (response.body() != null) {
                         try {
                             final Gson gson = new Gson();
-                            final JsonObject jsonObject = gson.fromJson( response.body().string(), JsonObject.class);
+                            final JsonObject jsonObject = gson.fromJson(response.body().string(), JsonObject.class);
                             token = jsonObject.get("token");
                             refreshToken = Objects.requireNonNull(response.headers().get("Refresh-Token"));
 
-                            if(checkBox.isChecked()) {
+                            if (checkBox.isChecked()) {
                                 mSharedPreferences.setToken(refreshToken.replace("\"", ""));
                             } else {
                                 mSharedPreferences.setToken(token.toString().replace("\"", ""));
                             }
 
-                            if(response.isSuccessful() && token != null) {
+                            if (response.isSuccessful() && token != null) {
                                 final ApiService.GetUserService userService = ApiClient.getClient().create(ApiService.GetUserService.class);
                                 final Call<AuthUser> userResponseCall = userService.getUser(mSharedPreferences.getToken());
 
                                 userResponseCall.enqueue(new Callback<AuthUser>() {
                                     @Override
                                     public void onResponse(@NonNull Call<AuthUser> call, @NonNull Response<AuthUser> response) {
-                                        if(response.isSuccessful()) {
-                                            assert response.body() != null;
+                                        if (response.isSuccessful() && response.body() != null) {
                                             mSharedPreferences.setResponsible(response.body());
                                             OnBoardingActivity.setLastItemPosition();
                                         } else {
                                             Toast.makeText(context, getResources().getString(R.string.wrong_credentials), Toast.LENGTH_SHORT).show();
+                                            Log.e(MainActivity.API, "signup - onResponse (response.errorBody): " + response.errorBody());
+                                            Log.e(MainActivity.API, "signup - onResponse (response.raw): " + response.raw().toString());
+                                            Log.e(MainActivity.API, "signup - onResponse (response.message): " + response.message());
+                                            Log.e(MainActivity.API, "signup - onResponse (call.request.body): " + call.request().body());
                                         }
                                     }
 
                                     @Override
                                     public void onFailure(@NonNull Call<AuthUser> call, @NonNull Throwable t) {
                                         Toast.makeText(context, getResources().getString(R.string.wrong_credentials), Toast.LENGTH_SHORT).show();
+                                        Log.e(MainActivity.API, "signup - onResponse (t.getMessage): " + t.getMessage());
+                                        Log.e(MainActivity.API, "signup - onResponse (call.request): " + call.request().toString());
                                     }
                                 });
 
@@ -303,7 +308,7 @@ public class ThirdIntroFragment extends Fragment {
                     Log.e(MainActivity.API, "onResponse (message): " + response.message());
                     Log.e(MainActivity.API, "onResponse (call): " + call.request().body());
                     Toast.makeText(context, context.getResources().getString(R.string.user_exits), Toast.LENGTH_SHORT).show();
-                    if(response.code() == 406) {
+                    if (response.code() == 406) {
                         emailInputLayout.setError(getResources().getString(R.string.email_in_use));
                     }
                 }
