@@ -1,11 +1,6 @@
+# compiled output
 .vscode
 /node_modules
-
-# env
-.env
-.env.development.local
-.env.production.local
-.env.test.local
 
 # code formatter
 .eslintrc
@@ -21,9 +16,3 @@ jest.config.js
 # docker
 Dockerfile
 docker-compose.yml
-
-# logs
-/src/logs
-
-# dist
-/dist
