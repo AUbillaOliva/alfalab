@@ -17,7 +17,7 @@ declare module 'express-session' {
   }
 }
 import CONFIG from '@config';
-import { dbConnection } from '@databases';
+import { dbConnection } from '@database';
 import { Routes } from '@interfaces/routes.interface';
 import errorMiddleware from '@middlewares/error.middleware';
 import { logger, stream } from '@utils/logger';

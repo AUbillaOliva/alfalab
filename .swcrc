@@ -22,7 +22,7 @@
     "paths": {
       "@config": ["config"],
       "@controllers/*": ["controllers/*"],
-      "@databases": ["databases"],
+      "@database": ["database"],
       "@dtos/*": ["dtos/*"],
       "@exceptions/*": ["exceptions/*"],
       "@interfaces/*": ["interfaces/*"],
@@ -30,8 +30,7 @@
       "@models/*": ["models/*"],
       "@routes/*": ["routes/*"],
       "@services/*": ["services/*"],
-      "@utils/*": ["utils/*"],
-      "@/*": ["*"]
+      "@utils/*": ["utils/*"]
     }
   },
   "module": {

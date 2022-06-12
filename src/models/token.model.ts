@@ -1,5 +1,5 @@
 import { model, Schema, Document, Types, Model } from 'mongoose';
-import { IToken } from '@/interfaces/tokens.interface';
+import { IToken } from '@interfaces/tokens.interface';
 
 const tokensSchema: Schema<IToken & Document> = new Schema<IToken & Document>(
   {

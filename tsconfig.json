@@ -22,7 +22,7 @@
     "paths": {
       "@config": ["config"],
       "@controllers/*": ["controllers/*"],
-      "@databases": ["databases"],
+      "@database": ["database"],
       "@dtos/*": ["dtos/*"],
       "@exceptions/*": ["exceptions/*"],
       "@interfaces/*": ["interfaces/*"],
@@ -31,9 +31,8 @@
       "@routes/*": ["routes/*"],
       "@services/*": ["services/*"],
       "@utils/*": ["utils/*"],
-      "@/*": ["*"]
     }
   },
   "include": ["src/**/*.ts", "src/**/*.json", ".env", "./src/types/index.d.ts"],
-  "exclude": ["node_modules", "src/http", "src/logs", "src/tests"]
+  "exclude": ["node_modules", "src/http", "src/logs"]
 }

@@ -8,8 +8,8 @@ import userModel from '@models/users.model';
 import { isEmpty } from '@utils/util';
 import CONFIG from '@config';
 import tokensModel from '@models/token.model';
-import { IToken } from '@/interfaces/tokens.interface';
-import { TokenDto } from '@/dtos/tokens.dto';
+import { IToken } from '@interfaces/tokens.interface';
+import { TokenDto } from '@dtos/tokens.dto';
 import jwt from 'jsonwebtoken';
 
 class AuthService {

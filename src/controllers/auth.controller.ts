@@ -5,7 +5,7 @@ import { IUser } from '@interfaces/users.interface';
 import AuthService from '@services/auth.service';
 
 class AuthController {
-  authService = new AuthService();
+  private authService = new AuthService();
 
   public signUp = async (req: Request, res: Response, next: NextFunction) => {
     try {
@@ -56,6 +56,10 @@ class AuthController {
     } catch (error) {
       next(error);
     }
+  };
+
+  public getAuthService = (): AuthService => {
+    return this.authService;
   };
 }
 
