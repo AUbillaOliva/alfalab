@@ -10,11 +10,18 @@ import { connect, set } from 'mongoose';
 import swaggerJSDoc from 'swagger-jsdoc';
 import swaggerUi from 'swagger-ui-express';
 import session from 'express-session';
+declare module 'express-session' {
+  interface SessionData {
+    user?: IUser;
+    createdAt?: number;
+  }
+}
 import CONFIG from '@config';
 import { dbConnection } from '@databases';
 import { Routes } from '@interfaces/routes.interface';
 import errorMiddleware from '@middlewares/error.middleware';
 import { logger, stream } from '@utils/logger';
+import { IUser } from '@interfaces/users.interface';
 
 class App {
   public app: express.Application;
