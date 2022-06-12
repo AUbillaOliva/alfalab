@@ -13,13 +13,14 @@
     "pretty": true,
     "sourceMap": true,
     "declaration": true,
-    "outDir": "dist",
+    "outDir": "./dist",
     "allowJs": true,
     "noEmit": false,
     "esModuleInterop": true,
     "resolveJsonModule": true,
     "importHelpers": true,
-    "baseUrl": "src",
+    "rootDir": ".",
+    "baseUrl": "./src",
     "paths": {
       "@config": ["config"],
       "@controllers/*": ["controllers/*"],
@@ -35,6 +36,6 @@
       "@/*": ["*"]
     }
   },
-  "include": ["src/**/*.ts", "src/**/*.json", ".env"],
+  "include": ["src/**/*.ts", "src/**/*.json", ".env", "./src/types/index.d.ts"],
   "exclude": ["node_modules", "src/http", "src/logs", "src/tests"]
 }

@@ -5,15 +5,13 @@
   "author": "",
   "license": "ISC",
   "scripts": {
-    "start": "npm run build && cross-env NODE_ENV=production node dist/server.js",
-    "dev": "cross-env NODE_ENV=development nodemon",
-    "build": "swc src -d dist --source-maps --copy-files",
-    "build:tsc": "tsc && tsc-alias",
-    "test": "jest --forceExit --detectOpenHandles",
+    "start": "node -r ts-node/register/transpile-only -r tsconfig-paths/register dist/src/server.js",
+    "dev": "npm run build && cross-env NODE_ENV=development nodemon --trace",
+    "build": "tsc",
+    "test": "NODE_OPTIONS=--experimental-vm-modules npx jest --forceExit --detectOpenHandles --passWithNoTests --config ./jest.config.js",
     "lint": "eslint --ignore-path .gitignore --ext .ts src/",
     "lint:fix": "npm run lint -- --fix",
-    "deploy:prod": "npm run build && pm2 start ecosystem.config.js --only prod",
-    "deploy:dev": "pm2 start ecosystem.config.js --only dev"
+    "heroku-postbuild": "npm install && npm install --only=dev --no-shrinkwrap && npm run build"
   },
   "dependencies": {
     "bcrypt": "^5.0.1",
@@ -51,6 +49,7 @@
     "@types/hpp": "^0.2.1",
     "@types/jest": "27.4.x",
     "@types/jsonwebtoken": "^8.5.4",
+    "@types/mongodb": "^4.0.7",
     "@types/mongoose": "^5.10.1",
     "@types/morgan": "^1.9.3",
     "@types/node": "^16.0.1",
