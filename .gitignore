@@ -1,0 +1,30 @@
+.vscode
+/node_modules
+
+# env
+.env
+.env.development.local
+.env.production.local
+.env.test.local
+
+# code formatter
+.eslintrc
+.eslintignore
+.editorconfig
+.huskyrc
+.lintstagedrc.json
+.prettierrc
+
+# test
+jest.config.js
+
+# docker
+Dockerfile
+docker-compose.yml
+
+# logs
+/src/logs
+/logs
+
+# dist
+/dist
