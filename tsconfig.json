@@ -3,7 +3,7 @@
   "compilerOptions": {
     "target": "es2017",
     "lib": ["es2017", "esnext.asynciterable"],
-    "typeRoots": ["./types", "./node_modules/@types"],
+    "typeRoots": ["./src/types", "./node_modules/@types"],
     "allowSyntheticDefaultImports": true,
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
@@ -33,6 +33,6 @@
       "@utils/*": ["utils/*"],
     }
   },
-  "include": ["src/**/*.ts", "src/**/*.json", ".env", "./src/types/index.d.ts"],
+  "include": ["src/**/*.ts", "src/**/*.json", ".env", "src/types/*.d.ts"],
   "exclude": ["node_modules", "src/http", "src/logs"]
 }

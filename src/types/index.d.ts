@@ -1,7 +1,12 @@
 import { IUser } from '@interfaces/users.interface';
-declare module 'express-session' {
-  interface SessionData {
+import { Session, SessionData } from 'express-session';
+declare namespace Express {
+  interface CustomSessionFields {
     user?: IUser;
     createdAt?: number;
+  }
+
+  export interface Request {
+    session: Session & Partial<SessionData> & CustomSessionFields;
   }
 }

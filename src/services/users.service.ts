@@ -23,7 +23,7 @@ class UserService {
   }
 
   public async createUser(userData: UserDto): Promise<IUser> {
-    if (isEmpty(userData)) throw new HttpException(400, "You're not userData");
+    if (isEmpty(userData)) throw new HttpException(400, 'Bad request');
 
     const findUser: IUser = await this.users.findOne({ email: userData.email });
     if (findUser) throw new HttpException(409, `You're email ${userData.email} already exists`);
@@ -35,11 +35,11 @@ class UserService {
   }
 
   public async updateUser(userId: string, userData: UserDto): Promise<IUser> {
-    if (isEmpty(userData)) throw new HttpException(400, "You're not userData");
+    if (isEmpty(userData)) throw new HttpException(400, 'Bad request');
 
     if (userData.email) {
       const findUser: IUser = await this.users.findOne({ email: userData.email });
-      if (findUser && findUser._id != userId) throw new HttpException(409, `You're email ${userData.email} already exists`);
+      if (findUser && findUser._id.toString() != userId) throw new HttpException(409, `You're email ${userData.email} already exists`);
     }
 
     if (userData.password) {

@@ -1,14 +1,16 @@
+import { OrderCommentDto, OrderItemDto } from '@dtos/orders.dto';
 import { IOrderUser } from '@interfaces/users.interface';
-import { IClient } from './clients.interface';
+import { Document, Model, Types } from 'mongoose';
+import { IClient } from '@interfaces/clients.interface';
 
-export interface IFilm {
-  _id: string;
+export interface IFilm extends Document<Types.ObjectId> {
+  _id: Types.ObjectId;
   film_type: string;
   price: number;
 }
 
-export interface IFormat {
-  _id: string;
+export interface IFormat extends Document<Types.ObjectId> {
+  _id: Types.ObjectId;
   format_type: string;
 }
 
@@ -40,12 +42,15 @@ export interface IComment {
 }
 
 export interface IOrder {
-  _id?: string;
-  order_list: IOrderItem[];
+  _id?: Types.ObjectId;
+  order_list: OrderItemDto[];
   client: IClient;
-  last_edit: string | IOrderUser;
+  last_edit: IOrderUser;
   price: number;
   created_at: Date;
-  comments?: IComment[];
+  comments?: OrderCommentDto[];
   delivered_date?: Date;
 }
+
+export interface IOrderDocument extends IOrder, Document<Types.ObjectId, any, any> {}
+export type IOrderModel = Model<IOrderDocument>;

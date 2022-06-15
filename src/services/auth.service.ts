@@ -75,7 +75,7 @@ class AuthService {
   }
 
   private async createRefreshToken(user: IUser): Promise<TokenData> {
-    const dataStoredInToken: DataStoredInToken = { _id: user._id };
+    const dataStoredInToken: DataStoredInToken = { _id: user._id.toString() };
     const expiresIn: number = parseInt(CONFIG.TOKEN.REFRESH_TOKEN_MAX_AGE);
     const secretKey: string = CONFIG.TOKEN.REFRESH_TOKEN_SECRET;
     let refreshToken: string = sign(dataStoredInToken, secretKey, { expiresIn });
@@ -89,7 +89,7 @@ class AuthService {
         refreshToken = updatedRefreshToken.token;
       }
     } else {
-      const newToken: TokenDto = new TokenDto(user._id, refreshToken, new Date(Date.now() + expiresIn));
+      const newToken: TokenDto = new TokenDto(user._id.toString(), refreshToken, new Date(Date.now() + expiresIn));
       const createdRefreshToken: IToken = await this.tokens.create(newToken);
       refreshToken = createdRefreshToken.token;
     }
@@ -98,7 +98,7 @@ class AuthService {
   }
 
   private createToken(user: IUser): TokenData {
-    const dataStoredInToken: DataStoredInToken = { _id: user._id };
+    const dataStoredInToken: DataStoredInToken = { _id: user._id.toString() };
     const secretKey: string = CONFIG.TOKEN.ACCESS_TOKEN_SECRET;
     const expiresIn: number = parseInt(CONFIG.TOKEN.ACCESS_TOKEN_MAX_AGE);
 

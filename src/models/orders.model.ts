@@ -1,91 +1,108 @@
 import { model, Schema, Document, Types, Model } from 'mongoose';
-import { DigitizedDto, LevelDto, OrderCommentDto, OrderDto, OrderItemDto } from '@dtos/orders.dto';
-import { ClientDto } from '@dtos/clients.dto';
+import { IComment, IDigitized, ILevel, IOrderItem } from '@interfaces/orders.interface';
+import { IClient } from '@interfaces/clients.interface';
+import { OrderDto } from '@dtos/orders.dto';
 
-const ordersSchema: Schema<OrderDto> = new Schema<OrderDto>({
+const ordersSchema = new Schema({
   order_list: {
     required: true,
     _id: false,
     type: [
-      new Schema<OrderItemDto>({
-        _id: false,
-        film: {
-          required: true,
-          type: Types.ObjectId,
-          ref: 'Film',
+      new Schema<IOrderItem>(
+        {
+          film: {
+            required: true,
+            type: Types.ObjectId,
+            ref: 'Film',
+          },
+          format: {
+            required: true,
+            type: Types.ObjectId,
+            ref: 'Format',
+          },
+          responsible: {
+            required: true,
+            type: Types.ObjectId,
+            ref: 'User',
+          },
+          price: {
+            required: true,
+            type: Number,
+          },
+          digitized: {
+            required: false,
+            type: new Schema<IDigitized>(
+              {
+                quality: {
+                  required: true,
+                  type: String,
+                },
+                format: {
+                  required: true,
+                  type: String,
+                },
+                price: {
+                  required: true,
+                  type: Number,
+                },
+              },
+              {
+                _id: false,
+              },
+            ),
+          },
+          level: {
+            required: false,
+            type: new Schema<ILevel>(
+              {
+                level: {
+                  required: true,
+                  type: Number,
+                  default: 0,
+                },
+                price: {
+                  required: true,
+                  type: Number,
+                },
+              },
+              {
+                _id: false,
+              },
+            ),
+          },
+          status: {
+            type: String,
+          },
         },
-        format: {
-          required: true,
-          type: Types.ObjectId,
-          ref: 'Format',
+        {
+          _id: false,
         },
-        responsible: {
-          required: true,
-          type: Types.ObjectId,
-          ref: 'User',
-        },
-        price: {
-          required: true,
-          type: Number,
-        },
-        digitized: {
-          required: false,
-          type: new Schema<DigitizedDto>({
-            _id: false,
-            quality: {
-              required: true,
-              type: String,
-            },
-            format: {
-              required: true,
-              type: String,
-            },
-            price: {
-              required: true,
-              type: Number,
-            },
-          }),
-        },
-        level: {
-          required: false,
-          type: new Schema<LevelDto>({
-            _id: false,
-            level: {
-              required: true,
-              type: Number,
-              default: 0,
-            },
-            price: {
-              required: true,
-              type: Number,
-            },
-          }),
-        },
-        status: {
-          type: String,
-        },
-      }),
+      ),
     ],
   },
   client: {
     required: true,
-    type: new Schema<ClientDto>({
-      _id: false,
-      name: {
-        required: true,
-        type: String,
+    type: new Schema<IClient>(
+      {
+        name: {
+          required: true,
+          type: String,
+        },
+        email: {
+          required: true,
+          type: String,
+        },
+        instagram: {
+          type: String,
+        },
+        phone: {
+          type: String,
+        },
       },
-      email: {
-        required: true,
-        type: String,
+      {
+        _id: false,
       },
-      instagram: {
-        type: String,
-      },
-      phone: {
-        type: String,
-      },
-    }),
+    ),
   },
   last_edit: {
     required: true,
@@ -98,7 +115,7 @@ const ordersSchema: Schema<OrderDto> = new Schema<OrderDto>({
   },
   comments: {
     type: [
-      new Schema<OrderCommentDto>({
+      new Schema<IComment>({
         author: {
           required: true,
           type: Types.ObjectId,
@@ -125,6 +142,8 @@ const ordersSchema: Schema<OrderDto> = new Schema<OrderDto>({
     default: Date.now(),
   },
 });
+
+ordersSchema.loadClass(OrderDto);
 
 const ordersModel: Model<OrderDto & Document<any, any, any>, {}, {}> = model<OrderDto & Document>('Order', ordersSchema);
 

@@ -14,6 +14,7 @@ import {
 import { ClientDto } from '@dtos/clients.dto';
 import { isEmpty } from '@utils/util';
 import 'reflect-metadata';
+import { Types } from 'mongoose';
 import { Type } from 'class-transformer';
 
 export class DigitizedDto {
@@ -53,7 +54,15 @@ export class LevelDto {
 }
 
 export class OrderItemDto {
-  constructor(film: string, format: string, responsible: string, price: number, digitized?: DigitizedDto, level?: LevelDto, status?: string) {
+  constructor(
+    film: Types.ObjectId,
+    format: Types.ObjectId,
+    responsible: Types.ObjectId,
+    price: number,
+    digitized?: DigitizedDto,
+    level?: LevelDto,
+    status?: string,
+  ) {
     this.film = film;
     this.format = format;
     this.digitized = digitized;
@@ -64,15 +73,15 @@ export class OrderItemDto {
   }
   @IsNotEmpty({ message: 'Debes ingresar el tipo de pelicula' })
   @IsMongoId({ message: 'Debes ingresar un ID de tipo de película' })
-  public film: string;
+  public film: Types.ObjectId;
 
   @IsNotEmpty({ message: 'Debes ingresar el tipo de formato' })
   @IsMongoId()
-  public format: string;
+  public format: Types.ObjectId;
 
   @IsNotEmpty({ message: 'Debes indicar el responsable' })
   @IsMongoId()
-  public responsible: string;
+  public responsible: Types.ObjectId;
 
   @IsNotEmpty({ message: 'Debes ingresar un precio' })
   @IsNumber()

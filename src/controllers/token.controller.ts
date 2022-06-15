@@ -1,5 +1,5 @@
 import TokensService from '@services/tokens.service';
-import { NextFunction, Request, Response } from 'express';
+import { NextFunction, Response } from 'express';
 import { RequestWithUser } from '@interfaces/auth.interface';
 import { IToken } from '@interfaces/tokens.interface';
 
@@ -9,7 +9,7 @@ class TokensController {
   public getAllTokens = async (req: RequestWithUser, res: Response, next: NextFunction) => {
     try {
       const { user } = req.session;
-      const findAllTokensData: IToken[] = await this.tokenService.findAllTokens(user._id);
+      const findAllTokensData: IToken[] = await this.tokenService.findAllTokens(user._id.toString());
 
       res.status(200).json({ data: findAllTokensData, message: 'findAll' });
     } catch (error) {
@@ -21,7 +21,7 @@ class TokensController {
     try {
       const { user } = req.session;
       const tokenId: string = req.params.id;
-      const findOneTokenData: IToken = await this.tokenService.findTokenById(tokenId, user._id);
+      const findOneTokenData: IToken = await this.tokenService.findTokenById(tokenId, user._id.toString());
 
       res.status(200).json({ data: findOneTokenData, message: 'findOne' });
     } catch (error) {
@@ -33,7 +33,7 @@ class TokensController {
     try {
       const tokenId: string = req.params.id;
       const { user } = req.session;
-      const revokeTokenData: IToken = await this.tokenService.revokeTokenById(tokenId, user._id);
+      const revokeTokenData: IToken = await this.tokenService.revokeTokenById(tokenId, user._id.toString());
 
       res.status(200).json({ data: revokeTokenData, message: 'revoked' });
     } catch (error) {
@@ -41,11 +41,11 @@ class TokensController {
     }
   };
 
-  public deleteTokenById = async (req: Request, res: Response, next: NextFunction) => {
+  public deleteTokenById = async (req: RequestWithUser, res: Response, next: NextFunction) => {
     try {
       const { user } = req.session;
       const tokenId: string = req.params.id;
-      const deleteTokenData: IToken = await this.tokenService.deleteTokenById(tokenId, user._id);
+      const deleteTokenData: IToken = await this.tokenService.deleteTokenById(tokenId, user._id.toString());
 
       res.status(200).json({ data: deleteTokenData, message: 'deleted' });
     } catch (error) {

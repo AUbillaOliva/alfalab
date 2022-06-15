@@ -11,8 +11,13 @@ export interface TokenData {
   expiresIn: number;
 }
 
+interface CustomSessionFields {
+  user?: IUser;
+  createdAt?: number;
+}
+
 export interface RequestWithUser extends Request {
   user: IUser;
   token: string;
-  session: Session & Partial<SessionData>;
+  session: Session & Partial<SessionData> & CustomSessionFields;
 }
