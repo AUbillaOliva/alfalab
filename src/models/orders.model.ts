@@ -1,5 +1,5 @@
 import { model, Schema, Document, Types, Model } from 'mongoose';
-import { IComment, IDigitized, ILevel, IOrderItem } from '@interfaces/orders.interface';
+import { IComment, IDigitized, IOrderItem } from '@interfaces/orders.interface';
 import { IClient } from '@interfaces/clients.interface';
 import { OrderDto } from '@dtos/orders.dto';
 
@@ -53,22 +53,8 @@ const ordersSchema = new Schema({
           },
           level: {
             required: false,
-            type: new Schema<ILevel>(
-              {
-                level: {
-                  required: true,
-                  type: Number,
-                  default: 0,
-                },
-                price: {
-                  required: true,
-                  type: Number,
-                },
-              },
-              {
-                _id: false,
-              },
-            ),
+            type: Number,
+            default: 0,
           },
           status: {
             type: String,

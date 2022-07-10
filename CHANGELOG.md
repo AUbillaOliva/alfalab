@@ -4,6 +4,16 @@ All notable changes to this project will be documented in this file.
 
 ---
 
+## [2.2.0] - 10-07-22
+
+### [CHANGED]
+
+- OrderItem Level type refactored to `Number`.
+- Order Schema Updated due to top change.
+- Token expiration error handling. 
+
+---
+
 ## [2.1.0] - 15-06-22
 
 ### [CHANGED]

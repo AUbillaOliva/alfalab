@@ -37,22 +37,6 @@ export class DigitizedDto {
   public price: number;
 }
 
-export class LevelDto {
-  constructor(level: number, price: number) {
-    this.level = level;
-    this.price = price;
-  }
-
-  @IsNotEmpty()
-  @IsNumber()
-  @Max(4, { message: 'Debes ingresar un nivel de forzado entre 0 y 4' })
-  public level: number;
-
-  @IsNotEmpty()
-  @IsNumber()
-  public price: number;
-}
-
 export class OrderItemDto {
   constructor(
     film: Types.ObjectId,
@@ -60,7 +44,7 @@ export class OrderItemDto {
     responsible: Types.ObjectId,
     price: number,
     digitized?: DigitizedDto,
-    level?: LevelDto,
+    level?: number,
     status?: string,
   ) {
     this.film = film;
@@ -91,9 +75,9 @@ export class OrderItemDto {
   @ValidateNested()
   public digitized?: DigitizedDto;
 
-  @ValidateIf((o: LevelDto) => isEmpty(o))
+  @ValidateIf((o: number) => isEmpty(o))
   @ValidateNested()
-  public level?: LevelDto;
+  public level?: number;
 
   @ValidateIf((o: string) => isEmpty(o))
   @IsString()

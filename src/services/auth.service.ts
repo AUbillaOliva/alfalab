@@ -60,7 +60,11 @@ class AuthService {
 
     const secretKey: string = CONFIG.TOKEN.REFRESH_TOKEN_SECRET;
 
-    const { _id }: any = jwt.verify(token, secretKey);
+    const { _id }: any = jwt.verify(token, secretKey, { complete: true }, (error, payload) => {
+      if (error) return { _id: null };
+    });
+
+    if (isEmpty(_id)) throw new HttpException(401, 'Token expired');
 
     const findUser: IUser = await this.users.findById(_id);
     if (isEmpty(findUser)) throw new HttpException(409, 'Credenciales inválidas! Acceso no autorizado,');

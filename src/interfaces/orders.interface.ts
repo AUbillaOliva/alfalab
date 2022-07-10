@@ -20,18 +20,13 @@ export interface IDigitized {
   price: number;
 }
 
-export interface ILevel {
-  level: number;
-  price: number;
-}
-
 export interface IOrderItem {
   film: IFilm | string;
   format: IFormat | string;
   responsible: IOrderUser | string;
   price: number;
   digitized?: IDigitized;
-  level?: ILevel;
+  level?: number;
   status?: string;
 }
 
