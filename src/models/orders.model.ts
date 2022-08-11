@@ -127,6 +127,10 @@ const ordersSchema = new Schema({
     type: Date,
     default: Date.now(),
   },
+  status: {
+    type: String,
+    default: 'pending',
+  }
 });
 
 ordersSchema.loadClass(OrderDto);

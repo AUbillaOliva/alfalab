@@ -4,6 +4,40 @@ All notable changes to this project will be documented in this file.
 
 ---
 
+## [2.3.0] - 11-08-22
+
+### [CHANGED]
+
+- Updated packages versions in `package.json`.
+- Added config for support email.
+- Search Filters for Orders.
+- Order status.
+- Order interface refactored.
+- Token middleware for auth token.
+- Reset route in `auth.route`.
+- Reset password route in `users.route`.
+- Reset token services in `auth.services`.
+- Code format refactored.
+- Reset password services in `users.service`.
+
+### [ADDED]
+
+- Added HTML pages for mail responses.
+- Dtos classes for auth and support.
+- Interface for api response.
+- File manager for mail responses.
+- Handlebars, nodemailer, multer packages added.
+- Added reset fun in Auth controller.
+- Reset password fun in Orders controller.
+- OrderQueryOptions and OrderQuery interfaces added.
+- Support routes in server.
+
+### [REMOVED]
+
+- LoginUserDto removed from `users.dto`.
+
+---
+
 ## [2.2.0] - 10-07-22
 
 ### [CHANGED]

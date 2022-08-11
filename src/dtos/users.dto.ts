@@ -41,14 +41,3 @@ export class UserOrderDto {
   @IsString()
   public location: string;
 }
-
-export class LoginUserDto {
-  @IsNotEmpty({ message: 'Debes ingresar un correo electrónico.' })
-  @IsEmail()
-  public email: string;
-
-  @IsNotEmpty({ message: 'Debes ingresar una contraseña.' })
-  @IsString()
-  @MinLength(8, { message: 'Debes ingresar una contraseña mayor a 8 caracteres.' })
-  public password: string;
-}

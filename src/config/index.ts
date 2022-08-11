@@ -6,7 +6,7 @@ export const CREDENTIALS = process.env.CREDENTIALS === 'true';
 // App
 const APP_URL = process.env.APP_URL || 'https://alfalab.herokuapp.com';
 const APP = {
-  url: APP_URL,
+  URL: APP_URL,
 };
 
 // Env
@@ -62,11 +62,13 @@ const SERVER = {
 };
 
 // SUPPORT
+const SUPPORT_EMAIL = process.env.SUPPORT_EMAIL || '';
 const SUPPORT_EMAIL_HOST = process.env.SUPPORT_EMAIL_HOST || '';
 const SUPPORT_EMAIL_HOST_USER = process.env.SUPPORT_EMAIL_HOST_USER || '';
 const SUPPORT_EMAIL_HOST_PASSWORD = process.env.SUPPORT_EMAIL_HOST_PASSWORD || '';
 const SUPPORT_EMAIL_PORT = process.env.SUPPORT_EMAIL_PORT || '';
 const SUPPORT = {
+  SUPPORT_EMAIL,
   SUPPORT_EMAIL_HOST,
   SUPPORT_EMAIL_HOST_USER,
   SUPPORT_EMAIL_HOST_PASSWORD,

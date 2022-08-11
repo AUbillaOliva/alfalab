@@ -1,8 +1,9 @@
 import { NextFunction, Request, Response } from 'express';
-import { UserDto, LoginUserDto } from '@dtos/users.dto';
+import { UserDto } from '@dtos/users.dto';
 import { RequestWithUser } from '@interfaces/auth.interface';
 import { IUser } from '@interfaces/users.interface';
 import AuthService from '@services/auth.service';
+import { LoginUserDto, ResetPasswordFormDto } from '@dtos/auth.dtos';
 
 class AuthController {
   private authService = new AuthService();
@@ -57,6 +58,16 @@ class AuthController {
       next(error);
     }
   };
+
+	public reset = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+		const resetPasswordData: ResetPasswordFormDto = req.body;
+		try {
+			const transporter = await this.authService.requestResetToken(resetPasswordData);
+			res.status(200).json({ data: transporter, message: 'OK' });
+		} catch (error) {
+			next(error);
+		}
+	};
 
   public getAuthService = (): AuthService => {
     return this.authService;

@@ -1,6 +1,7 @@
 import {
   IsDate,
   IsDateString,
+  IsEnum,
   IsMongoId,
   IsNotEmpty,
   IsNotEmptyObject,
@@ -112,6 +113,7 @@ export class OrderDto {
     last_edit: string,
     price: number,
     created_at: Date,
+    status: string,
     comments?: OrderCommentDto[],
     delivered_date?: Date,
   ) {
@@ -120,6 +122,7 @@ export class OrderDto {
     this.last_edit = last_edit;
     this.price = price;
     this.created_at = created_at;
+    this.status = status;
     this.comments = comments;
     this.delivered_date = delivered_date;
   }
@@ -152,4 +155,8 @@ export class OrderDto {
   @ValidateIf((o: Date) => isEmpty(o))
   @IsDateString()
   public delivered_date?: Date;
+
+  @ValidateIf((o: String) => isEmpty(o))
+  @IsEnum({ DELIVERED: 'delivered', PENDING: 'pending' })
+  public status: String;
 }

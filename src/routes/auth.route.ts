@@ -2,7 +2,8 @@ import AuthController from '@controllers/auth.controller';
 import authMiddleware from '@middlewares/auth.middleware';
 import { validationMiddleware } from '@middlewares/validation.middleware';
 import { Router } from 'express';
-import { LoginUserDto, UserDto } from '@dtos/users.dto';
+import { UserDto } from '@dtos/users.dto';
+import { LoginUserDto, ResetPasswordFormDto } from '@dtos/auth.dtos';
 import { Routes } from '@interfaces/routes.interface';
 import { sessionMiddleware } from '@middlewares/session.middleware';
 import tokenMiddleware from '@middlewares/token.middleware';
@@ -21,6 +22,7 @@ class AuthRoute implements Routes {
     this.router.post(`${this.path}login`, [sessionMiddleware, validationMiddleware(LoginUserDto, 'body')], this.authController.logIn);
     this.router.post(`${this.path}logout`, authMiddleware, this.authController.logOut);
     this.router.post(`${this.path}refresh`, tokenMiddleware, this.authController.refreshAccess);
+    this.router.post(`${this.path}reset`, validationMiddleware(ResetPasswordFormDto, 'body'), this.authController.reset);
   }
 
   private getAuthController() {

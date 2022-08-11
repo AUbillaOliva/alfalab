@@ -2,6 +2,7 @@ import { NextFunction, Request, Response } from 'express';
 import { UserDto } from '@dtos/users.dto';
 import { IUser } from '@interfaces/users.interface';
 import userService from '@services/users.service';
+import { RequestWithUser } from '@interfaces/auth.interface';
 
 class UsersController {
   public userService = new userService();
@@ -60,6 +61,18 @@ class UsersController {
       next(error);
     }
   };
+
+  public resetPassword = async (req: RequestWithUser, res: Response, next: NextFunction): Promise<void> => {
+		const user: IUser = req.user;
+		const { password } = req.body;
+		try {
+			const resetPasswordData = await this.userService.resetPassword(user, password);
+			res.status(200).json({ data: resetPasswordData, message: 'OK' });
+		} catch (error) {
+			next(error);
+		}
+	};
+
 }
 
 export default UsersController;
